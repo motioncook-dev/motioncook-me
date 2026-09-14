@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>motioncook.me | VFX Artist & FX TD</title>
+    <meta name="description" content="15+ years creating visual effects for cinema, commercials & music videos. VFX Artist & FX TD. Based in Spain.">
+    <meta name="author" content="Stephane Daguin">
+    <meta property="og:title" content="motioncook.me">
+    <meta property="og:description" content="15+ years creating visual effects for cinema, commercials & music videos. VFX Artist & FX TD.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://motioncook.me">
+    <meta property="og:image" content="https://motioncook.me/cover.jpg">
+    <meta property="og:image:alt" content="Stephane Daguin Portfolio Cover">
+    <link rel="canonical" href="https://motioncook.me">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-black: #0a0a0a;
+            --bg-dark: #111111;
+            --bg-card: #1a1a1a;
+            --bg-hover: #252525;
+            --accent: #ff4d00;
+            --accent-secondary: #ff8533;
+            --text-white: #f0f0f0;
+            --text-gray: #666666;
+            --text-muted: #888888;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-black);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .bg-animation {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: 
+                radial-gradient(ellipse at 20% 80%, rgba(230, 57, 70, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(230, 57, 70, 0.05) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, rgba(30, 30, 30, 0.5) 0%, transparent 70%);
+            animation: bgPulse 15s ease-in-out infinite;
+        }
+        
+        @keyframes bgPulse {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(2%, 2%) rotate(1deg); }
+            66% { transform: translate(-1%, 1%) rotate(-1deg); }
+        }
+        
+        .grain {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+        
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(13,13,13,0.95), transparent);
+            z-index: 100;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        nav.scrolled {
+            padding: 15px 50px;
+            background: rgba(13,13,13,0.98);
+            backdrop-filter: blur(20px);
+        }
+        
+        .logo { 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            letter-spacing: -1px;
+            color: var(--text-white);
+        }
+        .logo span { color: var(--accent); }
+        
+        .nav-content { display: flex; align-items: center; gap: 40px; }
+        
+        .nav-links { display: flex; gap: 35px; }
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0; width: 0; height: 2px;
+            background: var(--accent);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-links a:hover { color: var(--text-white); }
+        .nav-links a:hover::after { width: 100%; }
+        
+        .lang-switcher { display: flex; gap: 6px; background: var(--bg-card); padding: 4px; border-radius: 8px; }
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+        }
+        .lang-btn:hover, .lang-btn.active {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 0 20px;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 700;
+            letter-spacing: -3px;
+            line-height: 1;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+        
+        .hero h1 span {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent) 0%, #ff6b6b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            color: var(--text-gray);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+        
+        .hero-description {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 20px auto;
+            line-height: 1.6;
+        }
+        
+        .hero-contact-row {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .hero-contact-btn {
+            padding: 12px 24px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: var(--text-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .hero-contact-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 36px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+            box-shadow: 0 0 0 0 rgba(255, 77, 0, 0.4);
+        }
+        
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(255, 77, 0, 0.4);
+        }
+        
+        .hero-cta svg { width: 18px; height: 18px; }
+        
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: fadeIn 1s ease-out 1.2s both;
+        }
+        
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+            animation: scrollLine 2s ease-in-out infinite;
+        }
+        
+        @keyframes scrollLine {
+            0%, 100% { transform: scaleY(1); opacity: 1; }
+            50% { transform: scaleY(0.5); opacity: 0.5; }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        section { padding: 100px 50px; max-width: 1400px; margin: 0 auto; }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .section-title {
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .section-subtitle {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -1px;
+            margin-top: 10px;
+        }
+        
+        .filters { display: flex; gap: 10px; flex-wrap: wrap; }
+        .filter-btn {
+            background: var(--bg-card);
+            border: 1px solid transparent;
+            color: var(--text-gray);
+            padding: 10px 24px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s;
+            font-family: 'Outfit', sans-serif;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--accent);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+        }
+        
+        .project-card {
+            background: var(--bg-dark);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 60px rgba(255, 77, 0, 0.15);
+        }
+        
+        .project-thumb {
+            aspect-ratio: 16/10;
+            position: relative;
+            overflow: hidden;
+            display: block;
+            cursor: pointer;
+        }
+        
+        .project-thumb-link {
+            display: block;
+            text-decoration: none;
+        }
+        
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .project-thumb img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .project-card:hover .project-thumb img {
+            transform: scale(1.08);
+        }
+        
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 30px;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .project-card:hover .project-overlay { opacity: 1; }
+        
+        .play-btn {
+            width: 70px; height: 70px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: scale(0.8);
+            transition: transform 0.4s;
+        }
+        
+        .project-card:hover .play-btn { transform: scale(1); }
+        
+        .watch-label {
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            white-space: nowrap;
+        }
+        
+        .project-card:hover .watch-label {
+            opacity: 1;
+        }
+        
+        .play-btn::after {
+            content: '';
+            width: 0; height: 0;
+            border-left: 20px solid white;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            margin-left: 4px;
+        }
+        
+        .project-info { padding: 24px; }
+        .project-year {
+            font-size: 0.7rem;
+            color: var(--accent);
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            font-family: 'Space Mono', monospace;
+        }
+        .project-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .project-studio {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+        }
+        
+        .project-role {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .reel-section {
+            background: var(--bg-dark);
+            max-width: none;
+            padding: 100px 50px;
+        }
+        
+        .reel-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .reel-frame {
+            aspect-ratio: 16/9;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+        }
+        
+        .reel-frame iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+        
+        .reel-info {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .reel-info h3 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .reel-info p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        .cv-section {
+            background: var(--bg-dark);
+            max-width: none;
+        }
+        
+        .cv-container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        
+        .cv-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .cv-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            align-items: flex-start;
+        }
+        
+        .cv-avatar {
+            width: 100px;
+            height: 100px;
+            min-width: 100px;
+            background: linear-gradient(135deg, var(--accent) 0%, #ff6b6b 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 10px 40px rgba(255, 77, 0, 0.4);
+        }
+        
+        .cv-header-info h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .cv-header-info .title {
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        
+        .cv-contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 0.85rem;
+            color: var(--text-gray);
+        }
+        
+        .cv-contact a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .cv-contact a:hover { color: var(--accent); }
+        
+        .cv-summary {
+            color: var(--text-gray);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            max-width: 700px;
+        }
+        
+        .skills-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .skill-pill {
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+        }
+        
+        .skill-pill:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        .skill-pill.primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .cv-block { margin-bottom: 0; }
+        
+        .cv-blocks-row {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .cv-blocks-row .cv-block {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .cv-block-title {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .cv-timeline {
+            position: relative;
+            padding-left: 20px;
+            border-left: 2px solid rgba(255,255,255,0.1);
+            min-height: 50px;
+        }
+        
+        .cv-item {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 18px;
+        }
+        
+        .cv-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+        
+        .cv-item-year {
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-family: 'Space Mono', monospace;
+            margin-bottom: 3px;
+        }
+        
+        .cv-item-role {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+        
+        .cv-item-studio {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+        }
+        
+        .cv-item-project {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+        
+        .cv-sidebar-block {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .cv-sidebar-title {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+        
+        .lang-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .lang-item:last-child { border: none; }
+        
+        .lang-name { font-weight: 500; }
+        .lang-level { color: var(--text-gray); font-size: 0.85rem; }
+        
+        .cert-thumb {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: block;
+        }
+        
+        footer {
+            padding: 80px 50px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            background: var(--bg-dark);
+        }
+        
+        .footer-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--text-white);
+        }
+        
+        .footer-content p {
+            margin: 10px 0;
+        }
+        
+        .footer-content a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .footer-content a:hover {
+            opacity: 0.8;
+        }
+        
+        .footer-content .copyright {
+            margin-top: 30px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 1024px) {
+            nav { padding: 20px 30px; }
+            section { padding: 80px 30px; }
+            .reel-section, .cv-section { padding: 80px 30px; }
+            .cv-grid { grid-template-columns: 1fr; }
+            .cv-blocks-row { flex-direction: column; }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { letter-spacing: -1px; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .cv-header { flex-direction: column; gap: 20px; }
+            .cv-avatar { width: 80px; height: 80px; font-size: 2rem; }
+        }
+        
+        @media (max-width: 480px) {
+            nav { padding: 15px 20px; }
+            section, .reel-section, .cv-section { padding: 60px 20px; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-subtitle { letter-spacing: 2px; }
+            .section-subtitle { font-size: 1.8rem; }
+            .filters { gap: 8px; }
+            .filter-btn { padding: 8px 16px; font-size: 0.75rem; }
+        }
+        
+        @media print {
+            .bg-animation, .grain, nav, .scroll-hint, iframe { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .project-card, .cv-sidebar-block { border: 1px solid #ddd !important; }
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.show { display: flex; }
+        
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            aspect-ratio: 16/9;
+        }
+        
+        .modal-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        
+        .modal-close:hover { color: var(--accent); }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="grain"></div>
+    
+    <nav id="navbar">
+        <div class="logo"><a href="https://motioncook.me" style="text-decoration:none; color:inherit;">SD<span>.</span></a></div>
+        <div class="nav-content">
+            <div class="nav-links">
+                <a href="#work" data-i18n="nav.work">Work</a>
+                <a href="#reel" data-i18n="nav.reel">Reel</a>
+                <a href="#about" data-i18n="nav.about">About</a>
+                <a href="#contact" data-i18n="nav.contact">Contact</a>
+            </div>
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="fr">FR</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="es">ES</button>
+            </div>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge" data-i18n="hero.badge">VFX Artist & FX TD</div>
+            <h1>Stephane<span>.</span></h1>
+            <p class="hero-subtitle" data-i18n="hero.subtitle">Senior FX Technical Director</p>
+            <p class="hero-description" data-i18n="hero.description">15+ years creating visual effects for cinema, commercials & music videos. Specializing in Houdini FX, simulations, and motion graphics.</p>
+            <div class="hero-contact-row">
+                <a href="mailto:motioncook@pm.me" class="hero-contact-btn">Email</a>
+                <a href="https://www.linkedin.com/in/stephanedaguin" target="_blank" class="hero-contact-btn">LinkedIn</a>
+            </div>
+            <a href="#reel" class="hero-cta">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                <span data-i18n="hero.cta">Watch Demo Reel</span>
+            </a>
+        </div>
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <section class="reel-section" id="reel">
+        <div class="reel-container">
+            <div class="section-header" style="margin-bottom: 40px;">
+                <div>
+                    <p class="section-title">Demo Reel</p>
+                    <p class="section-subtitle">2026 Showreel</p>
+                </div>
+            </div>
+            <div class="reel-frame">
+                <iframe src="https://player.vimeo.com/video/1123007947?app_id=122963" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+            <div class="reel-info">
+                <h3>FX / Simulation / Motion Graphics</h3>
+                <p>Houdini | Nuke | Maya | ComfyUI | Redshift</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="work">
+        <div class="section-header">
+            <div>
+                <p class="section-title">Projects</p>
+                <p class="section-subtitle">Selected Work</p>
+            </div>
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all" data-i18n="filter.all">All</button>
+                <button class="filter-btn" data-filter="film" data-i18n="filter.film">Film</button>
+                <button class="filter-btn" data-filter="commercial" data-i18n="filter.commercial">Commercial</button>
+                <button class="filter-btn" data-filter="music" data-i18n="filter.music">Music Video</button>
+            </div>
+        </div>
+        
+        <div class="projects-grid" id="projects-grid"></div>
+    </section>
+
+    <section class="cv-section" id="about">
+        <div class="cv-container">
+            <div class="section-header">
+                <div>
+                    <p class="section-title" data-i18n="nav.about">About</p>
+                    <p class="section-subtitle" data-i18n="about.title">About</p>
+                </div>
+            </div>
+
+            <div class="cv-header">
+                <div class="cv-avatar">SD</div>
+                <div class="cv-header-info">
+                    <h2>Stephane<span>.</span></h2>
+                    <p class="title">Senior FX Technical Director</p>
+                    <p class="cv-summary">15+ years creating visual effects for cinema, commercials & music videos. Specializing in Houdini FX, simulations, and motion graphics. Based in Spain. Portfolio available at <a href="https://motioncook.me" style="color:var(--accent);">motioncook.me</a>.</p>
+                    <div class="cv-contact">
+                        <a href="mailto:motioncook@pm.me">📧 motioncook@pm.me</a>
+                        <a href="https://www.linkedin.com/in/stephanedaguin" target="_blank">🔗 LinkedIn</a>
+                        <a href="https://motioncook.me" target="_blank">🌐 motioncook.me</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skills-row">
+                <span class="skill-pill primary">Houdini</span>
+                <span class="skill-pill">Nuke</span>
+                <span class="skill-pill">Maya</span>
+                <span class="skill-pill">ComfyUI</span>
+                <span class="skill-pill">Redshift</span>
+                <span class="skill-pill">VFX</span>
+                <span class="skill-pill">Simulations</span>
+                <span class="skill-pill">FX TD</span>
+                <span class="skill-pill">Crowds</span>
+                <span class="skill-pill">Fluids</span>
+                <span class="skill-pill">Particles</span>
+                <span class="skill-pill">Motion Graphics</span>
+            </div>
+
+            <div class="cv-blocks-row">
+                <div class="cv-block">
+                    <p class="cv-block-title" data-i18n="cv.experience">Experience</p>
+                    <div class="cv-timeline" id="experience-timeline"></div>
+                </div>
+                <div class="cv-block">
+                    <p class="cv-block-title" data-i18n="cv.formation">Education</p>
+                    <div class="cv-timeline" id="formation-timeline"></div>
+                </div>
+            </div>
+
+            <div class="cv-sidebar-block">
+                <p class="cv-sidebar-title" data-i18n="cv.languages">Languages</p>
+                <div class="lang-item">
+                    <span class="lang-name">🇫🇷 Français</span>
+                    <span class="lang-level">Native</span>
+                </div>
+                <div class="lang-item">
+                    <span class="lang-name">🇬🇧 English</span>
+                    <span class="lang-level">Professional</span>
+                </div>
+                <div class="lang-item">
+                    <span class="lang-name">🇪🇸 Español</span>
+                    <span class="lang-level">Conversational</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <h3>motioncook.me</h3>
+            <p><a href="mailto:motioncook@pm.me">motioncook@pm.me</a></p>
+            <p><a href="https://www.linkedin.com/in/stephanedaguin" target="_blank">LinkedIn</a></p>
+            <p class="copyright">&copy; 2026 Stephane Daguin</p>
+        </div>
+    </footer>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div id="modalVideoContainer"></div>
+        </div>
+    </div>
+    
+    <script>
+        const translations = {
+            fr: {
+                "nav.work": "Work", "nav.reel": "Reel", "nav.about": "About", "nav.contact": "Contact",
+                "hero.badge": "VFX Artist & FX TD", "hero.subtitle": "Senior FX Technical Director", "hero.description": "Plus de 15 ans d'experience en VFX pour le cinema, les pubs et clips musicaux. Specialiste en Houdini FX, simulations et motion graphics.", "hero.cta": "Voir le Demo Reel",
+                "work.title": "Selection", "work.subtitle": "Projets",
+                "filter.all": "Tous", "filter.film": "Film", "filter.commercial": "Pub", "filter.music": "Clip",
+                "about.title": "A propos", "cv.experience": "Experience", "cv.formation": "Formation", "cv.languages": "Langues",
+                "footer.location": "Base en Espagne | "
+            },
+            en: {
+                "nav.work": "Work", "nav.reel": "Reel", "nav.about": "About", "nav.contact": "Contact",
+                "hero.badge": "VFX Artist & FX TD", "hero.subtitle": "Senior FX Technical Director", "hero.description": "15+ years creating visual effects for cinema, commercials & music videos. Specializing in Houdini FX, simulations, and motion graphics.", "hero.cta": "Watch Demo Reel",
+                "work.title": "Selected", "work.subtitle": "Projects",
+                "filter.all": "All", "filter.film": "Film", "filter.commercial": "Commercial", "filter.music": "Music Video",
+                "about.title": "About", "cv.experience": "Experience", "cv.formation": "Education", "cv.languages": "Languages",
+                "footer.location": "Based in Spain | "
+            },
+            es: {
+                "nav.work": "Trabajos", "nav.reel": "Reel", "nav.about": "Perfil", "nav.contact": "Contacto",
+                "hero.badge": "VFX Artist & FX TD", "hero.subtitle": "Senior FX Technical Director", "hero.description": "Mas de 15 anos creando efectos visuales para cine, publicidad y videos musicales. Especializado en Houdini FX, simulaciones y motion graphics.", "hero.cta": "Ver Demo Reel",
+                "work.title": "Seleccion", "work.subtitle": "Proyectos",
+                "filter.all": "Todos", "filter.film": "Cine", "filter.commercial": "Comercial", "filter.music": "Video Musical",
+                "about.title": "Perfil", "cv.experience": "Experiencia", "cv.formation": "Formacion", "cv.languages": "Idiomas",
+                "footer.location": "Basado en Espanã | "
+            }
+        };
+        
+        const projects = [
+            { title: "Lil Nas X - J CHRIST", year: "2025", category: "music", studio: "Mathematic Studio", role: "Houdini FX / Simulation", img: "https://i.ytimg.com/vi/dCrQeUaXkLo/hqdefault.jpg", link: "https://www.youtube.com/watch?v=dCrQeUaXkLo" },
+            { title: "Coldplay - Higher Power", year: "2022", category: "music", studio: "Mathematic Studio", role: "Houdini FX / Particles", img: "https://i.ytimg.com/vi/3lfnR7OhZY8/hqdefault.jpg", link: "https://www.youtube.com/watch?v=3lfnR7OhZY8" },
+            { title: "Ed Sheeran - Boat", year: "2022", category: "music", studio: "Mathematic Studio", role: "Houdini FX / Fluids", img: "https://i.ytimg.com/vi/mKEphyIbtXo/hqdefault.jpg", link: "https://www.youtube.com/watch?v=mKEphyIbtXo" },
+            { title: "Discord - The Movie", year: "2021", category: "music", studio: "Mathematic Studio", role: "Houdini FX / Crowds", img: "https://i.ytimg.com/vi/xfPpsu2LvvA/hqdefault.jpg", link: "https://www.youtube.com/watch?v=xfPpsu2LvvA" },
+            { title: "Loki - Season 2", year: "2023", category: "film", studio: "Trixter", role: "Houdini FX Artist", img: "https://i.ytimg.com/vi/dug56u8NN7g/hqdefault.jpg", link: "https://www.youtube.com/watch?v=dug56u8NN7g" },
+            { title: "VESPER", year: "2022", category: "film", studio: "Mathematic Studio", role: "Houdini FX / Simulation", img: "https://i.ytimg.com/vi/qvSkTAA0Igw/hqdefault.jpg", link: "https://www.youtube.com/watch?v=qvSkTAA0Igw" },
+            { title: "Spirit Untamed", year: "2021", category: "film", studio: "Jellyfish Pictures", role: "Houdini Crowd Artist", img: "https://i.ytimg.com/vi/9jG1nnQGpdI/hqdefault.jpg", link: "https://www.youtube.com/watch?v=9jG1nnQGpdI" },
+            { title: "Godmothered", year: "2020", category: "film", studio: "One Of Us", role: "Houdini FX/TD", img: "https://i.ytimg.com/vi/KYWzEqX-J-4/hqdefault.jpg", link: "https://www.youtube.com/watch?v=KYWzEqX-J-4" },
+            { title: "Bigfoot Family", year: "2020", category: "film", studio: "nWave Digital", role: "Houdini FX/TD", img: "https://i.ytimg.com/vi/Y__Gkw4N1Hk/hqdefault.jpg", link: "https://www.youtube.com/watch?v=Y__Gkw4N1Hk" },
+            { title: "Ready Player One", year: "2017", category: "film", studio: "ILM", role: "Houdini Crowd TD", img: "https://i.ytimg.com/vi/cSp1dM2Vj48/hqdefault.jpg", link: "https://www.youtube.com/watch?v=cSp1dM2Vj48" },
+            { title: "Extra Ordinary", year: "2019", category: "film", studio: "Umedia VFX", role: "Houdini FX/TD", img: "https://i.ytimg.com/vi/x1TvL5ZL6Sc/hqdefault.jpg", link: "https://www.youtube.com/watch?v=x1TvL5ZL6Sc" },
+            { title: "Minuscule", year: "2013", category: "film", studio: "nWave Digital", role: "Houdini FX Artist", img: "https://i.ytimg.com/vi/y5nJfC5npS4/hqdefault.jpg", link: "https://www.youtube.com/watch?v=y5nJfC5npS4" },
+            { title: "A Monster in Paris", year: "1", category: "film", studio: "Walking the dog", role: "VFX Artist", img: "https://i.ytimg.com/vi/lvN4A6PgSW4/hqdefault.jpg", link: "https://www.youtube.com/watch?v=lvN4A6PgSW4" },
+            { title: "Sammy 2", year: "2011", category: "film", studio: "nWave Digital", role: "Houdini FX Artist", img: "https://i.ytimg.com/vi/J6ORMGVfLQo/hqdefault.jpg", link: "https://www.youtube.com/watch?v=J6ORMGVfLQo" },
+            { title: "Clash of Clans - The Undertaker", year: "2026", category: "commercial", studio: "Squeeze Studio", role: "Houdini FX / Motion Graphics", img: "https://i.ytimg.com/vi/7FbUdazMhFk/hqdefault.jpg", link: "https://www.youtube.com/watch?v=7FbUdazMhFk" },
+            { title: "Clash of Clans - Cody Rhodes", year: "2026", category: "commercial", studio: "Squeeze Studio", role: "Houdini FX / Motion Graphics", img: "https://i.ytimg.com/vi/nwtpm9XUJVg/hqdefault.jpg", link: "https://www.youtube.com/watch?v=nwtpm9XUJVg" },
+            { title: "Nescafe Gold Blend", year: "2015", category: "commercial", studio: "Nozon", role: "VFX Artist", img: "https://i.ytimg.com/vi/zQZYcODIfjA/hqdefault.jpg", link: "https://www.youtube.com/watch?v=zQZYcODIfjA" },
+            { title: "Efteling", year: "2015", category: "commercial", studio: "Nozon", role: "VFX Artist", img: "https://i.ytimg.com/vi/kX1UBS27NNk/hqdefault.jpg", link: "https://www.youtube.com/watch?v=kX1UBS27NNk" },
+            { title: "Alpro - Almond Milk", year: "2015", category: "commercial", studio: "Nozon", role: "VFX Artist", img: "https://i.ytimg.com/vi/H6a9PA7BitY/hqdefault.jpg", link: "https://www.youtube.com/watch?v=H6a9PA7BitY" },
+            { title: "Audi - Wind", year: "2015", category: "commercial", studio: "Nozon", role: "VFX Artist", img: "https://i.ytimg.com/vi/Htl1R94nRmQ/hqdefault.jpg", link: "https://www.youtube.com/watch?v=Htl1R94nRmQ" },
+            { title: "MILK TVC", year: "2013", category: "commercial", studio: "Nozon", role: "VFX Artist", img: "https://i.vimeocdn.com/video/434115442-6c8192475025ad48ef9641b9099df6f5c40828cd4b1bfd0acb1aba8035373a54-d_640", link: "https://vimeo.com/434115442" },
+            { title: "BASE Balloons", year: "2012", category: "commercial", studio: "Nozon", role: "VFX Artist", img: "https://i.vimeocdn.com/video/352349032-9adff4d823cdfbf8aa4eab3613712b6ae09052f9f32559ef063065fa9cab89ae-d_640", link: "https://vimeo.com/352349032" },
+            { title: "McDonald's UK", year: "2020", category: "commercial", studio: "Passion Pictures", role: "Cloth FX Artist", img: "https://i.ytimg.com/vi/QJntbYytPz8/hqdefault.jpg", link: "https://www.youtube.com/watch?v=QJntbYytPz8" }
+        ];
+        
+        const experiences = [
+            { year: "2023-2026", role: "Houdini FX/TD", studio: "Mathematic Studio", project: "Lil Nas X, Marsupilami" },
+            { year: "2023", role: "Houdini FX Artist", studio: "Trixter", project: "Loki Season 2" },
+            { year: "2021-2022", role: "Houdini FX/TD", studio: "Mathematic Studio", project: "Coldplay, Ed Sheeran, Vesper" },
+            { year: "2021", role: "Houdini FX/TD", studio: "Digital District", project: "Ooredoo Ramadan" },
+            { year: "2020-2021", role: "Houdini Crowd Artist", studio: "Jellyfish Pictures", project: "Spirit Untamed" },
+            { year: "2020", role: "Cloth FX Artist", studio: "Passion Pictures", project: "McDonald's UK" },
+            { year: "2020", role: "Houdini FX/TD", studio: "One Of Us", project: "Godmothered" },
+            { year: "2019-2020", role: "Houdini FX/TD", studio: "nWave Digital", project: "Bigfoot Family" },
+            { year: "2018-2019", role: "Houdini FX/TD", studio: "Umedia VFX", project: "Extra Ordinary" },
+            { year: "2017", role: "Houdini Crowd TD", studio: "ILM", project: "Ready Player One" },
+            { year: "2012-2017", role: "FX/TD, CFX, Groom", studio: "Nozon", project: "Cosynel, Voo, Anno 2205" },
+            { year: "2011-2012", role: "VFX Artist", studio: "nWave Digital", project: "Sammy 2" },
+            { year: "2010-2011", role: "VFX Artist", studio: "Walking the dog", project: "A Monster in Paris" },
+            { year: "2008-2010", role: "VFX Artist", studio: "Mokko Studio", project: "Dinosaurs, Podcats" },
+            { year: "2006-2007", role: "CG Artist 3D", studio: "Freelance", project: "" }
+        ];
+        
+        const formations = [
+            { year: "2026", role: "Advanced AI Workflows", studio: "ActionVFX Academy", img: "/files/certificates/ai_workflows_certificat.jpg" },
+            { year: "2026", role: "Introduction to ComfyUI", studio: "ActionVFX Academy", img: "/files/certificates/comfyui_certificat.jpg" },
+            { year: "2006", role: "Objectif 3D", studio: "3D School", img: "" },
+            { year: "2000-2002", role: "Master MST Image et Son", studio: "Aix-Marseille", img: "" },
+            { year: "1997-2000", role: "DEUG Arts du spectacle", studio: "Montpellier", img: "" }
+        ];
+        
+        let currentLang = 'fr';
+        
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (translations[lang][key]) el.textContent = translations[lang][key];
+            });
+            renderProjects();
+            renderExperience();
+            renderFormation();
+        }
+        
+        function renderProjects() {
+            const grid = document.getElementById('projects-grid');
+            grid.innerHTML = projects.map(p => `
+                <div class="project-card" data-category="${p.category}">
+                    <a href="${p.link}" target="_blank" class="project-thumb-link">
+                        <div class="project-thumb">
+                            <img src="${p.img}" alt="${p.title}">
+                            <div class="project-overlay">
+                                <div class="play-btn"></div>
+                                <span class="watch-label">Click to watch</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="project-info">
+                        <p class="project-year">${p.year}</p>
+                        <p class="project-title">${p.title}</p>
+                        <p class="project-role">${p.role || 'VFX Artist'}</p>
+                        <p class="project-studio">${p.studio}</p>
+                    </div>
+                </div>
+            `).join('');
+            attachFilterListeners();
+        }
+        
+        function toggleVideo(thumb, encodedLink) {
+            const link = decodeURIComponent(encodedLink);
+            const img = thumb.querySelector('.thumb-img');
+            const container = thumb.querySelector('.video-container');
+            
+            if (container.innerHTML) {
+                // Video already playing - stop it
+                container.innerHTML = '';
+                img.style.display = 'block';
+            } else {
+                // Convert YouTube link to embed - use youtube-nocookie for fewer restrictions
+                let embedLink = link;
+                if (link.includes('youtube.com/watch') || link.includes('youtu.be/')) {
+                    let videoId = '';
+                    if (link.includes('youtu.be/')) {
+                        videoId = link.split('youtu.be/')[1]?.split('?')[0];
+                    } else {
+                        videoId = link.split('v=')[1]?.split('&')[0];
+                    }
+                    embedLink = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0`;
+                } else if (link.includes('vimeo.com/')) {
+                    const videoId = link.split('vimeo.com/')[1];
+                    embedLink = `https://player.vimeo.com/video/${videoId}?autoplay=1`;
+                }
+                
+                container.innerHTML = `<iframe src="${embedLink}" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+                img.style.display = 'none';
+            }
+        }
+        
+        function renderExperience() {
+            document.getElementById('experience-timeline').innerHTML = experiences.map(e => `
+                <div class="cv-item">
+                    <p class="cv-item-year">${e.year}</p>
+                    <p class="cv-item-role">${e.role}</p>
+                    <p class="cv-item-studio">${e.studio}</p>
+                    ${e.project ? `<p class="cv-item-project">${e.project}</p>` : ''}
+                </div>
+            `).join('');
+        }
+        
+        function renderFormation() {
+            document.getElementById('formation-timeline').innerHTML = formations.map(f => `
+                <div class="cv-item">
+                    <p class="cv-item-year">${f.year}</p>
+                    <p class="cv-item-role">${f.role}</p>
+                    <p class="cv-item-studio">${f.studio}</p>
+                    ${f.img ? `<img src="${f.img}" class="cert-thumb">` : ''}
+                </div>
+            `).join('');
+        }
+        
+        function attachFilterListeners() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.onclick = () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const filter = btn.dataset.filter;
+                    document.querySelectorAll('.project-card').forEach(card => {
+                        card.style.display = (filter === 'all' || card.dataset.category === filter) ? 'block' : 'none';
+                    });
+                };
+            });
+        }
+        
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+        });
+        
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        renderProjects();
+        renderExperience();
+        renderFormation();
+    </script>
+</body>
+</html>
