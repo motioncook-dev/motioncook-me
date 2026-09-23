@@ -907,11 +907,16 @@
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .hero h1 { letter-spacing: -1px; }
-            .cv-blocks-row { flex-direction: column; }
+            .cv-blocks-row { flex-direction: column; gap: 20px; }
             .cv-experience { flex: auto; max-width: 100%; }
             .cv-projects { flex: auto; max-width: 100%; }
+            .cv-formation { flex: auto; max-width: 100%; }
             .cv-header { flex-direction: column; gap: 20px; }
             .cv-avatar { width: 80px; height: 80px; font-size: 2rem; }
+            .cv-projects .projects-grid { grid-template-columns: repeat(2, 1fr); }
+            .cv-projects .project-card img { height: 100px; }
+            .cv-experience .cv-timeline { padding-left: 10px; }
+            .cv-block-title { font-size: 0.6rem; }
         }
         
         @media (max-width: 480px) {
