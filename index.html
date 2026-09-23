@@ -374,10 +374,23 @@
             transform: scale(1.05);
         }
         
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        .projects-strip-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .projects-strip {
+            display: flex;
             gap: 24px;
+            padding: 40px 0;
+            transform: rotate(-2deg);
+            margin-left: 40px;
+        }
+        
+        .projects-strip:nth-child(even) {
+            transform: rotate(2deg);
+            margin-left: -40px;
         }
         
         .project-card {
@@ -387,12 +400,16 @@
             cursor: pointer;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid rgba(255,255,255,0.05);
+            min-width: 300px;
+            flex-shrink: 0;
+            position: relative;
         }
         
         .project-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-8px) scale(1.03);
             border-color: var(--accent);
             box-shadow: 0 20px 60px rgba(255, 77, 0, 0.15);
+            z-index: 10;
         }
         
         .project-thumb {
@@ -826,7 +843,9 @@
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .hero h1 { letter-spacing: -1px; }
-            .projects-grid { grid-template-columns: 1fr; }
+            .projects-strip { flex-direction: column; align-items: center; transform: none !important; margin-left: 0 !important; }
+            .projects-strip:nth-child(even) { transform: none !important; margin-left: 0 !important; }
+            .project-card { min-width: 90vw; }
             .cv-header { flex-direction: column; gap: 20px; }
             .cv-avatar { width: 80px; height: 80px; font-size: 2rem; }
         }
@@ -968,7 +987,7 @@
             </div>
         </div>
         
-        <div class="projects-grid" id="projects-grid"></div>
+        <div class="projects-strip-container" id="projects-grid"></div>
     </section>
 
     <section class="cv-section" id="about">
@@ -1150,26 +1169,35 @@
         }
         
         function renderProjects() {
-            const grid = document.getElementById('projects-grid');
-            grid.innerHTML = projects.map(p => `
-                <div class="project-card" data-category="${p.category}">
-                    <a href="${p.link}" target="_blank" class="project-thumb-link">
-                        <div class="project-thumb">
-                            <img src="${p.img}" alt="${p.title}">
-                            <div class="project-overlay">
-                                <div class="play-btn"></div>
-                                <span class="watch-label">Click to watch</span>
+            const container = document.getElementById('projects-grid');
+            // Group projects into strips of 4
+            const stripSize = 4;
+            let strips = '';
+            for (let i = 0; i < projects.length; i += stripSize) {
+                const stripProjects = projects.slice(i, i + stripSize);
+                strips += '<div class="projects-strip">';
+                stripProjects.forEach(p => {
+                    strips += `<div class="project-card" data-category="${p.category}">
+                        <a href="${p.link}" target="_blank" class="project-thumb-link">
+                            <div class="project-thumb">
+                                <img src="${p.img}" alt="${p.title}">
+                                <div class="project-overlay">
+                                    <div class="play-btn"></div>
+                                    <span class="watch-label">Click to watch</span>
+                                </div>
                             </div>
+                        </a>
+                        <div class="project-info">
+                            <p class="project-year">${p.year}</p>
+                            <p class="project-title">${p.title}</p>
+                            <p class="project-role">${p.role || 'VFX Artist'}</p>
+                            <p class="project-studio">${p.studio}</p>
                         </div>
-                    </a>
-                    <div class="project-info">
-                        <p class="project-year">${p.year}</p>
-                        <p class="project-title">${p.title}</p>
-                        <p class="project-role">${p.role || 'VFX Artist'}</p>
-                        <p class="project-studio">${p.studio}</p>
-                    </div>
-                </div>
-            `).join('');
+                    </div>`;
+                });
+                strips += '</div>';
+            }
+            container.innerHTML = strips;
             attachFilterListeners();
         }
         
