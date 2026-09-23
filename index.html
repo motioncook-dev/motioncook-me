@@ -680,13 +680,12 @@
         
         .cv-block { margin-bottom: 0; }
         
-        .cv-blocks-row {
+        .cv-main-row {
             display: flex;
             gap: 40px;
         }
         
-        .cv-blocks-row .cv-block {
-            flex: 1;
+        .cv-main-row .cv-block {
             min-width: 0;
         }
         
@@ -695,19 +694,27 @@
             max-width: 30%;
         }
         
+        .cv-right-column {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
         .cv-projects {
             flex: 1;
             min-width: 0;
         }
         
         .cv-formation {
-            flex: 0 0 50%;
-            max-width: 50%;
+            flex: 1;
+            min-width: 0;
         }
         
         .cv-languages {
-            flex: 0 0 50%;
-            max-width: 50%;
+            flex: 1;
+            min-width: 0;
         }
         
         .cv-projects .filters {
@@ -991,11 +998,9 @@
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .hero h1 { letter-spacing: -1px; }
-            .cv-blocks-row { flex-direction: column; gap: 20px; }
+            .cv-main-row { flex-direction: column; }
             .cv-experience { flex: auto; max-width: 100%; }
-            .cv-projects { flex: auto; max-width: 100%; }
-            .cv-formation { flex: auto; max-width: 100%; }
-            .cv-languages { flex: auto; max-width: 100%; }
+            .cv-right-column { flex: auto; max-width: 100%; }
             .cv-header { flex-direction: column; gap: 20px; }
             .cv-avatar { width: 80px; height: 80px; font-size: 2rem; }
             .cv-projects .projects-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1129,42 +1134,41 @@
 
     <section class="cv-section" id="about">
     <div class="cv-container">
-        <div class="cv-blocks-row">
+        <div class="cv-main-row">
             <div class="cv-block cv-experience">
                 <p class="cv-block-title" data-i18n="cv.experience">Experience</p>
                 <div class="cv-timeline" id="experience-timeline"></div>
             </div>
-            <div class="cv-block cv-projects">
-                <p class="cv-block-title">Selected Work</p>
-                <div class="filters">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="film">Film</button>
-                    <button class="filter-btn" data-filter="commercial">Pub</button>
-                    <button class="filter-btn" data-filter="animation">Animation 3D</button>
-                    <button class="filter-btn" data-filter="music">Vidéo Clip</button>
+            <div class="cv-right-column">
+                <div class="cv-block cv-projects">
+                    <p class="cv-block-title">Selected Work</p>
+                    <div class="filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="film">Film</button>
+                        <button class="filter-btn" data-filter="commercial">Pub</button>
+                        <button class="filter-btn" data-filter="animation">Animation 3D</button>
+                        <button class="filter-btn" data-filter="music">Vidéo Clip</button>
+                    </div>
+                    <div class="projects-grid" id="about-projects"></div>
                 </div>
-                <div class="projects-grid" id="about-projects"></div>
-            </div>
-        </div>
-
-        <div class="cv-blocks-row">
-            <div class="cv-block cv-formation">
-                <p class="cv-block-title" data-i18n="cv.formation">Education</p>
-                <div class="cv-timeline" id="formation-timeline"></div>
-            </div>
-            <div class="cv-block cv-languages">
-                <p class="cv-block-title" data-i18n="cv.languages">Languages</p>
-                <div class="lang-item">
-                    <span class="lang-name">🇫🇷 Français</span>
-                    <span class="lang-level">Native</span>
+                <div class="cv-block cv-formation">
+                    <p class="cv-block-title" data-i18n="cv.formation">Education</p>
+                    <div class="cv-timeline" id="formation-timeline"></div>
                 </div>
-                <div class="lang-item">
-                    <span class="lang-name">🇬🇧 English</span>
-                    <span class="lang-level">Professional</span>
-                </div>
-                <div class="lang-item">
-                    <span class="lang-name">🇪🇸 Español</span>
-                    <span class="lang-level">Conversational</span>
+                <div class="cv-block cv-languages">
+                    <p class="cv-block-title" data-i18n="cv.languages">Languages</p>
+                    <div class="lang-item">
+                        <span class="lang-name">🇫🇷 Français</span>
+                        <span class="lang-level">Native</span>
+                    </div>
+                    <div class="lang-item">
+                        <span class="lang-name">🇬🇧 English</span>
+                        <span class="lang-level">Professional</span>
+                    </div>
+                    <div class="lang-item">
+                        <span class="lang-name">🇪🇸 Español</span>
+                        <span class="lang-level">Conversational</span>
+                    </div>
                 </div>
             </div>
         </div>
