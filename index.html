@@ -1282,29 +1282,14 @@
         }
         
         function renderExperience() {
-            const timeline = document.getElementById('experience-timeline');
-            let html = '';
-            experiences.forEach(e => {
-                // Find matching project by studio or project name
-                const match = projects.find(p => 
-                    p.studio === e.studio || p.title.toLowerCase().includes(e.project?.toLowerCase() || '')
-                );
-                const videoHtml = match ? `
-                    <div class="cv-item-video">
-                        <a href="${match.link}" target="_blank">
-                            <img src="${match.img}" alt="${match.title}">
-                        </a>
-                    </div>
-                ` : '';
-                html += `<div class="cv-item">
+            document.getElementById('experience-timeline').innerHTML = experiences.map(e => `
+                <div class="cv-item">
                     <p class="cv-item-year">${e.year}</p>
                     <p class="cv-item-role">${e.role}</p>
                     <p class="cv-item-studio">${e.studio}</p>
                     ${e.project ? `<p class="cv-item-project">${e.project}</p>` : ''}
-                    ${videoHtml}
-                </div>`;
-            });
-            timeline.innerHTML = html;
+                </div>
+            `).join('');
         }
         
         function renderFormation() {
