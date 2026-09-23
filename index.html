@@ -858,17 +858,25 @@
             transform: scale(1.05);
         }
         
-        .cv-sidebar-block {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 20px;
+        .cv-block .lang-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
         
-        .cv-sidebar-title {
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        .cv-block .lang-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cv-block .lang-name {
+            font-size: 0.85rem;
+        }
+        
+        .cv-block .lang-level {
+            font-size: 0.75rem;
+            color: var(--accent);
+        }
             color: var(--text-muted);
             margin-bottom: 15px;
         }
@@ -1114,8 +1122,8 @@
                 </div>
             </div>
 
-            <div class="cv-sidebar-block">
-                <p class="cv-sidebar-title" data-i18n="cv.languages">Languages</p>
+            <div class="cv-block">
+                <p class="cv-block-title" data-i18n="cv.languages">Languages</p>
                 <div class="lang-item">
                     <span class="lang-name">🇫🇷 Français</span>
                     <span class="lang-level">Native</span>
