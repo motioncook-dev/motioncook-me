@@ -1359,7 +1359,7 @@
         }
         
         function renderExperience() {
-            document.getElementById('experience-timeline').innerHTML = experiences.map((e, idx) => `
+            const html = experiences.map((e, idx) => `
                 <div class="cv-item" data-experience-index="${idx}">
                     <p class="cv-item-year">${e.year}</p>
                     <p class="cv-item-role">${e.role}</p>
@@ -1367,6 +1367,7 @@
                     ${e.project ? `<p class="cv-item-project">${e.project}</p>` : ''}
                 </div>
             `).join('');
+            document.getElementById('experience-timeline').innerHTML = html;
         }
         
         function renderFormation() {
@@ -1394,35 +1395,35 @@
         }
         
         function attachHoverListeners() {
-            const experienceItems = document.querySelectorAll('#experience-timeline .cv-item');
-            const projectCards = document.querySelectorAll('.project-card');
-            
-            // Project hover → highlight experience
-            projectCards.forEach(card => {
-                const expIdx = card.dataset.experience;
-                card.addEventListener('mouseenter', () => {
-                    if (expIdx !== undefined) {
-                        const item = document.querySelector(`[data-experience-index="${expIdx}"]`);
-                        if (item) item.classList.add('highlight');
-                    }
-                });
-                card.addEventListener('mouseleave', () => {
-                    experienceItems.forEach(item => item.classList.remove('highlight'));
-                });
-            });
+            const expItems = document.querySelectorAll('#experience-timeline .cv-item');
+            const projCards = document.querySelectorAll('.project-card');
             
             // Experience hover → highlight matching project cards
-            experienceItems.forEach(item => {
+            expItems.forEach(item => {
                 item.addEventListener('mouseenter', () => {
                     const idx = item.dataset.experienceIndex;
-                    projectCards.forEach(card => {
+                    projCards.forEach(card => {
                         if (card.dataset.experience === idx) {
                             card.classList.add('highlight');
                         }
                     });
+                    item.classList.add('highlight');
                 });
                 item.addEventListener('mouseleave', () => {
-                    projectCards.forEach(card => card.classList.remove('highlight'));
+                    projCards.forEach(card => card.classList.remove('highlight'));
+                    item.classList.remove('highlight');
+                });
+            });
+            
+            // Project hover → highlight matching experience item
+            projCards.forEach(card => {
+                const expIdx = card.dataset.experience;
+                card.addEventListener('mouseenter', () => {
+                    const target = document.querySelector(`[data-experience-index="${expIdx}"]`);
+                    if (target) target.classList.add('highlight');
+                });
+                card.addEventListener('mouseleave', () => {
+                    expItems.forEach(item => item.classList.remove('highlight'));
                 });
             });
         }
