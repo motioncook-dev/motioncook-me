@@ -691,13 +691,18 @@
         }
         
         .cv-experience {
-            flex: 0 0 30%;
-            max-width: 30%;
+            flex: 0 0 25%;
+            max-width: 25%;
         }
         
         .cv-projects {
-            flex: 1;
-            min-width: 0;
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+        
+        .cv-formation {
+            flex: 0 0 25%;
+            max-width: 25%;
         }
         
         .cv-projects .projects-grid {
@@ -1042,6 +1047,10 @@
                 <div class="cv-block cv-projects">
                     <p class="cv-block-title">Selected Work</p>
                     <div class="projects-grid" id="about-projects"></div>
+                </div>
+                <div class="cv-block cv-formation">
+                    <p class="cv-block-title" data-i18n="cv.formation">Education</p>
+                    <div class="cv-timeline" id="formation-timeline"></div>
                 </div>
             </div>
         </div>
