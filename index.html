@@ -681,22 +681,17 @@
         .cv-block { margin-bottom: 0; }
         
         .cv-main-row {
-            display: flex;
+            display: grid;
+            grid-template-columns: 30% 1fr;
             gap: 40px;
         }
         
-        .cv-main-row .cv-block {
-            min-width: 0;
-        }
-        
         .cv-experience {
-            flex: 0 0 30%;
-            max-width: 30%;
+            grid-column: 1;
         }
         
         .cv-right-column {
-            flex: 1;
-            min-width: 0;
+            grid-column: 2;
             display: flex;
             flex-direction: column;
             gap: 30px;
@@ -998,9 +993,9 @@
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .hero h1 { letter-spacing: -1px; }
-            .cv-main-row { flex-direction: column; }
-            .cv-experience { flex: auto; max-width: 100%; }
-            .cv-right-column { flex: auto; max-width: 100%; }
+            .cv-main-row { grid-template-columns: 1fr; }
+            .cv-experience { grid-column: 1; }
+            .cv-right-column { grid-column: 1; }
             .cv-header { flex-direction: column; gap: 20px; }
             .cv-avatar { width: 80px; height: 80px; font-size: 2rem; }
             .cv-projects .projects-grid { grid-template-columns: repeat(2, 1fr); }
