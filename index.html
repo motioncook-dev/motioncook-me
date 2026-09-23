@@ -1415,7 +1415,7 @@
             experienceItems.forEach((item, idx) => {
                 item.addEventListener('mouseenter', () => {
                     projectCards.forEach(card => {
-                        if (card.dataset.experience == idx) {
+                        if (parseInt(card.dataset.experience) === idx) {
                             card.classList.add('highlight');
                         }
                     });
