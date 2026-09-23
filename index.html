@@ -781,6 +781,22 @@
             font-size: 0.85rem;
         }
         
+        .cv-link {
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--accent);
+            color: var(--text-white) !important;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .cv-link:hover {
+            background: var(--accent-secondary);
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+        
         @media (max-width: 1024px) {
             nav { padding: 20px 30px; }
             section { padding: 80px 30px; }
@@ -1008,6 +1024,7 @@
             <h3>motioncook.me</h3>
             <p><a href="mailto:motioncook@pm.me">motioncook@pm.me</a></p>
             <p><a href="https://www.linkedin.com/in/stephanedaguin" target="_blank">LinkedIn</a></p>
+            <p><a href="/cv_Stephane_Daguin.pdf" download class="cv-link">📄 Télécharger le CV (PDF)</a></p>
             <p class="copyright">&copy; 2026 Stephane Daguin</p>
         </div>
     </footer>
