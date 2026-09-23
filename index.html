@@ -694,6 +694,21 @@
             grid-column: 2;
         }
         
+        .cv-experience .cv-item.highlight {
+            background: rgba(255, 77, 0, 0.1);
+            border-left: 3px solid var(--accent);
+            padding-left: 15px;
+            border-radius: 4px;
+        }
+        
+        .cv-experience .cv-item.highlight .cv-item-role {
+            color: var(--accent);
+        }
+        
+        .cv-experience .cv-item.highlight .cv-item-studio {
+            color: var(--accent);
+        }
+        
         .cv-right-column {
             grid-column: 3;
             display: flex;
@@ -1286,9 +1301,11 @@
             const workContainer = document.getElementById('projects-grid');
             const aboutContainer = document.getElementById('about-projects');
             
-            // Simple grid layout for both
-            const gridHtml = projects.map(p => `
-                <div class="project-card" data-category="${p.category}">
+            const gridHtml = projects.map((p, idx) => {
+                // Find matching experience by studio
+                const matchIdx = experiences.findIndex(e => e.studio === p.studio);
+                const expAttr = matchIdx >= 0 ? `data-experience="${matchIdx}"` : '';
+                return `<div class="project-card" data-category="${p.category}" ${expAttr}>
                     <a href="${p.link}" target="_blank">
                         <img src="${p.img}" alt="${p.title}">
                     </a>
@@ -1297,12 +1314,13 @@
                         <p class="project-title">${p.title}</p>
                         <p class="project-role">${p.role || 'VFX Artist'}</p>
                     </div>
-                </div>
-            `).join('');
+                </div>`;
+            }).join('');
             
             if (workContainer) workContainer.innerHTML = gridHtml;
             if (aboutContainer) aboutContainer.innerHTML = gridHtml;
             attachFilterListeners();
+            attachHoverListeners();
         }
         
         function toggleVideo(thumb, encodedLink) {
@@ -1367,6 +1385,21 @@
                         card.style.display = (filter === 'all' || card.dataset.category === filter) ? 'block' : 'none';
                     });
                 };
+            });
+        }
+        
+        function attachHoverListeners() {
+            const experienceItems = document.querySelectorAll('#experience-timeline .cv-item');
+            document.querySelectorAll('.project-card').forEach(card => {
+                const expIdx = card.dataset.experience;
+                card.addEventListener('mouseenter', () => {
+                    if (expIdx !== undefined && experienceItems[expIdx]) {
+                        experienceItems[expIdx].classList.add('highlight');
+                    }
+                });
+                card.addEventListener('mouseleave', () => {
+                    experienceItems.forEach(item => item.classList.remove('highlight'));
+                });
             });
         }
         
