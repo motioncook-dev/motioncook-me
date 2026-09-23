@@ -375,73 +375,54 @@
         }
         
         .projects-container {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            padding: 60px 0;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 60px 30px;
         }
         
-        .strip-row {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 24px;
-        }
-        
-        .strip-card {
+        .project-card {
             background: var(--bg-dark);
             border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255,255,255,0.08);
-            width: 220px;
-            flex-shrink: 0;
-            position: relative;
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 20px;
         }
         
-        .strip-card:hover {
-            transform: scale(1.08);
+        .project-card:hover {
+            transform: translateY(-4px);
             border-color: var(--accent);
-            box-shadow: 0 20px 60px rgba(255, 77, 0, 0.2);
-            z-index: 10;
+            box-shadow: 0 10px 30px rgba(255, 77, 0, 0.15);
         }
         
-        .strip-card img {
+        .project-card img {
             width: 100%;
-            height: 260px;
+            height: 140px;
             object-fit: cover;
             display: block;
         }
         
-        .strip-card .strip-info {
+        .project-card .project-info {
             padding: 12px 16px;
         }
         
-        .strip-card .strip-year {
+        .project-card .project-year {
             font-size: 0.7rem;
             color: var(--accent);
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-transform: uppercase;
         }
         
-        .strip-card .strip-title {
-            font-size: 0.9rem;
+        .project-card .project-title {
+            font-size: 0.85rem;
             font-weight: 600;
             margin-top: 4px;
         }
         
-        .strip-card .strip-role {
+        .project-card .project-role {
             font-size: 0.75rem;
             color: var(--text-gray);
-            margin-top: 2px;
-        }
-        
-        .strip-separator {
-            width: 100%;
-            height: 1px;
-            background: rgba(255,255,255,0.05);
-            margin: 24px 0;
         }
         
         .video-container {
@@ -709,6 +690,65 @@
             min-width: 0;
         }
         
+        .cv-experience {
+            flex: 0 0 45%;
+            max-width: 45%;
+        }
+        
+        .cv-projects {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .cv-projects .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        
+        .cv-projects .project-card {
+            background: var(--bg-dark);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .cv-projects .project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(255, 77, 0, 0.15);
+        }
+        
+        .cv-projects .project-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .cv-projects .project-card .project-info {
+            padding: 12px;
+        }
+        
+        .cv-projects .project-card .project-year {
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+        
+        .cv-projects .project-card .project-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+        
+        .cv-projects .project-card .project-role {
+            font-size: 0.75rem;
+            color: var(--text-gray);
+        }
+        
         .cv-block-title {
             font-size: 0.7rem;
             letter-spacing: 2px;
@@ -862,8 +902,9 @@
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .hero h1 { letter-spacing: -1px; }
-            .strip-row { flex-wrap: wrap; }
-            .strip-card { min-width: 80vw; }
+            .cv-blocks-row { flex-direction: column; }
+            .cv-experience { flex: auto; max-width: 100%; }
+            .cv-projects { flex: auto; max-width: 100%; }
             .cv-header { flex-direction: column; gap: 20px; }
             .cv-avatar { width: 80px; height: 80px; font-size: 2rem; }
         }
@@ -1011,29 +1052,13 @@
     <section class="cv-section" id="about">
         <div class="cv-container">
             <div class="cv-blocks-row">
-                <div class="cv-block">
+                <div class="cv-block cv-experience">
                     <p class="cv-block-title" data-i18n="cv.experience">Experience</p>
                     <div class="cv-timeline" id="experience-timeline"></div>
                 </div>
-                <div class="cv-block">
-                    <p class="cv-block-title" data-i18n="cv.formation">Education</p>
-                    <div class="cv-timeline" id="formation-timeline"></div>
-                </div>
-            </div>
-
-            <div class="cv-sidebar-block">
-                <p class="cv-sidebar-title" data-i18n="cv.languages">Languages</p>
-                <div class="lang-item">
-                    <span class="lang-name">🇫🇷 Français</span>
-                    <span class="lang-level">Native</span>
-                </div>
-                <div class="lang-item">
-                    <span class="lang-name">🇬🇧 English</span>
-                    <span class="lang-level">Professional</span>
-                </div>
-                <div class="lang-item">
-                    <span class="lang-name">🇪🇸 Español</span>
-                    <span class="lang-level">Conversational</span>
+                <div class="cv-block cv-projects">
+                    <p class="cv-block-title">Selected Work</p>
+                    <div class="projects-grid" id="about-projects"></div>
                 </div>
             </div>
         </div>
@@ -1151,41 +1176,26 @@
         }
         
         function renderProjects() {
-            const container = document.getElementById('projects-grid');
-            // Create diagonal strip layout: 5 rows ascending
-            const rows = [];
-            const cols = Math.ceil(projects.length / 5);
-            for (let row = 0; row < 5; row++) {
-                const rowProjects = [];
-                for (let col = 0; col < cols; col++) {
-                    const idx = row * cols + col;
-                    if (idx < projects.length) rowProjects.push(projects[idx]);
-                }
-                rows.push(rowProjects);
-            }
-            let html = '';
-            rows.forEach((rowProjects, rowIdx) => {
-                if (rowProjects.length > 0) {
-                    html += '<div class="strip-row">';
-                    rowProjects.forEach(p => {
-                        html += `<div class="strip-card" data-category="${p.category}">
-                            <a href="${p.link}" target="_blank">
-                                <img src="${p.img}" alt="${p.title}">
-                            </a>
-                            <div class="strip-info">
-                                <p class="strip-year">${p.year}</p>
-                                <p class="strip-title">${p.title}</p>
-                                <p class="strip-role">${p.role || 'VFX Artist'}</p>
-                            </div>
-                        </div>`;
-                    });
-                    html += '</div>';
-                    if (rowIdx < rows.length - 1) {
-                        html += '<div class="strip-separator"></div>';
-                    }
-                }
-            });
-            container.innerHTML = html;
+            // Populate both the work section and about section projects
+            const workContainer = document.getElementById('projects-grid');
+            const aboutContainer = document.getElementById('about-projects');
+            
+            // Simple grid layout for both
+            const gridHtml = projects.map(p => `
+                <div class="project-card" data-category="${p.category}">
+                    <a href="${p.link}" target="_blank">
+                        <img src="${p.img}" alt="${p.title}">
+                    </a>
+                    <div class="project-info">
+                        <p class="project-year">${p.year}</p>
+                        <p class="project-title">${p.title}</p>
+                        <p class="project-role">${p.role || 'VFX Artist'}</p>
+                    </div>
+                </div>
+            `).join('');
+            
+            if (workContainer) workContainer.innerHTML = gridHtml;
+            if (aboutContainer) aboutContainer.innerHTML = gridHtml;
             attachFilterListeners();
         }
         
