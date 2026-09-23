@@ -122,21 +122,25 @@
         .nav-links a:hover::after { width: 100%; }
         
         .nav-cv-btn {
-            color: var(--accent);
+            color: var(--text-gray);
             text-decoration: none;
             font-size: 0.85rem;
             font-weight: 500;
             letter-spacing: 0.5px;
-            padding: 8px 16px;
-            border: 1px solid var(--accent);
-            border-radius: 6px;
-            transition: all 0.3s;
+            position: relative;
+            transition: color 0.3s;
         }
         
-        .nav-cv-btn:hover {
+        .nav-cv-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0; width: 0; height: 2px;
             background: var(--accent);
-            color: var(--text-white);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
+        .nav-cv-btn:hover { color: var(--text-white); }
+        .nav-cv-btn:hover::after { width: 100%; }
         
         .lang-switcher { display: flex; gap: 6px; background: var(--bg-card); padding: 4px; border-radius: 8px; }
         .lang-btn {
