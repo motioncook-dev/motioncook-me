@@ -812,6 +812,25 @@
             font-style: italic;
         }
         
+        .cv-item-video {
+            margin-top: 8px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .cv-item-video img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s;
+        }
+        
+        .cv-item-video:hover img {
+            transform: scale(1.05);
+        }
+        
         .cv-sidebar-block {
             background: var(--bg-card);
             border-radius: 16px;
@@ -917,6 +936,8 @@
             .cv-projects .project-card img { height: 100px; }
             .cv-experience .cv-timeline { padding-left: 10px; }
             .cv-block-title { font-size: 0.6rem; }
+            .cv-item-video { display: block; margin-top: 6px; }
+            .cv-item-video img { height: 60px; }
         }
         
         @media (max-width: 480px) {
@@ -1227,14 +1248,29 @@
         }
         
         function renderExperience() {
-            document.getElementById('experience-timeline').innerHTML = experiences.map(e => `
-                <div class="cv-item">
+            const timeline = document.getElementById('experience-timeline');
+            let html = '';
+            experiences.forEach(e => {
+                // Find matching project by studio or project name
+                const match = projects.find(p => 
+                    p.studio === e.studio || p.title.toLowerCase().includes(e.project?.toLowerCase() || '')
+                );
+                const videoHtml = match ? `
+                    <div class="cv-item-video">
+                        <a href="${match.link}" target="_blank">
+                            <img src="${match.img}" alt="${match.title}">
+                        </a>
+                    </div>
+                ` : '';
+                html += `<div class="cv-item">
                     <p class="cv-item-year">${e.year}</p>
                     <p class="cv-item-role">${e.role}</p>
                     <p class="cv-item-studio">${e.studio}</p>
                     ${e.project ? `<p class="cv-item-project">${e.project}</p>` : ''}
-                </div>
-            `).join('');
+                    ${videoHtml}
+                </div>`;
+            });
+            timeline.innerHTML = html;
         }
         
         function renderFormation() {
