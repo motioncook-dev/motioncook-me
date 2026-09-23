@@ -682,24 +682,23 @@
         
         .cv-main-row {
             display: grid;
-            grid-template-columns: 30% 1fr;
-            gap: 40px;
+            grid-template-columns: 25% 50% 1fr;
+            gap: 30px;
         }
         
         .cv-experience {
             grid-column: 1;
         }
         
-        .cv-right-column {
+        .cv-projects {
             grid-column: 2;
+        }
+        
+        .cv-right-column {
+            grid-column: 3;
             display: flex;
             flex-direction: column;
             gap: 30px;
-        }
-        
-        .cv-projects {
-            flex: 1;
-            min-width: 0;
         }
         
         .cv-formation {
@@ -995,6 +994,7 @@
             .hero h1 { letter-spacing: -1px; }
             .cv-main-row { grid-template-columns: 1fr; }
             .cv-experience { grid-column: 1; }
+            .cv-projects { grid-column: 1; }
             .cv-right-column { grid-column: 1; }
             .cv-header { flex-direction: column; gap: 20px; }
             .cv-avatar { width: 80px; height: 80px; font-size: 2rem; }
@@ -1134,18 +1134,18 @@
                 <p class="cv-block-title" data-i18n="cv.experience">Experience</p>
                 <div class="cv-timeline" id="experience-timeline"></div>
             </div>
-            <div class="cv-right-column">
-                <div class="cv-block cv-projects">
-                    <p class="cv-block-title">Selected Work</p>
-                    <div class="filters">
-                        <button class="filter-btn active" data-filter="all">All</button>
-                        <button class="filter-btn" data-filter="film">Film</button>
-                        <button class="filter-btn" data-filter="commercial">Pub</button>
-                        <button class="filter-btn" data-filter="animation">Animation 3D</button>
-                        <button class="filter-btn" data-filter="music">Vidéo Clip</button>
-                    </div>
-                    <div class="projects-grid" id="about-projects"></div>
+            <div class="cv-block cv-projects">
+                <p class="cv-block-title">Selected Work</p>
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="film">Film</button>
+                    <button class="filter-btn" data-filter="commercial">Pub</button>
+                    <button class="filter-btn" data-filter="animation">Animation 3D</button>
+                    <button class="filter-btn" data-filter="music">Vidéo Clip</button>
                 </div>
+                <div class="projects-grid" id="about-projects"></div>
+            </div>
+            <div class="cv-right-column">
                 <div class="cv-block cv-formation">
                     <p class="cv-block-title" data-i18n="cv.formation">Education</p>
                     <div class="cv-timeline" id="formation-timeline"></div>
