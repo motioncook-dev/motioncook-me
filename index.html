@@ -1326,7 +1326,6 @@
             if (workContainer) workContainer.innerHTML = gridHtml;
             if (aboutContainer) aboutContainer.innerHTML = gridHtml;
             attachFilterListeners();
-            attachHoverListeners();
         }
         
         function toggleVideo(thumb, encodedLink) {
@@ -1448,7 +1447,7 @@
         renderProjects();
         renderExperience();
         renderFormation();
-        attachHoverListeners();
+        setTimeout(attachHoverListeners, 100);
 
         // Initialize language based on HTML lang attribute (default: fr)
         setLanguage(document.documentElement.lang || 'fr');
