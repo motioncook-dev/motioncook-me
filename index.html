@@ -192,8 +192,30 @@
             color: var(--text-gray);
             letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 40px;
+            margin-bottom: 15px;
             animation: fadeInUp 0.8s ease-out 0.6s both;
+            text-align: center;
+        }
+        
+        .tool-logos {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 25px;
+            animation: fadeInUp 0.8s ease-out 0.7s both;
+        }
+        
+        .tool-logo {
+            width: 48px;
+            height: 48px;
+            filter: brightness(0) invert(1);
+            opacity: 0.7;
+            transition: all 0.3s;
+        }
+        
+        .tool-logo:hover {
+            opacity: 1;
+            filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(255, 77, 0, 0.5));
         }
         
         .hero-description {
@@ -859,6 +881,11 @@
             <div class="hero-badge" data-i18n="hero.badge">VFX Artist & FX TD</div>
             <h1>Stephane Daguin</h1>
             <p class="hero-subtitle" data-i18n="hero.subtitle">Senior Houdini Artist · FX Technical Director</p>
+            <div class="tool-logos">
+                <img src="/images/houdini.svg" alt="Houdini" class="tool-logo" title="Houdini">
+                <img src="/images/comfyui.svg" alt="ComfyUI" class="tool-logo" title="ComfyUI">
+                <img src="/images/nuke.svg" alt="Nuke" class="tool-logo" title="Nuke">
+            </div>
             <p class="hero-description" data-i18n="hero.description">15+ years creating visual effects for cinema, commercials & music videos. Specializing in Houdini FX, simulations, and motion graphics.</p>
             <div class="hero-contact-row">
                 <a href="mailto:motioncook@pm.me" class="hero-contact-btn">Email</a>
