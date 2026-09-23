@@ -709,6 +709,12 @@
             color: var(--accent);
         }
         
+        .project-card.highlight {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(255, 77, 0, 0.3);
+            transform: scale(1.05);
+        }
+        
         .cv-right-column {
             grid-column: 3;
             display: flex;
@@ -1390,7 +1396,10 @@
         
         function attachHoverListeners() {
             const experienceItems = document.querySelectorAll('#experience-timeline .cv-item');
-            document.querySelectorAll('.project-card').forEach(card => {
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            // Project hover → highlight experience
+            projectCards.forEach(card => {
                 const expIdx = card.dataset.experience;
                 card.addEventListener('mouseenter', () => {
                     if (expIdx !== undefined && experienceItems[expIdx]) {
@@ -1399,6 +1408,20 @@
                 });
                 card.addEventListener('mouseleave', () => {
                     experienceItems.forEach(item => item.classList.remove('highlight'));
+                });
+            });
+            
+            // Experience hover → highlight matching project cards
+            experienceItems.forEach((item, idx) => {
+                item.addEventListener('mouseenter', () => {
+                    projectCards.forEach(card => {
+                        if (card.dataset.experience == idx) {
+                            card.classList.add('highlight');
+                        }
+                    });
+                });
+                item.addEventListener('mouseleave', () => {
+                    projectCards.forEach(card => card.classList.remove('highlight'));
                 });
             });
         }
