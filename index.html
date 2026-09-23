@@ -1200,6 +1200,9 @@
         renderProjects();
         renderExperience();
         renderFormation();
-    </script>
+
+        // Initialize language based on HTML lang attribute (default: fr)
+        setLanguage(document.documentElement.lang || 'fr');
+        </script>
 </body>
 </html>
