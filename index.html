@@ -1360,8 +1360,8 @@
         }
         
         function renderExperience() {
-            document.getElementById('experience-timeline').innerHTML = experiences.map(e => `
-                <div class="cv-item">
+            document.getElementById('experience-timeline').innerHTML = experiences.map((e, idx) => `
+                <div class="cv-item" data-experience-index="${idx}">
                     <p class="cv-item-year">${e.year}</p>
                     <p class="cv-item-role">${e.role}</p>
                     <p class="cv-item-studio">${e.studio}</p>
@@ -1402,8 +1402,9 @@
             projectCards.forEach(card => {
                 const expIdx = card.dataset.experience;
                 card.addEventListener('mouseenter', () => {
-                    if (expIdx !== undefined && experienceItems[expIdx]) {
-                        experienceItems[expIdx].classList.add('highlight');
+                    if (expIdx !== undefined) {
+                        const item = document.querySelector(`[data-experience-index="${expIdx}"]`);
+                        if (item) item.classList.add('highlight');
                     }
                 });
                 card.addEventListener('mouseleave', () => {
@@ -1412,10 +1413,11 @@
             });
             
             // Experience hover → highlight matching project cards
-            experienceItems.forEach((item, idx) => {
+            experienceItems.forEach(item => {
                 item.addEventListener('mouseenter', () => {
+                    const idx = item.dataset.experienceIndex;
                     projectCards.forEach(card => {
-                        if (parseInt(card.dataset.experience) === idx) {
+                        if (card.dataset.experience === idx) {
                             card.classList.add('highlight');
                         }
                     });
