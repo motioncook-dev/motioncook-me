@@ -1359,16 +1359,20 @@
         }
         
         function setLanguage(lang) {
-            currentLang = lang;
-            document.documentElement.lang = lang;
-            document.title = translations[lang]['page.title'] || document.title;
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.lang === lang);
-            });
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.dataset.i18n;
-                if (translations[lang][key]) el.textContent = translations[lang][key];
-            });
+            try {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                document.title = translations[lang]['page.title'] || document.title;
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.lang === lang);
+                });
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.dataset.i18n;
+                    if (translations[lang][key]) el.textContent = translations[lang][key];
+                });
+            } catch(e) {
+                console.error('setLanguage error:', e.message);
+            }
         }
         
         function renderProjects() {
@@ -1503,7 +1507,10 @@
         });
         
         document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+            btn.addEventListener('click', () => {
+                console.log('Click:', btn.dataset.lang);
+                setLanguage(btn.dataset.lang);
+            });
         });
         
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
