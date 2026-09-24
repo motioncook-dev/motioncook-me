@@ -1329,11 +1329,15 @@
         let currentLang = 'fr';
         
         function initLogoTooltips() {
+            const heroDesc = document.querySelector('.hero-description');
+            const originalDesc = heroDesc.textContent;
+            
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 const tooltip = wrapper.querySelector('.logo-tooltip');
                 const descKey = logo.dataset.descKey;
                 
+                // Tooltip hover (existing)
                 logo.addEventListener('mouseenter', () => {
                     if (descKey && translations[currentLang][descKey]) {
                         tooltip.textContent = translations[currentLang][descKey];
@@ -1342,6 +1346,21 @@
                 logo.addEventListener('mouseleave', () => {
                     tooltip.textContent = '';
                 });
+                
+                // Click to replace hero-description text
+                logo.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (descKey && translations[currentLang][descKey]) {
+                        heroDesc.textContent = translations[currentLang][descKey];
+                    }
+                });
+            });
+            
+            // Restore when clicking elsewhere
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.tool-logo-wrapper')) {
+                    if (heroDesc) heroDesc.textContent = originalDesc;
+                }
             });
         }
         
