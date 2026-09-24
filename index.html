@@ -1504,7 +1504,18 @@
         });
         
         document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+            btn.addEventListener('click', () => {
+                const lang = btn.dataset.lang;
+                const heroDesc = document.querySelector('.hero-description');
+                // Direct text switching
+                if (lang === 'fr') heroDesc.textContent = "Avec plus de 15 ans d'expérience en publicité, séries et cinéma, j'ai développé une expertise approfondie en Houdini, couvrant les simulations de fluides, les systèmes de particules et les pipelines procéduraux. J'étends maintenant mes compétences avec ConfyUI pour améliorer les flux de travail VFX hybrides.";
+                else if (lang === 'en') heroDesc.textContent = "With more than 15 years of experience in advertising, series, and film, I have developed deep expertise in Houdini, covering fluid simulations, particle systems, and procedural pipelines. I am now extending my skills with ConfyUI to improve hybrid VFX workflow.";
+                else if (lang === 'es') heroDesc.textContent = "Con más de 15 años de experiencia en publicidad, series y cine, he desarrollado una experiencia profunda en Houdini, cubriendo simulaciones de fluidos, sistemas de partículas y pipelines proceduraux. Ahora extiendo mis habilidades con ConfyUI para mejorar los flujos de trabajo VFX híbridos.";
+                document.documentElement.lang = lang;
+                document.title = translations[lang]['page.title'] || document.title;
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
         });
         
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
