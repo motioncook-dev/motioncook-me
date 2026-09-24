@@ -1337,7 +1337,7 @@
                 const tooltip = wrapper.querySelector('.logo-tooltip');
                 const descKey = logo.dataset.descKey;
                 
-                // Tooltip hover (existing)
+                // Tooltip hover
                 logo.addEventListener('mouseenter', () => {
                     if (descKey && translations[currentLang][descKey]) {
                         tooltip.textContent = translations[currentLang][descKey];
@@ -1347,11 +1347,18 @@
                     tooltip.textContent = '';
                 });
                 
-                // Click to replace hero-description text
+                // Click to toggle active (colored=description, gray=original)
                 logo.addEventListener('click', (e) => {
                     e.preventDefault();
-                    if (descKey && translations[currentLang][descKey]) {
-                        heroDesc.textContent = translations[currentLang][descKey];
+                    if (wrapper.classList.contains('active')) {
+                        wrapper.classList.remove('active');
+                        heroDesc.textContent = originalDesc;
+                    } else {
+                        document.querySelectorAll('.tool-logo-wrapper').forEach(w => w.classList.remove('active'));
+                        wrapper.classList.add('active');
+                        if (descKey && translations[currentLang][descKey]) {
+                            heroDesc.textContent = translations[currentLang][descKey];
+                        }
                     }
                 });
             });
@@ -1359,6 +1366,7 @@
             // Restore when clicking elsewhere
             document.addEventListener('click', (e) => {
                 if (!e.target.closest('.tool-logo-wrapper')) {
+                    document.querySelectorAll('.tool-logo-wrapper').forEach(w => w.classList.remove('active'));
                     if (heroDesc) heroDesc.textContent = originalDesc;
                 }
             });
