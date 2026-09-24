@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>motioncook.me | VFX Artist & FX TD</title>
+    <title data-i18n="page.title">motioncook.me | VFX Artist & FX TD</title>
     <meta name="description" content="With more than 15 years of experience in advertising, series, and film. VFX Artist & FX TD. Based in Spain. Specialized in Houdini, ConfyUI and hybrid VFX workflows.">
     <meta name="author" content="Stephane Daguin">
     <meta property="og:title" content="motioncook.me">
@@ -1215,7 +1215,7 @@
                 "work.title": "Sélection", "work.subtitle": "Projets",
                 "filter.all": "Tous", "filter.film": "Film", "filter.commercial": "Pub", "filter.animation": "Animation 3D", "filter.music": "Vidéo Clip",
                 "about.title": "À propos", "cv.experience": "Expérience", "cv.formation": "Formation", "cv.languages": "Langues",
-                "footer.location": "Basé en Espagne | "
+                "footer.location": "Basé en Espagne | ", "page.title": "motioncook.me | VFX Artist & FX TD"
             },
             en: {
                 "nav.work": "Work", "nav.reel": "Reel", "nav.about": "About", "nav.contact": "Contact",
@@ -1223,7 +1223,7 @@
                 "work.title": "Selected", "work.subtitle": "Projects",
                 "filter.all": "All", "filter.film": "Film", "filter.commercial": "Commercial", "filter.animation": "Animation 3D", "filter.music": "Music Video",
                 "about.title": "About", "cv.experience": "Experience", "cv.formation": "Education", "cv.languages": "Languages",
-                "footer.location": "Based in Spain | "
+                "footer.location": "Based in Spain | ", "page.title": "motioncook.me | VFX Artist & FX TD"
             },
             es: {
                 "nav.work": "Trabajos", "nav.reel": "Reel", "nav.about": "Perfil", "nav.contact": "Contacto",
@@ -1231,7 +1231,7 @@
                 "work.title": "Seleccion", "work.subtitle": "Proyectos",
                 "filter.all": "Todos", "filter.film": "Cine", "filter.commercial": "Comercial", "filter.animation": "Animación 3D", "filter.music": "Video Musical",
                 "about.title": "Perfil", "cv.experience": "Experiencia", "cv.formation": "Formación", "cv.languages": "Idiomas",
-                "footer.location": "Basado en España | "
+                "footer.location": "Basado en España | ", "page.title": "motioncook.me | VFX Artist & FX TD"
             }
         };
         
@@ -1292,6 +1292,7 @@
         function setLanguage(lang) {
             currentLang = lang;
             document.documentElement.lang = lang;
+            document.title = translations[lang]['page.title'] || document.title;
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.lang === lang);
             });
