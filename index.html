@@ -296,7 +296,7 @@
         }
 
         @supports selector(:focus-visible) {
-            .tool-logo-wrapper:focus {
+            .tool-logo-wrapper:focus:not(:focus-visible) {
                 box-shadow: none;
             }
         }
@@ -1252,13 +1252,13 @@
             <h1>Stephane Daguin<span>.</span></h1>
             <p class="hero-subtitle" data-i18n="hero.subtitle">Senior Houdini Artist · FX Technical Director</p>
             <div class="tool-logos">
-                <button class="tool-logo-wrapper" type="button" aria-label="Houdini">
+                <button class="tool-logo-wrapper" type="button">
                     <img src="/images/houdini.png" alt="" class="tool-logo" title="Houdini" data-desc-key="logo.houdini" data-name-key="logo.name.houdini" aria-hidden="true">
                 </button>
-                <button class="tool-logo-wrapper" type="button" aria-label="ComfyUI">
+                <button class="tool-logo-wrapper" type="button">
                     <img src="/images/comfyui.png" alt="" class="tool-logo" title="ComfyUI" data-desc-key="logo.comfyui" data-name-key="logo.name.comfyui" aria-hidden="true">
                 </button>
-                <button class="tool-logo-wrapper" type="button" aria-label="Nuke">
+                <button class="tool-logo-wrapper" type="button">
                     <img src="/images/nuke.png" alt="" class="tool-logo" title="Nuke" data-desc-key="logo.nuke" data-name-key="logo.name.nuke" aria-hidden="true">
                 </button>
             </div>
