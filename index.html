@@ -1413,12 +1413,28 @@
                 const lang = document.documentElement.lang;
                 return translations[lang]['hero.description'] || heroDesc.textContent;
             }
+
+            function getLogoDesc(descKey) {
+                const lang = document.documentElement.lang;
+                const langTranslations = translations[lang] || {};
+                return (descKey && langTranslations[descKey]) || getOriginalDesc();
+            }
+
+            function getDisplayedDesc() {
+                const activeWrapper = document.querySelector('.tool-logo-wrapper.active');
+                if (!activeWrapper) return getOriginalDesc();
+                const activeLogo = activeWrapper.querySelector('.tool-logo');
+                if (!activeLogo) return getOriginalDesc();
+                return getLogoDesc(activeLogo.dataset?.descKey);
+            }
             
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 const descKey = logo.dataset.descKey;
-                logo.setAttribute('role', 'button');
-                logo.setAttribute('tabindex', '0');
+                wrapper.setAttribute('role', 'button');
+                wrapper.setAttribute('tabindex', '0');
+                logo.setAttribute('tabindex', '-1');
+                logo.setAttribute('aria-hidden', 'true');
                 
                 // Click to toggle: colored=description, gray=original
                 const toggleLogoDescription = () => {
@@ -1428,14 +1444,26 @@
                     } else {
                         document.querySelectorAll('.tool-logo-wrapper').forEach(w => w.classList.remove('active'));
                         wrapper.classList.add('active');
-                        const lang = document.documentElement.lang;
-                        if (descKey && translations[lang][descKey]) {
-                            heroDesc.textContent = translations[lang][descKey];
-                        }
+                        heroDesc.textContent = getLogoDesc(descKey);
                     }
                 };
-                logo.addEventListener('click', toggleLogoDescription);
-                logo.addEventListener('keydown', (e) => {
+                const previewLogoDescription = () => {
+                    heroDesc.textContent = getLogoDesc(descKey);
+                };
+                const restoreLogoDescription = () => {
+                    heroDesc.textContent = getDisplayedDesc();
+                };
+
+                wrapper.addEventListener('mouseenter', previewLogoDescription);
+                wrapper.addEventListener('mouseleave', restoreLogoDescription);
+                wrapper.addEventListener('click', toggleLogoDescription);
+                wrapper.addEventListener('focusin', previewLogoDescription);
+                wrapper.addEventListener('focusout', (e) => {
+                    if (!e.relatedTarget || !wrapper.contains(e.relatedTarget)) {
+                        restoreLogoDescription();
+                    }
+                });
+                wrapper.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
                         toggleLogoDescription();
@@ -1477,8 +1505,14 @@
                 }
             });
             const logoDetailsLabel = translations[lang]['aria.logoDetails'] || translations.en['aria.logoDetails'];
-            document.querySelectorAll('.tool-logo').forEach(logo => {
-                logo.setAttribute('aria-label', `${logoDetailsLabel} ${logo.alt}`);
+            const langTranslations = translations[lang] || {};
+            document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
+                const logo = wrapper.querySelector('.tool-logo');
+                if (!logo) return;
+                wrapper.setAttribute('aria-label', `${logoDetailsLabel} ${logo.alt}`);
+                const descKey = logo.dataset.descKey;
+                const logoDescription = (descKey && (langTranslations[descKey] || translations.en[descKey])) || '';
+                wrapper.setAttribute('aria-description', logoDescription);
             });
             const menuToggle = document.getElementById('menuToggle');
             if (menuToggle) {
