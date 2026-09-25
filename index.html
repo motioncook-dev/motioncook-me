@@ -264,6 +264,18 @@
             -webkit-tap-highlight-color: transparent;
         }
         
+        .tool-logo-wrapper::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            z-index: -1;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+        
         .tool-logo-wrapper.active .tool-logo {
             filter: grayscale(0%);
         }
@@ -308,7 +320,6 @@
             border-radius: 6px;
             background: transparent;
             border: 0;
-            padding: 8px;
             padding: 0;
             cursor: pointer;
             appearance: none;
