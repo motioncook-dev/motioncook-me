@@ -1238,17 +1238,17 @@
             <h1>Stephane Daguin<span>.</span></h1>
             <p class="hero-subtitle" data-i18n="hero.subtitle">Senior Houdini Artist · FX Technical Director</p>
             <div class="tool-logos">
-                <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for Houdini" data-logo-name="Houdini">
+                <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for Houdini" aria-describedby="logo-tooltip-houdini" data-logo-name="Houdini">
                     <img src="/images/houdini.png" alt="" class="tool-logo" data-desc-key="logo.houdini" aria-hidden="true">
-                    <span id="logo-tooltip-houdini" class="logo-tooltip">Houdini</span>
+                    <span id="logo-tooltip-houdini" class="logo-tooltip">Toggle details for Houdini</span>
                 </button>
-                <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for ComfyUI" data-logo-name="ComfyUI">
+                <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for ComfyUI" aria-describedby="logo-tooltip-comfyui" data-logo-name="ComfyUI">
                     <img src="/images/comfyui.png" alt="" class="tool-logo" data-desc-key="logo.comfyui" aria-hidden="true">
-                    <span id="logo-tooltip-comfyui" class="logo-tooltip">ComfyUI</span>
+                    <span id="logo-tooltip-comfyui" class="logo-tooltip">Toggle details for ComfyUI</span>
                 </button>
-                <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for Nuke" data-logo-name="Nuke">
+                <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for Nuke" aria-describedby="logo-tooltip-nuke" data-logo-name="Nuke">
                     <img src="/images/nuke.png" alt="" class="tool-logo" data-desc-key="logo.nuke" aria-hidden="true">
-                    <span id="logo-tooltip-nuke" class="logo-tooltip">Nuke</span>
+                    <span id="logo-tooltip-nuke" class="logo-tooltip">Toggle details for Nuke</span>
                 </button>
             </div>
 <p class="hero-description" data-i18n="hero.description">With more than 15 years of experience in advertising, series, and film, I have developed deep expertise in Houdini, covering fluid simulations, particle systems, and procedural pipelines. I am now extending my skills with ComfyUI to improve hybrid VFX workflow.</p>
@@ -1431,7 +1431,6 @@
         function initLogoTooltips() {
             const heroDesc = document.querySelector('.hero-description');
             const logoDescriptionLive = document.getElementById('logo-description-live');
-            let activeLogoDescKey = null;
             const activeLogoOrder = [];
             const removeDescKeyFromOrder = (key) => {
                 const keyIndex = activeLogoOrder.lastIndexOf(key);
@@ -1474,10 +1473,8 @@
                         const fallbackDescKey = activeLogoOrder[activeLogoOrder.length - 1] || null;
                         const fallbackDesc = fallbackDescKey ? getDescByKey(fallbackDescKey) : null;
                         if (fallbackDesc) {
-                            activeLogoDescKey = fallbackDescKey;
                             heroDesc.textContent = fallbackDesc;
                         } else {
-                            activeLogoDescKey = null;
                             heroDesc.textContent = getOriginalDesc();
                         }
                         announceHeroDescription();
@@ -1486,7 +1483,6 @@
                         wrapper.setAttribute('aria-pressed', 'true');
                         removeDescKeyFromOrder(descKey);
                         activeLogoOrder.push(descKey);
-                        activeLogoDescKey = descKey;
                         const desc = getDescByKey(descKey);
                         if (desc) heroDesc.textContent = desc;
                         announceHeroDescription();
