@@ -1416,7 +1416,8 @@
 
             function getLogoDesc(descKey) {
                 const lang = document.documentElement.lang;
-                return (descKey && translations[lang][descKey]) || getOriginalDesc();
+                const langTranslations = translations[lang] || {};
+                return (descKey && langTranslations[descKey]) || getOriginalDesc();
             }
 
             function getDisplayedDesc() {
@@ -1453,8 +1454,8 @@
                 logo.addEventListener('mouseenter', previewLogoDescription);
                 logo.addEventListener('mouseleave', restoreLogoDescription);
                 logo.addEventListener('click', toggleLogoDescription);
-                wrapper.addEventListener('focusin', previewLogoDescription);
-                wrapper.addEventListener('focusout', (e) => {
+                logo.addEventListener('focus', previewLogoDescription);
+                logo.addEventListener('blur', (e) => {
                     if (!wrapper.contains(e.relatedTarget)) {
                         restoreLogoDescription();
                     }
