@@ -1544,13 +1544,13 @@
                     el.textContent = v;
                 }
             });
-            const langTranslations = translations[lang] || {};
+            const logoDetailsLabel = translations[lang]['aria.logoDetails'] || translations.en['aria.logoDetails'];
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 if (!logo) return;
                 const nameKey = logo.dataset.nameKey;
                 const logoName = (nameKey && (logoNameTranslations[lang]?.[nameKey] || logoNameTranslations.en[nameKey])) || logo.getAttribute('title') || 'logo';
-                wrapper.setAttribute('aria-label', logoName);
+                wrapper.setAttribute('aria-label', `${logoDetailsLabel} ${logoName}`);
             });
             const menuToggle = document.getElementById('menuToggle');
             if (menuToggle) {
