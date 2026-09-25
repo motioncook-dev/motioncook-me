@@ -37,6 +37,7 @@
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+        #work { scroll-margin-top: 110px; }
         
         body {
             font-family: 'Outfit', sans-serif;
@@ -1055,12 +1056,92 @@
         .lang-name { font-weight: 500; }
         .lang-level { color: var(--text-gray); font-size: 0.85rem; }
         
+        .cert-preview {
+            position: relative;
+            margin-top: 10px;
+            width: fit-content;
+        }
+
+        .cert-preview-trigger {
+            display: block;
+            border: none;
+            padding: 0;
+            background: transparent;
+            border-radius: 8px;
+            cursor: zoom-in;
+        }
+
+        .cert-preview-trigger:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
         .cert-thumb {
             width: 100%;
             max-width: 200px;
             border-radius: 8px;
-            margin-top: 10px;
             display: block;
+            cursor: zoom-in;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .cert-thumb:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        .cert-preview-popup {
+            position: absolute;
+            left: calc(100% + 14px);
+            top: 50%;
+            width: min(420px, 52vw);
+            padding: 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(13,13,13,0.96);
+            box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateY(-50%) scale(0.96);
+            transform-origin: left center;
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+            z-index: 20;
+        }
+
+        .cert-preview-popup img {
+            width: 100%;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .cert-preview:hover .cert-thumb,
+        .cert-preview:focus-within .cert-thumb {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+        }
+
+        .cert-preview:hover .cert-preview-popup,
+        .cert-preview:focus-within .cert-preview-popup {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateY(-50%) scale(1);
+        }
+
+        @media (max-width: 900px) {
+            .cert-preview-popup {
+                left: 0;
+                top: calc(100% + 10px);
+                width: min(320px, 90vw);
+                transform: translateY(0) scale(0.96);
+                transform-origin: top left;
+            }
+
+            .cert-preview:hover .cert-preview-popup,
+            .cert-preview:focus-within .cert-preview-popup {
+                transform: translateY(0) scale(1);
+            }
         }
         
         footer {
@@ -1650,7 +1731,16 @@
                     <p class="cv-item-year">${f.year}</p>
                     <p class="cv-item-role">${f.role}</p>
                     <p class="cv-item-studio">${f.studio}</p>
-                    ${f.img ? `<img src="${f.img}" class="cert-thumb" alt="Certificate: ${f.role}" loading="lazy" decoding="async">` : ''}
+                    ${f.img ? `
+                        <div class="cert-preview">
+                            <a href="${f.img}" class="cert-preview-trigger" target="_blank" rel="noopener noreferrer">
+                                <img src="${f.img}" class="cert-thumb" alt="Certificate: ${f.role}" loading="lazy" decoding="async">
+                            </a>
+                            <div class="cert-preview-popup" aria-hidden="true">
+                                <img src="${f.img}" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                            </div>
+                        </div>
+                    ` : ''}
                 </div>
             `).join('');
         }
