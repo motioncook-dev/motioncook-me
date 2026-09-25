@@ -1430,7 +1430,8 @@
         
         function initLogoTooltips() {
             const heroDesc = document.querySelector('.hero-description');
-            const initialHeroDesc = heroDesc ? heroDesc.textContent : '';
+            if (!heroDesc) return;
+            const initialHeroDesc = heroDesc.textContent;
             const logoDescriptionLive = document.getElementById('logo-description-live');
             const activeLogoOrder = [];
             const removeDescKeyFromOrder = (key) => {
