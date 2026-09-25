@@ -1343,7 +1343,6 @@
                 
                 // Click to toggle: colored=description, gray=original
                 logo.addEventListener('click', (e) => {
-                    e.preventDefault();
                     if (wrapper.classList.contains('active')) {
                         wrapper.classList.remove('active');
                         heroDesc.textContent = getOriginalDesc();
