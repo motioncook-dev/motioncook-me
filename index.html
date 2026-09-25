@@ -287,11 +287,18 @@
         
         .tool-logo-wrapper:focus {
             outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.55);
         }
 
         .tool-logo-wrapper:focus-visible {
             outline: none;
             box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.55);
+        }
+
+        @supports selector(:focus-visible) {
+            .tool-logo-wrapper:focus {
+                box-shadow: none;
+            }
         }
         
         .tool-logo-wrapper {
@@ -1498,7 +1505,10 @@
                     }
                 });
                 wrapper.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        toggleLogoDescription();
+                    } else if (e.key === ' ') {
                         e.preventDefault();
                         skipNextClick = true;
                         toggleLogoDescription();
