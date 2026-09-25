@@ -104,7 +104,8 @@
             letter-spacing: -1px;
             color: var(--text-white);
         }
-        .logo span { color: var(--accent); font-size: 0.5em; }
+        .logo span { color: var(--accent); }
+        .small-me { font-size: 0.5em; }
         
         .nav-content { display: flex; align-items: center; gap: 40px; }
         .menu-toggle {
@@ -1339,7 +1340,7 @@
     <div class="grain"></div>
     
     <nav id="navbar" aria-label="Main navigation">
-        <div class="logo"><a href="https://motioncook.me" style="text-decoration:none; color:inherit;">motioncook<span>.me</span></a></div>
+        <div class="logo"><a href="https://motioncook.me" style="text-decoration:none; color:inherit;">motioncook<span>.</span><span class="small-me">me</span></a></div>
         <div class="nav-content">
             <button id="menuToggle" class="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-menu">Menu</button>
             <div class="nav-links" id="main-menu">
