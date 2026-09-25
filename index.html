@@ -1256,14 +1256,14 @@
         </div>
     </section>
 
-    <section class="cv-section" id="work">
-    <div class="cv-container" id="about">
+    <section class="cv-section" id="about">
+    <div class="cv-container">
         <div class="cv-main-row">
             <div class="cv-block cv-experience">
                 <p class="cv-block-title" data-i18n="cv.experience">Experience</p>
                 <div class="cv-timeline" id="experience-timeline"></div>
             </div>
-            <div class="cv-block cv-projects">
+            <div class="cv-block cv-projects" id="work">
                 <p class="cv-block-title">Selected Work</p>
                 <div class="filters">
                     <button class="filter-btn active" data-filter="all" data-i18n="filter.all" type="button" aria-pressed="true">All</button>
@@ -1537,7 +1537,8 @@
                 container.innerHTML = '';
                 const iframe = document.createElement('iframe');
                 iframe.src = embedLink;
-                iframe.title = translations[currentLang]['aria.videoPreview'] || translations.en['aria.videoPreview'];
+                const activeLang = document.documentElement.lang || currentLang || 'en';
+                iframe.title = translations[activeLang]['aria.videoPreview'] || translations.en['aria.videoPreview'];
                 iframe.allow = 'autoplay; fullscreen';
                 iframe.allowFullscreen = true;
                 container.appendChild(iframe);
@@ -1632,7 +1633,9 @@
             });
         }
         
+        let mobileMenuInitialized = false;
         function initMobileMenu() {
+            if (mobileMenuInitialized) return;
             const nav = document.getElementById('navbar');
             const toggle = document.getElementById('menuToggle');
             const links = document.querySelectorAll('#main-menu a');
@@ -1649,6 +1652,7 @@
             window.addEventListener('resize', () => {
                 if (window.innerWidth > 768) closeMenu();
             });
+            mobileMenuInitialized = true;
         }
         
         window.addEventListener('scroll', () => {
