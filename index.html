@@ -1457,11 +1457,10 @@
                 wrapper.addEventListener('click', toggleLogoDescription);
                 wrapper.addEventListener('focusin', previewLogoDescription);
                 wrapper.addEventListener('focusout', (e) => {
-                    if (!wrapper.contains(e.relatedTarget)) {
+                    if (!e.relatedTarget || !wrapper.contains(e.relatedTarget)) {
                         restoreLogoDescription();
                     }
                 });
-                wrapper.addEventListener('blur', restoreLogoDescription);
                 wrapper.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
