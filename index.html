@@ -37,6 +37,7 @@
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+        #work { scroll-margin-top: 110px; }
         
         body {
             font-family: 'Outfit', sans-serif;
@@ -1055,12 +1056,94 @@
         .lang-name { font-weight: 500; }
         .lang-level { color: var(--text-gray); font-size: 0.85rem; }
         
+        .cert-preview {
+            position: relative;
+            margin-top: 10px;
+            width: fit-content;
+        }
+
+        .cert-preview-trigger {
+            display: block;
+            border: none;
+            padding: 0;
+            background: transparent;
+            border-radius: 8px;
+            cursor: zoom-in;
+        }
+
+        .cert-preview-trigger:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
         .cert-thumb {
             width: 100%;
             max-width: 200px;
             border-radius: 8px;
-            margin-top: 10px;
             display: block;
+            cursor: zoom-in;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .cert-thumb:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        .cert-preview-popup {
+            position: absolute;
+            left: calc(100% + 14px);
+            top: 50%;
+            width: min(420px, 52vw);
+            padding: 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(13,13,13,0.96);
+            box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateY(-50%) scale(0.96);
+            transform-origin: left center;
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+            z-index: 20;
+        }
+
+        .cert-preview-popup img {
+            width: 100%;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .cert-preview:hover .cert-thumb,
+        .cert-preview:focus-within .cert-thumb {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+        }
+
+        .cert-preview:hover .cert-preview-popup,
+        .cert-preview:focus-within .cert-preview-popup,
+        .cert-preview.is-open .cert-preview-popup {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateY(-50%) scale(1);
+        }
+
+        @media (max-width: 900px) {
+            .cert-preview-popup {
+                left: 0;
+                top: calc(100% + 10px);
+                width: min(320px, 90vw);
+                transform: translateY(0) scale(0.96);
+                transform-origin: top left;
+            }
+
+            .cert-preview:hover .cert-preview-popup,
+            .cert-preview:focus-within .cert-preview-popup,
+            .cert-preview.is-open .cert-preview-popup {
+                transform: translateY(0) scale(1);
+            }
         }
         
         footer {
@@ -1435,6 +1518,7 @@
             { year: "2000-2002", role: "Master MST Image et Son", studio: "Aix-Marseille", img: "" },
             { year: "1997-2000", role: "DEUG Arts du spectacle", studio: "Montpellier", img: "" }
         ];
+        let formationRenderCount = 0;
         
         Object.assign(translations.en, { "logo.name.houdini": "Houdini", "logo.name.comfyui": "ComfyUI", "logo.name.nuke": "Nuke" });
         Object.assign(translations.fr, { "logo.name.houdini": "Houdini", "logo.name.comfyui": "ComfyUI", "logo.name.nuke": "Nuke" });
@@ -1645,14 +1729,88 @@
         }
         
         function renderFormation() {
-            document.getElementById('formation-timeline').innerHTML = formations.map(f => `
+            const renderId = `formation-${++formationRenderCount}`;
+            document.getElementById('formation-timeline').innerHTML = formations.map((f, idx) => `
                 <div class="cv-item">
                     <p class="cv-item-year">${f.year}</p>
-                    <p class="cv-item-role">${f.role}</p>
+                    <p class="cv-item-role" id="${renderId}-cert-role-${idx}">${f.role}</p>
                     <p class="cv-item-studio">${f.studio}</p>
-                    ${f.img ? `<img src="${f.img}" class="cert-thumb" alt="Certificate: ${f.role}" loading="lazy" decoding="async">` : ''}
+                    ${f.img ? `
+                        <div class="cert-preview">
+                            <button type="button" class="cert-preview-trigger" aria-label="Preview certificate: ${f.role}" aria-expanded="false" aria-controls="${renderId}-cert-preview-${idx}">
+                                <img src="${f.img}" class="cert-thumb" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                            </button>
+                            <div class="cert-preview-popup" id="${renderId}-cert-preview-${idx}" aria-labelledby="${renderId}-cert-role-${idx}" aria-hidden="true">
+                                <img src="${f.img}" alt="Full certificate: ${f.role}" loading="lazy" decoding="async">
+                            </div>
+                        </div>
+                    ` : ''}
                 </div>
             `).join('');
+        }
+
+        let certificatePreviewBoundElement = null;
+        let certificatePreviewOutsideHandlerBound = false;
+
+        function setCertificatePreviewState(preview, isOpen) {
+            preview.classList.toggle('is-open', isOpen);
+            const trigger = preview.querySelector('.cert-preview-trigger');
+            const popup = preview.querySelector('.cert-preview-popup');
+            if (trigger) trigger.setAttribute('aria-expanded', String(isOpen));
+            if (popup) popup.setAttribute('aria-hidden', String(!isOpen));
+        }
+
+        function closeAllCertificatePreviews(except = null) {
+            document.querySelectorAll('.cert-preview').forEach(preview => {
+                if (preview !== except) setCertificatePreviewState(preview, false);
+            });
+        }
+
+        function attachCertificatePreviewListeners() {
+            const timeline = document.getElementById('formation-timeline');
+            if (!timeline || certificatePreviewBoundElement === timeline) return;
+
+            timeline.addEventListener('click', (event) => {
+                const trigger = event.target.closest('.cert-preview-trigger');
+                if (!trigger) return;
+                const preview = trigger.closest('.cert-preview');
+                if (!preview) return;
+                event.stopPropagation();
+                const shouldOpen = !preview.classList.contains('is-open');
+                closeAllCertificatePreviews(preview);
+                setCertificatePreviewState(preview, shouldOpen);
+                if (!shouldOpen) trigger.blur();
+            });
+
+            timeline.addEventListener('focusin', (event) => {
+                const preview = event.target.closest('.cert-preview');
+                if (!preview) return;
+                closeAllCertificatePreviews(preview);
+                setCertificatePreviewState(preview, true);
+            });
+
+            timeline.addEventListener('keydown', (event) => {
+                const activePreview = event.target.closest('.cert-preview.is-open');
+                if (event.key === 'Escape' && activePreview) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    const activeTrigger = activePreview.querySelector('.cert-preview-trigger[aria-expanded="true"]');
+                    closeAllCertificatePreviews();
+                    if (activeTrigger) activeTrigger.focus();
+                }
+            });
+
+            if (!certificatePreviewOutsideHandlerBound) {
+                document.addEventListener('click', (event) => {
+                    if (!event.target.closest('.cert-preview')) closeAllCertificatePreviews();
+                });
+                document.addEventListener('focusin', (event) => {
+                    if (!event.target.closest('.cert-preview')) closeAllCertificatePreviews();
+                });
+                certificatePreviewOutsideHandlerBound = true;
+            }
+
+            certificatePreviewBoundElement = timeline;
         }
         
         function attachFilterListeners() {
@@ -1769,6 +1927,7 @@
         renderProjects();
         renderExperience();
         renderFormation();
+        attachCertificatePreviewListeners();
         setTimeout(attachHoverListeners, 100);
         initLogoTooltips();
         initMobileMenu();
