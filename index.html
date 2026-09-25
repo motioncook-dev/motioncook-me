@@ -1473,9 +1473,10 @@
                     if (!key) return null;
                     return langTable[key] || translations.en[key] || null;
                 };
-                const logoName = wrapper.dataset.logoName || wrapper.getAttribute('title') || '';
-                wrapper.setAttribute('aria-label', `${getLogoDetailsLabel()} ${logoName}`.trim());
                 const tooltip = wrapper.querySelector('.logo-tooltip');
+                const tooltipName = tooltip ? tooltip.textContent.split('—')[0].trim() : '';
+                const logoName = wrapper.dataset.logoName || wrapper.getAttribute('title') || tooltipName || 'Tool logo';
+                wrapper.setAttribute('aria-label', `${getLogoDetailsLabel()} ${logoName}`.trim());
                 if (tooltip) tooltip.textContent = `${logoName} — ${getLogoToggleHint()}`.trim();
                 
                 // Click to toggle: colored=description, gray=original
@@ -1538,10 +1539,11 @@
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 if (!logo) return;
-                const logoName = wrapper.dataset.logoName || wrapper.getAttribute('title') || '';
+                const tooltip = wrapper.querySelector('.logo-tooltip');
+                const tooltipName = tooltip ? tooltip.textContent.split('—')[0].trim() : '';
+                const logoName = wrapper.dataset.logoName || wrapper.getAttribute('title') || tooltipName || 'Tool logo';
                 const logoLabel = `${logoDetailsLabel} ${logoName}`.trim();
                 wrapper.setAttribute('aria-label', logoLabel);
-                const tooltip = wrapper.querySelector('.logo-tooltip');
                 if (tooltip) tooltip.textContent = `${logoName} — ${logoToggleHint}`.trim();
             });
             const menuToggle = document.getElementById('menuToggle');
