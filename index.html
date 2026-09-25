@@ -1458,7 +1458,7 @@
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 const descKey = logo.dataset.descKey;
-                let ignoreZeroDetailClickUntil = 0;
+                let suppressNextZeroDetailClick = false;
                 wrapper.setAttribute('role', 'button');
                 wrapper.setAttribute('tabindex', '0');
                 logo.setAttribute('tabindex', '-1');
@@ -1492,11 +1492,15 @@
                     restoreLogoDescription();
                 });
                 const markKeyboardActivation = () => {
-                    ignoreZeroDetailClickUntil = performance.now() + 400;
+                    suppressNextZeroDetailClick = true;
+                    setTimeout(() => {
+                        suppressNextZeroDetailClick = false;
+                    }, 0);
                 };
 
                 wrapper.addEventListener('click', (e) => {
-                    if (e.detail === 0 && performance.now() <= ignoreZeroDetailClickUntil) {
+                    if (e.detail === 0 && suppressNextZeroDetailClick) {
+                        suppressNextZeroDetailClick = false;
                         return;
                     }
                     toggleLogoDescription();
