@@ -1253,13 +1253,13 @@
             <p class="hero-subtitle" data-i18n="hero.subtitle">Senior Houdini Artist · FX Technical Director</p>
             <div class="tool-logos">
                 <button class="tool-logo-wrapper" type="button" aria-label="Houdini">
-                    <img src="/images/houdini.png" alt="Houdini" class="tool-logo" title="Houdini" data-desc-key="logo.houdini">
+                    <img src="/images/houdini.png" alt="" class="tool-logo" title="Houdini" data-desc-key="logo.houdini" aria-hidden="true">
                 </button>
                 <button class="tool-logo-wrapper" type="button" aria-label="ComfyUI">
-                    <img src="/images/comfyui.png" alt="ComfyUI" class="tool-logo" title="ComfyUI" data-desc-key="logo.comfyui">
+                    <img src="/images/comfyui.png" alt="" class="tool-logo" title="ComfyUI" data-desc-key="logo.comfyui" aria-hidden="true">
                 </button>
                 <button class="tool-logo-wrapper" type="button" aria-label="Nuke">
-                    <img src="/images/nuke.png" alt="Nuke" class="tool-logo" title="Nuke" data-desc-key="logo.nuke">
+                    <img src="/images/nuke.png" alt="" class="tool-logo" title="Nuke" data-desc-key="logo.nuke" aria-hidden="true">
                 </button>
             </div>
 <p class="hero-description" data-i18n="hero.description">With more than 15 years of experience in advertising, series, and film, I have developed deep expertise in Houdini, covering fluid simulations, particle systems, and procedural pipelines. I am now extending my skills with ComfyUI to improve hybrid VFX workflow.</p>
@@ -1543,7 +1543,8 @@
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 if (!logo) return;
-                wrapper.setAttribute('aria-label', `${logoDetailsLabel} ${logo.alt}`);
+                const logoName = logo.getAttribute('title') || 'logo';
+                wrapper.setAttribute('aria-label', `${logoDetailsLabel} ${logoName}`);
                 const descKey = logo.dataset.descKey;
                 const logoDescription = (descKey && (langTranslations[descKey] || translations.en[descKey])) || '';
                 wrapper.setAttribute('aria-description', logoDescription);
