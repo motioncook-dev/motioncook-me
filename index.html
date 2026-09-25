@@ -1434,6 +1434,7 @@
                 wrapper.setAttribute('role', 'button');
                 wrapper.setAttribute('tabindex', '0');
                 logo.setAttribute('tabindex', '-1');
+                logo.setAttribute('aria-hidden', 'true');
                 
                 // Click to toggle: colored=description, gray=original
                 const toggleLogoDescription = () => {
@@ -1456,8 +1457,12 @@
                 wrapper.addEventListener('mouseenter', previewLogoDescription);
                 wrapper.addEventListener('mouseleave', restoreLogoDescription);
                 wrapper.addEventListener('click', toggleLogoDescription);
-                wrapper.addEventListener('focus', previewLogoDescription);
-                wrapper.addEventListener('blur', restoreLogoDescription);
+                wrapper.addEventListener('focusin', previewLogoDescription);
+                wrapper.addEventListener('focusout', (e) => {
+                    if (!e.relatedTarget || !wrapper.contains(e.relatedTarget)) {
+                        restoreLogoDescription();
+                    }
+                });
                 wrapper.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
