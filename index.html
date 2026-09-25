@@ -287,12 +287,12 @@
         
         .tool-logo-wrapper:focus {
             outline: none;
-            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.55);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9), 0 0 0 6px rgba(0, 0, 0, 0.65);
         }
 
         .tool-logo-wrapper:focus-visible {
             outline: none;
-            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.55);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9), 0 0 0 6px rgba(0, 0, 0, 0.65);
         }
 
         @supports selector(:focus-visible) {
@@ -1458,6 +1458,7 @@
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 const descKey = logo.dataset.descKey;
+                let ignoreZeroDetailClickUntil = 0;
                 wrapper.setAttribute('role', 'button');
                 wrapper.setAttribute('tabindex', '0');
                 logo.setAttribute('tabindex', '-1');
@@ -1490,8 +1491,12 @@
                     wrapper.classList.remove('just-deactivated');
                     restoreLogoDescription();
                 });
+                const markKeyboardActivation = () => {
+                    ignoreZeroDetailClickUntil = performance.now() + 400;
+                };
+
                 wrapper.addEventListener('click', (e) => {
-                    if (e.detail === 0) {
+                    if (e.detail === 0 && performance.now() <= ignoreZeroDetailClickUntil) {
                         return;
                     }
                     toggleLogoDescription();
@@ -1505,6 +1510,7 @@
                 wrapper.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter') {
                         e.preventDefault();
+                        markKeyboardActivation();
                         toggleLogoDescription();
                     } else if (e.key === ' ') {
                         e.preventDefault();
@@ -1513,6 +1519,7 @@
                 wrapper.addEventListener('keyup', (e) => {
                     if (e.key === ' ') {
                         e.preventDefault();
+                        markKeyboardActivation();
                         toggleLogoDescription();
                     }
                 });
