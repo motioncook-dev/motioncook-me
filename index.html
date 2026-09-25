@@ -1414,12 +1414,18 @@
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 const descKey = logo.dataset.descKey;
+                const getLogoDetailsLabel = () => {
+                    const lang = document.documentElement.lang;
+                    const langTable = translations[lang] || translations.en;
+                    return langTable['aria.logoDetails'] || translations.en['aria.logoDetails'];
+                };
                 const getDescByKey = (key) => {
                     const lang = document.documentElement.lang;
+                    const langTable = translations[lang] || translations.en;
                     if (!key) return null;
-                    return translations[lang][key] || translations.en[key] || null;
+                    return langTable[key] || translations.en[key] || null;
                 };
-                wrapper.setAttribute('aria-label', `${translations[currentLang]['aria.logoDetails'] || translations.en['aria.logoDetails']} ${logo.alt}`);
+                wrapper.setAttribute('aria-label', `${getLogoDetailsLabel()} ${logo.alt}`);
                 
                 // Click to toggle: colored=description, gray=original
                 const toggleLogoDescription = () => {
