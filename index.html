@@ -1416,7 +1416,8 @@
                 const descKey = logo.dataset.descKey;
                 const getDescByKey = (key) => {
                     const lang = document.documentElement.lang;
-                    return (key && translations[lang][key]) ? translations[lang][key] : null;
+                    if (!key) return null;
+                    return translations[lang][key] || translations.en[key] || null;
                 };
                 wrapper.setAttribute('aria-label', `${translations[currentLang]['aria.logoDetails'] || translations.en['aria.logoDetails']} ${logo.alt}`);
                 
@@ -1424,11 +1425,12 @@
                 const toggleLogoDescription = () => {
                     const isActive = wrapper.classList.contains('active');
                     if (isActive) {
+                        const currentLogoDesc = getDescByKey(descKey);
                         wrapper.classList.remove('active');
                         wrapper.setAttribute('aria-pressed', 'false');
-                        const anotherActive = document.querySelector('.tool-logo-wrapper.active .tool-logo');
-                        const anotherDesc = anotherActive ? getDescByKey(anotherActive.dataset.descKey) : null;
-                        heroDesc.textContent = anotherDesc || getOriginalDesc();
+                        if (heroDesc.textContent === currentLogoDesc) {
+                            heroDesc.textContent = getOriginalDesc();
+                        }
                     } else {
                         wrapper.classList.add('active');
                         wrapper.setAttribute('aria-pressed', 'true');
