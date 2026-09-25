@@ -1455,12 +1455,6 @@
                 wrapper.addEventListener('mouseenter', previewLogoDescription);
                 wrapper.addEventListener('mouseleave', restoreLogoDescription);
                 wrapper.addEventListener('click', toggleLogoDescription);
-                wrapper.addEventListener('focusin', previewLogoDescription);
-                wrapper.addEventListener('focusout', (e) => {
-                    if (!e.relatedTarget || !wrapper.contains(e.relatedTarget)) {
-                        restoreLogoDescription();
-                    }
-                });
                 wrapper.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
