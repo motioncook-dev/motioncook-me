@@ -258,24 +258,10 @@
         .tool-logo {
             width: 48px;
             height: 48px;
-            position: relative;
             filter: grayscale(100%) opacity(0.6);
             transition: all 0.3s;
             touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
-        }
-        
-        .tool-logo::before {
-            content: "";
-            position: absolute;
-            top: -8px;
-            left: -8px;
-            right: -8px;
-            bottom: -8px;
-            z-index: 1;
-            background: transparent;
-            pointer-events: auto;
-            cursor: pointer;
         }
         
         .tool-logo-wrapper.active .tool-logo {
@@ -322,6 +308,7 @@
             border-radius: 6px;
             background: transparent;
             border: 0;
+            padding: 8px;
             padding: 0;
             cursor: pointer;
             appearance: none;
