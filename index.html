@@ -236,6 +236,20 @@
             color: var(--accent);
         }
         
+        .dot-i {
+            color: inherit;
+            position: relative;
+        }
+        .dot-i::after {
+            content: ".";
+            color: var(--accent);
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7em;
+        }
+        
         .hero-subtitle {
             font-size: clamp(1rem, 2.5vw, 1.5rem);
             font-weight: 300;
@@ -1360,7 +1374,7 @@
     <section class="hero" id="top">
         <div class="hero-content">
             <div class="hero-badge" data-i18n="hero.badge">VFX Artist & FX TD</div>
-            <h1>Stephane Dagu<span>i</span>n</h1>
+            <h1>Stephane Dagu<span class="dot-i">i</span>n</h1>
             <p class="hero-subtitle" data-i18n="hero.subtitle">Senior Houdini Artist · FX Technical Director</p>
             <div class="tool-logos">
                 <button class="tool-logo-wrapper" type="button">
