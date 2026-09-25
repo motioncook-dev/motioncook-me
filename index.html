@@ -241,13 +241,15 @@
             position: relative;
         }
         .dot-i::after {
-            content: ".";
-            color: var(--accent);
+            content: "";
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--accent);
             position: absolute;
-            bottom: -2px;
+            top: -6px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 0.7em;
         }
         
         .hero-subtitle {
