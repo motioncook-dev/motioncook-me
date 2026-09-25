@@ -249,7 +249,7 @@
         
         .tool-logos {
             display: flex;
-            gap: 5px;
+            gap: 15px;
             justify-content: center;
             margin-bottom: 25px;
             animation: fadeInUp 0.8s ease-out 0.7s both;
@@ -258,7 +258,6 @@
         .tool-logo {
             width: 48px;
             height: 48px;
-            margin: 0 -3px;
             filter: grayscale(100%) opacity(0.6);
             transition: all 0.3s;
             touch-action: manipulation;
@@ -269,7 +268,11 @@
             filter: grayscale(0%);
         }
         
-        .tool-logos .tool-logo-wrapper:hover .tool-logo {
+        .tool-logos:hover .tool-logo-wrapper .tool-logo {
+            filter: grayscale(100%) opacity(0.6);
+        }
+
+        .tool-logos:hover .tool-logo-wrapper:hover .tool-logo {
             filter: grayscale(0%);
         }
 
