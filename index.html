@@ -1453,8 +1453,12 @@
                 logo.addEventListener('mouseenter', previewLogoDescription);
                 logo.addEventListener('mouseleave', restoreLogoDescription);
                 logo.addEventListener('click', toggleLogoDescription);
-                logo.addEventListener('focus', previewLogoDescription);
-                logo.addEventListener('blur', restoreLogoDescription);
+                wrapper.addEventListener('focusin', previewLogoDescription);
+                wrapper.addEventListener('focusout', (e) => {
+                    if (!wrapper.contains(e.relatedTarget)) {
+                        restoreLogoDescription();
+                    }
+                });
                 logo.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
