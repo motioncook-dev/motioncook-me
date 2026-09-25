@@ -305,6 +305,11 @@
             position: relative;
             display: inline-block;
             border-radius: 6px;
+            background: transparent;
+            border: 0;
+            padding: 0;
+            cursor: pointer;
+            appearance: none;
         }
         
         .tool-logo-wrapper .logo-tooltip {
@@ -1247,15 +1252,15 @@
             <h1>Stephane Daguin<span>.</span></h1>
             <p class="hero-subtitle" data-i18n="hero.subtitle">Senior Houdini Artist · FX Technical Director</p>
             <div class="tool-logos">
-                <div class="tool-logo-wrapper">
+                <button class="tool-logo-wrapper" type="button">
                     <img src="/images/houdini.png" alt="Houdini" class="tool-logo" title="Houdini" data-desc-key="logo.houdini">
-                </div>
-                <div class="tool-logo-wrapper">
+                </button>
+                <button class="tool-logo-wrapper" type="button">
                     <img src="/images/comfyui.png" alt="ComfyUI" class="tool-logo" title="ComfyUI" data-desc-key="logo.comfyui">
-                </div>
-                <div class="tool-logo-wrapper">
+                </button>
+                <button class="tool-logo-wrapper" type="button">
                     <img src="/images/nuke.png" alt="Nuke" class="tool-logo" title="Nuke" data-desc-key="logo.nuke">
-                </div>
+                </button>
             </div>
 <p class="hero-description" data-i18n="hero.description">With more than 15 years of experience in advertising, series, and film, I have developed deep expertise in Houdini, covering fluid simulations, particle systems, and procedural pipelines. I am now extending my skills with ComfyUI to improve hybrid VFX workflow.</p>
             <div class="hero-contact-row">
@@ -1458,9 +1463,6 @@
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 const descKey = logo.dataset.descKey;
-                let suppressNextZeroDetailClick = false;
-                wrapper.setAttribute('role', 'button');
-                wrapper.setAttribute('tabindex', '0');
                 logo.setAttribute('tabindex', '-1');
                 logo.setAttribute('aria-hidden', 'true');
                 
@@ -1491,41 +1493,11 @@
                     wrapper.classList.remove('just-deactivated');
                     restoreLogoDescription();
                 });
-                const markKeyboardActivation = () => {
-                    suppressNextZeroDetailClick = true;
-                    setTimeout(() => {
-                        suppressNextZeroDetailClick = false;
-                    }, 0);
-                };
-
-                wrapper.addEventListener('click', (e) => {
-                    if (e.detail === 0 && suppressNextZeroDetailClick) {
-                        suppressNextZeroDetailClick = false;
-                        return;
-                    }
-                    toggleLogoDescription();
-                });
+                wrapper.addEventListener('click', toggleLogoDescription);
                 wrapper.addEventListener('focusin', previewLogoDescription);
                 wrapper.addEventListener('focusout', (e) => {
                     if (!e.relatedTarget || !wrapper.contains(e.relatedTarget)) {
                         restoreLogoDescription();
-                    }
-                });
-                wrapper.addEventListener('keydown', (e) => {
-                    if (e.repeat) return;
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        markKeyboardActivation();
-                        toggleLogoDescription();
-                    } else if (e.key === ' ') {
-                        e.preventDefault();
-                    }
-                });
-                wrapper.addEventListener('keyup', (e) => {
-                    if (e.key === ' ') {
-                        e.preventDefault();
-                        markKeyboardActivation();
-                        toggleLogoDescription();
                     }
                 });
             });
