@@ -1521,12 +1521,6 @@
                     restoreLogoDescription();
                 });
                 wrapper.addEventListener('click', toggleLogoDescription);
-                wrapper.addEventListener('focusin', previewLogoDescription);
-                wrapper.addEventListener('focusout', (e) => {
-                    if (!e.relatedTarget || !wrapper.contains(e.relatedTarget)) {
-                        restoreLogoDescription();
-                    }
-                });
             });
             
             // Restore when clicking elsewhere (but not on lang buttons or tool logos)
