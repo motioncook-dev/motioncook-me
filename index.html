@@ -1240,15 +1240,15 @@
             <div class="tool-logos">
                 <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for Houdini" data-logo-name="Houdini">
                     <img src="/images/houdini.png" alt="" class="tool-logo" data-desc-key="logo.houdini" aria-hidden="true">
-                    <span id="logo-tooltip-houdini" class="logo-tooltip">Toggle details for Houdini</span>
+                    <span class="logo-tooltip">Toggle details for Houdini</span>
                 </button>
                 <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for ComfyUI" data-logo-name="ComfyUI">
                     <img src="/images/comfyui.png" alt="" class="tool-logo" data-desc-key="logo.comfyui" aria-hidden="true">
-                    <span id="logo-tooltip-comfyui" class="logo-tooltip">Toggle details for ComfyUI</span>
+                    <span class="logo-tooltip">Toggle details for ComfyUI</span>
                 </button>
                 <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for Nuke" data-logo-name="Nuke">
                     <img src="/images/nuke.png" alt="" class="tool-logo" data-desc-key="logo.nuke" aria-hidden="true">
-                    <span id="logo-tooltip-nuke" class="logo-tooltip">Toggle details for Nuke</span>
+                    <span class="logo-tooltip">Toggle details for Nuke</span>
                 </button>
             </div>
 <p class="hero-description" data-i18n="hero.description">With more than 15 years of experience in advertising, series, and film, I have developed deep expertise in Houdini, covering fluid simulations, particle systems, and procedural pipelines. I am now extending my skills with ComfyUI to improve hybrid VFX workflow.</p>
@@ -1430,6 +1430,7 @@
         
         function initLogoTooltips() {
             const heroDesc = document.querySelector('.hero-description');
+            const initialHeroDesc = heroDesc ? heroDesc.textContent : '';
             const logoDescriptionLive = document.getElementById('logo-description-live');
             const activeLogoOrder = [];
             const removeDescKeyFromOrder = (key) => {
@@ -1448,7 +1449,7 @@
             function getOriginalDesc() {
                 const lang = document.documentElement.lang;
                 const langTable = translations[lang] || translations.en;
-                return langTable['hero.description'] || heroDesc.textContent;
+                return langTable['hero.description'] || initialHeroDesc;
             }
             
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
