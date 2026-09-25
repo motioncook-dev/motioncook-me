@@ -332,18 +332,6 @@
             pointer-events: none;
         }
 
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-        
         .tool-logo-wrapper:hover .logo-tooltip {
             visibility: visible;
             opacity: 1;
@@ -1476,22 +1464,11 @@
                 return getLogoDesc(activeLogo.dataset?.descKey);
             }
             
-            document.querySelectorAll('.tool-logo-wrapper').forEach((wrapper, index) => {
+            document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 const descKey = logo.dataset.descKey;
                 logo.setAttribute('tabindex', '-1');
                 logo.setAttribute('aria-hidden', 'true');
-                const srDescId = `logo-sr-desc-${index}`;
-                let srDesc = wrapper.querySelector('.logo-sr-description');
-                if (!srDesc) {
-                    srDesc = document.createElement('span');
-                    srDesc.className = 'sr-only logo-sr-description';
-                    srDesc.id = srDescId;
-                    wrapper.appendChild(srDesc);
-                } else if (!srDesc.id) {
-                    srDesc.id = srDescId;
-                }
-                wrapper.setAttribute('aria-describedby', srDesc.id);
                 
                 // Click to toggle: colored=description, gray=original
                 const toggleLogoDescription = () => {
@@ -1521,6 +1498,12 @@
                     restoreLogoDescription();
                 });
                 wrapper.addEventListener('click', toggleLogoDescription);
+                wrapper.addEventListener('focusin', previewLogoDescription);
+                wrapper.addEventListener('focusout', (e) => {
+                    if (!e.relatedTarget || !wrapper.contains(e.relatedTarget)) {
+                        restoreLogoDescription();
+                    }
+                });
             });
             
             // Restore when clicking elsewhere (but not on lang buttons or tool logos)
@@ -1567,10 +1550,6 @@
                 const nameKey = logo.dataset.nameKey;
                 const logoName = (nameKey && (langMap[nameKey] || translations.en[nameKey])) || logo.getAttribute('title') || 'logo';
                 wrapper.setAttribute('aria-label', `${logoDetailsLabel} ${logoName}`);
-                const descKey = logo.dataset.descKey;
-                const logoDescription = (descKey && (langMap[descKey] || translations.en[descKey])) || '';
-                const srDesc = wrapper.querySelector('.logo-sr-description');
-                if (srDesc) srDesc.textContent = logoDescription;
             });
             const menuToggle = document.getElementById('menuToggle');
             if (menuToggle) {
