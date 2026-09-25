@@ -1544,7 +1544,8 @@
                     el.textContent = v;
                 }
             });
-            const logoDetailsLabel = translations[lang]['aria.logoDetails'] || translations.en['aria.logoDetails'];
+            const langMap = translations[lang] || translations.en;
+            const logoDetailsLabel = langMap['aria.logoDetails'] || translations.en['aria.logoDetails'];
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 if (!logo) return;
