@@ -1094,7 +1094,8 @@
             position: absolute;
             left: calc(100% + 14px);
             top: 50%;
-            width: min(420px, 52vw);
+            width: min(420px, 52vw, calc(100vw - 48px));
+            max-width: calc(100vw - 48px);
             padding: 8px;
             border-radius: 10px;
             border: 1px solid rgba(255,255,255,0.15);
@@ -1107,6 +1108,12 @@
             transform-origin: left center;
             transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
             z-index: 20;
+        }
+
+        .cert-preview.popup-left .cert-preview-popup {
+            left: auto;
+            right: calc(100% + 14px);
+            transform-origin: right center;
         }
 
         .cert-preview-popup img {
@@ -1743,6 +1750,56 @@
                     ` : ''}
                 </div>
             `).join('');
+            initCertificatePreviews();
+        }
+
+        function initCertificatePreviews() {
+            const previews = document.querySelectorAll('.cert-preview');
+            if (!previews.length) return;
+
+            const resetCertificatePreviewFocus = () => {
+                const activePreviewTrigger = document.activeElement?.closest?.('.cert-preview-trigger');
+                if (activePreviewTrigger) activePreviewTrigger.blur();
+            };
+
+            const updateCertificatePreviewPosition = (preview) => {
+                preview.classList.remove('popup-left');
+                if (window.innerWidth <= 900) return;
+
+                const rect = preview.getBoundingClientRect();
+                const popupWidth = Math.min(420, window.innerWidth * 0.52, window.innerWidth - 48);
+                const gap = 14;
+                const spaceRight = window.innerWidth - rect.right;
+                const spaceLeft = rect.left;
+
+                if (spaceRight < popupWidth + gap && spaceLeft > spaceRight) {
+                    preview.classList.add('popup-left');
+                }
+            };
+
+            previews.forEach(preview => {
+                const trigger = preview.querySelector('.cert-preview-trigger');
+                if (!trigger) return;
+
+                updateCertificatePreviewPosition(preview);
+
+                preview.addEventListener('mouseenter', () => updateCertificatePreviewPosition(preview));
+                trigger.addEventListener('focus', () => updateCertificatePreviewPosition(preview));
+                trigger.addEventListener('click', () => {
+                    window.setTimeout(() => {
+                        trigger.blur();
+                        updateCertificatePreviewPosition(preview);
+                    }, 0);
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                previews.forEach(updateCertificatePreviewPosition);
+            });
+            window.addEventListener('focus', resetCertificatePreviewFocus);
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) resetCertificatePreviewFocus();
+            });
         }
         
         function attachFilterListeners() {
