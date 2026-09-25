@@ -1550,6 +1550,9 @@
                 const nameKey = logo.dataset.nameKey;
                 const logoName = (nameKey && (langMap[nameKey] || translations.en[nameKey])) || logo.getAttribute('title') || 'logo';
                 wrapper.setAttribute('aria-label', `${logoDetailsLabel} ${logoName}`);
+                const descKey = logo.dataset.descKey;
+                const logoDescription = (descKey && (langMap[descKey] || translations.en[descKey])) || '';
+                wrapper.setAttribute('aria-description', logoDescription);
             });
             const menuToggle = document.getElementById('menuToggle');
             if (menuToggle) {
