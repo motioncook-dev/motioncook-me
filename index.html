@@ -1431,7 +1431,6 @@
         function initLogoTooltips() {
             const heroDesc = document.querySelector('.hero-description');
             if (!heroDesc) return;
-            const initialHeroDesc = heroDesc.textContent;
             const logoDescriptionLive = document.getElementById('logo-description-live');
             const activeLogoOrder = [];
             const removeDescKeyFromOrder = (key) => {
@@ -1450,11 +1449,12 @@
             function getOriginalDesc() {
                 const lang = document.documentElement.lang;
                 const langTable = translations[lang] || translations.en;
-                return langTable['hero.description'] || initialHeroDesc;
+                return langTable['hero.description'] || translations.en['hero.description'] || heroDesc.textContent;
             }
             
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
+                if (!logo) return;
                 const descKey = logo.dataset.descKey;
                 const getLogoDetailsLabel = () => {
                     const lang = document.documentElement.lang;
@@ -1469,6 +1469,8 @@
                 };
                 const logoName = wrapper.dataset.logoName || wrapper.getAttribute('title') || '';
                 wrapper.setAttribute('aria-label', `${getLogoDetailsLabel()} ${logoName}`.trim());
+                const tooltip = wrapper.querySelector('.logo-tooltip');
+                if (tooltip) tooltip.textContent = `${getLogoDetailsLabel()} ${logoName}`.trim();
                 
                 // Click to toggle: colored=description, gray=original
                 const toggleLogoDescription = () => {
@@ -1529,7 +1531,10 @@
                 const logo = wrapper.querySelector('.tool-logo');
                 if (!logo) return;
                 const logoName = wrapper.dataset.logoName || wrapper.getAttribute('title') || '';
-                wrapper.setAttribute('aria-label', `${logoDetailsLabel} ${logoName}`.trim());
+                const logoLabel = `${logoDetailsLabel} ${logoName}`.trim();
+                wrapper.setAttribute('aria-label', logoLabel);
+                const tooltip = wrapper.querySelector('.logo-tooltip');
+                if (tooltip) tooltip.textContent = logoLabel;
             });
             const menuToggle = document.getElementById('menuToggle');
             if (menuToggle) {
