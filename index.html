@@ -267,17 +267,27 @@
             filter: grayscale(0%);
         }
         
-        .tool-logo-wrapper:hover .tool-logo {
+        .tool-logos:hover .tool-logo-wrapper .tool-logo {
+            filter: grayscale(100%) opacity(0.6);
+        }
+
+        .tool-logos:hover .tool-logo-wrapper:hover .tool-logo {
             filter: grayscale(0%);
+        }
+
+        .tool-logo-wrapper.just-deactivated .tool-logo,
+        .tool-logos:hover .tool-logo-wrapper.just-deactivated:hover .tool-logo {
+            filter: grayscale(100%) opacity(0.6);
         }
         
         .tool-logo-wrapper:focus-within .tool-logo {
             filter: grayscale(0%);
         }
         
+        .tool-logo-wrapper:focus,
+        .tool-logo-wrapper:focus-visible,
         .tool-logo-wrapper:focus-within {
-            outline: 2px solid rgba(255, 255, 255, 0.85);
-            outline-offset: 2px;
+            outline: none;
         }
         
         .tool-logo-wrapper {
@@ -1446,9 +1456,13 @@
                 const toggleLogoDescription = () => {
                     if (wrapper.classList.contains('active')) {
                         wrapper.classList.remove('active');
+                        wrapper.classList.add('just-deactivated');
                         heroDesc.textContent = getOriginalDesc();
                     } else {
-                        document.querySelectorAll('.tool-logo-wrapper').forEach(w => w.classList.remove('active'));
+                        document.querySelectorAll('.tool-logo-wrapper').forEach(w => {
+                            w.classList.remove('active');
+                            w.classList.remove('just-deactivated');
+                        });
                         wrapper.classList.add('active');
                         heroDesc.textContent = getLogoDesc(descKey);
                     }
@@ -1461,11 +1475,15 @@
                 };
 
                 wrapper.addEventListener('mouseenter', previewLogoDescription);
-                wrapper.addEventListener('mouseleave', restoreLogoDescription);
+                wrapper.addEventListener('mouseleave', () => {
+                    wrapper.classList.remove('just-deactivated');
+                    restoreLogoDescription();
+                });
                 wrapper.addEventListener('click', toggleLogoDescription);
                 wrapper.addEventListener('focusin', previewLogoDescription);
                 wrapper.addEventListener('focusout', (e) => {
                     if (!e.relatedTarget || !wrapper.contains(e.relatedTarget)) {
+                        wrapper.classList.remove('just-deactivated');
                         restoreLogoDescription();
                     }
                 });
@@ -1480,7 +1498,10 @@
             // Restore when clicking elsewhere (but not on lang buttons or tool logos)
             document.addEventListener('click', (e) => {
                 if (!e.target.closest('.tool-logo-wrapper') && !e.target.closest('.lang-btn')) {
-                    document.querySelectorAll('.tool-logo-wrapper').forEach(w => w.classList.remove('active'));
+                    document.querySelectorAll('.tool-logo-wrapper').forEach(w => {
+                        w.classList.remove('active');
+                        w.classList.remove('just-deactivated');
+                    });
                     if (heroDesc) heroDesc.textContent = getOriginalDesc();
                 }
             });
