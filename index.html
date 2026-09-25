@@ -1458,7 +1458,6 @@
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 const descKey = logo.dataset.descKey;
-                let skipNextClick = false;
                 wrapper.setAttribute('role', 'button');
                 wrapper.setAttribute('tabindex', '0');
                 logo.setAttribute('tabindex', '-1');
@@ -1491,9 +1490,8 @@
                     wrapper.classList.remove('just-deactivated');
                     restoreLogoDescription();
                 });
-                wrapper.addEventListener('click', () => {
-                    if (skipNextClick) {
-                        skipNextClick = false;
+                wrapper.addEventListener('click', (e) => {
+                    if (e.detail === 0) {
                         return;
                     }
                     toggleLogoDescription();
@@ -1505,12 +1503,13 @@
                     }
                 });
                 wrapper.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter') {
+                    if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-                        toggleLogoDescription();
-                    } else if (e.key === ' ') {
+                    }
+                });
+                wrapper.addEventListener('keyup', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-                        skipNextClick = true;
                         toggleLogoDescription();
                     }
                 });
