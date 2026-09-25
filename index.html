@@ -1232,7 +1232,7 @@
                     <img src="/images/nuke.png" alt="" class="tool-logo" data-desc-key="logo.nuke" aria-hidden="true">
                 </button>
             </div>
-<p class="hero-description" data-i18n="hero.description">With more than 15 years of experience in advertising, series, and film, I have developed deep expertise in Houdini, covering fluid simulations, particle systems, and procedural pipelines. I am now extending my skills with ComfyUI to improve hybrid VFX workflow.</p>
+<p class="hero-description" data-i18n="hero.description" aria-live="polite">With more than 15 years of experience in advertising, series, and film, I have developed deep expertise in Houdini, covering fluid simulations, particle systems, and procedural pipelines. I am now extending my skills with ComfyUI to improve hybrid VFX workflow.</p>
             <div class="hero-contact-row">
                 <a href="mailto:motioncook@pm.me" class="hero-contact-btn">Email</a>
                 <a href="https://www.linkedin.com/in/stephanedaguin" target="_blank" rel="noopener noreferrer" class="hero-contact-btn">LinkedIn</a>
@@ -1411,6 +1411,7 @@
         function initLogoTooltips() {
             const heroDesc = document.querySelector('.hero-description');
             let activeLogoDescKey = null;
+            const activeLogoOrder = [];
             
             function getOriginalDesc() {
                 const lang = document.documentElement.lang;
@@ -1441,13 +1442,14 @@
                     if (isActive) {
                         wrapper.classList.remove('active');
                         wrapper.setAttribute('aria-pressed', 'false');
+                        const keyIndex = activeLogoOrder.lastIndexOf(descKey);
+                        if (keyIndex !== -1) activeLogoOrder.splice(keyIndex, 1);
                         if (activeLogoDescKey === descKey) {
-                            const remainingActiveLogos = Array.from(document.querySelectorAll('.tool-logo-wrapper.active .tool-logo'));
-                            const remainingActiveLogo = remainingActiveLogos
-                                .find(activeLogo => getDescByKey(activeLogo.dataset.descKey));
-                            if (remainingActiveLogo) {
-                                activeLogoDescKey = remainingActiveLogo.dataset.descKey || null;
-                                heroDesc.textContent = getDescByKey(remainingActiveLogo.dataset.descKey);
+                            const fallbackDescKey = activeLogoOrder[activeLogoOrder.length - 1] || null;
+                            const fallbackDesc = fallbackDescKey ? getDescByKey(fallbackDescKey) : null;
+                            if (fallbackDesc) {
+                                activeLogoDescKey = fallbackDescKey;
+                                heroDesc.textContent = fallbackDesc;
                             } else {
                                 activeLogoDescKey = null;
                                 heroDesc.textContent = getOriginalDesc();
@@ -1456,6 +1458,9 @@
                     } else {
                         wrapper.classList.add('active');
                         wrapper.setAttribute('aria-pressed', 'true');
+                        const keyIndex = activeLogoOrder.lastIndexOf(descKey);
+                        if (keyIndex !== -1) activeLogoOrder.splice(keyIndex, 1);
+                        activeLogoOrder.push(descKey);
                         activeLogoDescKey = descKey;
                         const desc = getDescByKey(descKey);
                         if (desc) heroDesc.textContent = desc;
