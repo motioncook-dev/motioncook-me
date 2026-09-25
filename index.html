@@ -1413,6 +1413,18 @@
                 const lang = document.documentElement.lang;
                 return translations[lang]['hero.description'] || heroDesc.textContent;
             }
+
+            function getLogoDesc(descKey) {
+                const lang = document.documentElement.lang;
+                return (descKey && translations[lang][descKey]) || getOriginalDesc();
+            }
+
+            function getDisplayedDesc() {
+                const activeWrapper = document.querySelector('.tool-logo-wrapper.active');
+                if (!activeWrapper) return getOriginalDesc();
+                const activeLogo = activeWrapper.querySelector('.tool-logo');
+                return getLogoDesc(activeLogo?.dataset.descKey);
+            }
             
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
@@ -1428,13 +1440,21 @@
                     } else {
                         document.querySelectorAll('.tool-logo-wrapper').forEach(w => w.classList.remove('active'));
                         wrapper.classList.add('active');
-                        const lang = document.documentElement.lang;
-                        if (descKey && translations[lang][descKey]) {
-                            heroDesc.textContent = translations[lang][descKey];
-                        }
+                        heroDesc.textContent = getLogoDesc(descKey);
                     }
                 };
+                const previewLogoDescription = () => {
+                    heroDesc.textContent = getLogoDesc(descKey);
+                };
+                const restoreLogoDescription = () => {
+                    heroDesc.textContent = getDisplayedDesc();
+                };
+
+                logo.addEventListener('mouseenter', previewLogoDescription);
+                logo.addEventListener('mouseleave', restoreLogoDescription);
                 logo.addEventListener('click', toggleLogoDescription);
+                logo.addEventListener('focus', previewLogoDescription);
+                logo.addEventListener('blur', restoreLogoDescription);
                 logo.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
