@@ -1424,7 +1424,7 @@
                 const activeWrapper = document.querySelector('.tool-logo-wrapper.active');
                 if (!activeWrapper) return getOriginalDesc();
                 const activeLogo = activeWrapper.querySelector('.tool-logo');
-                if (!activeLogo) return heroDesc.textContent;
+                if (!activeLogo) return getOriginalDesc();
                 return getLogoDesc(activeLogo.dataset?.descKey);
             }
             
@@ -1456,6 +1456,8 @@
                 wrapper.addEventListener('mouseenter', previewLogoDescription);
                 wrapper.addEventListener('mouseleave', restoreLogoDescription);
                 wrapper.addEventListener('click', toggleLogoDescription);
+                wrapper.addEventListener('focus', previewLogoDescription);
+                wrapper.addEventListener('blur', restoreLogoDescription);
                 wrapper.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
