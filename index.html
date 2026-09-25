@@ -1432,6 +1432,7 @@
                 const descKey = logo.dataset.descKey;
                 wrapper.setAttribute('role', 'button');
                 wrapper.setAttribute('tabindex', '0');
+                wrapper.setAttribute('aria-description', getLogoDesc(descKey));
                 logo.setAttribute('tabindex', '-1');
                 
                 // Click to toggle: colored=description, gray=original
@@ -1497,10 +1498,14 @@
                 }
             });
             const logoDetailsLabel = translations[lang]['aria.logoDetails'] || translations.en['aria.logoDetails'];
+            const langTranslations = translations[lang] || {};
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 if (!logo) return;
                 wrapper.setAttribute('aria-label', `${logoDetailsLabel} ${logo.alt}`);
+                const descKey = logo.dataset.descKey;
+                const logoDescription = (descKey && (langTranslations[descKey] || translations.en[descKey])) || '';
+                wrapper.setAttribute('aria-description', logoDescription);
             });
             const menuToggle = document.getElementById('menuToggle');
             if (menuToggle) {
