@@ -1217,13 +1217,13 @@
             <h1>Stephane Daguin<span>.</span></h1>
             <p class="hero-subtitle" data-i18n="hero.subtitle">Senior Houdini Artist · FX Technical Director</p>
             <div class="tool-logos">
-                <div class="tool-logo-wrapper">
+                <div class="tool-logo-wrapper" role="button" tabindex="0" aria-pressed="false">
                     <img src="/images/houdini.png" alt="Houdini" class="tool-logo" title="Houdini" data-desc-key="logo.houdini">
                 </div>
-                <div class="tool-logo-wrapper">
+                <div class="tool-logo-wrapper" role="button" tabindex="0" aria-pressed="false">
                     <img src="/images/comfyui.png" alt="ComfyUI" class="tool-logo" title="ComfyUI" data-desc-key="logo.comfyui">
                 </div>
-                <div class="tool-logo-wrapper">
+                <div class="tool-logo-wrapper" role="button" tabindex="0" aria-pressed="false">
                     <img src="/images/nuke.png" alt="Nuke" class="tool-logo" title="Nuke" data-desc-key="logo.nuke">
                 </div>
             </div>
@@ -1414,38 +1414,35 @@
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 const descKey = logo.dataset.descKey;
-                logo.setAttribute('role', 'button');
-                logo.setAttribute('tabindex', '0');
+                const getDescByKey = (key) => {
+                    const lang = document.documentElement.lang;
+                    return (key && translations[lang][key]) ? translations[lang][key] : null;
+                };
+                wrapper.setAttribute('aria-label', `${translations[currentLang]['aria.logoDetails'] || translations.en['aria.logoDetails']} ${logo.alt}`);
                 
                 // Click to toggle: colored=description, gray=original
                 const toggleLogoDescription = () => {
-                    if (wrapper.classList.contains('active')) {
+                    const isActive = wrapper.classList.contains('active');
+                    if (isActive) {
                         wrapper.classList.remove('active');
-                        heroDesc.textContent = getOriginalDesc();
+                        wrapper.setAttribute('aria-pressed', 'false');
+                        const anotherActive = document.querySelector('.tool-logo-wrapper.active .tool-logo');
+                        const anotherDesc = anotherActive ? getDescByKey(anotherActive.dataset.descKey) : null;
+                        heroDesc.textContent = anotherDesc || getOriginalDesc();
                     } else {
-                        document.querySelectorAll('.tool-logo-wrapper').forEach(w => w.classList.remove('active'));
                         wrapper.classList.add('active');
-                        const lang = document.documentElement.lang;
-                        if (descKey && translations[lang][descKey]) {
-                            heroDesc.textContent = translations[lang][descKey];
-                        }
+                        wrapper.setAttribute('aria-pressed', 'true');
+                        const desc = getDescByKey(descKey);
+                        if (desc) heroDesc.textContent = desc;
                     }
                 };
-                logo.addEventListener('click', toggleLogoDescription);
-                logo.addEventListener('keydown', (e) => {
+                wrapper.addEventListener('click', toggleLogoDescription);
+                wrapper.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
                         toggleLogoDescription();
                     }
                 });
-            });
-            
-            // Restore when clicking elsewhere (but not on lang buttons or tool logos)
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.tool-logo-wrapper') && !e.target.closest('.lang-btn')) {
-                    document.querySelectorAll('.tool-logo-wrapper').forEach(w => w.classList.remove('active'));
-                    if (heroDesc) heroDesc.textContent = getOriginalDesc();
-                }
             });
         }
         
@@ -1474,8 +1471,11 @@
                 }
             });
             const logoDetailsLabel = translations[lang]['aria.logoDetails'] || translations.en['aria.logoDetails'];
-            document.querySelectorAll('.tool-logo').forEach(logo => {
+            document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
+                const logo = wrapper.querySelector('.tool-logo');
+                if (!logo) return;
                 logo.setAttribute('aria-label', `${logoDetailsLabel} ${logo.alt}`);
+                wrapper.setAttribute('aria-label', `${logoDetailsLabel} ${logo.alt}`);
             });
             const menuToggle = document.getElementById('menuToggle');
             if (menuToggle) {
