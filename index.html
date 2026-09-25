@@ -1122,8 +1122,7 @@
         }
 
         .cert-preview:hover .cert-preview-popup,
-        .cert-preview:focus-within .cert-preview-popup,
-        .cert-preview.is-open .cert-preview-popup {
+        .cert-preview:focus-within .cert-preview-popup {
             opacity: 1;
             visibility: visible;
             pointer-events: auto;
@@ -1140,8 +1139,7 @@
             }
 
             .cert-preview:hover .cert-preview-popup,
-            .cert-preview:focus-within .cert-preview-popup,
-            .cert-preview.is-open .cert-preview-popup {
+            .cert-preview:focus-within .cert-preview-popup {
                 transform: translateY(0) scale(1);
             }
         }
@@ -1518,7 +1516,6 @@
             { year: "2000-2002", role: "Master MST Image et Son", studio: "Aix-Marseille", img: "" },
             { year: "1997-2000", role: "DEUG Arts du spectacle", studio: "Montpellier", img: "" }
         ];
-        let formationRenderCount = 0;
         
         Object.assign(translations.en, { "logo.name.houdini": "Houdini", "logo.name.comfyui": "ComfyUI", "logo.name.nuke": "Nuke" });
         Object.assign(translations.fr, { "logo.name.houdini": "Houdini", "logo.name.comfyui": "ComfyUI", "logo.name.nuke": "Nuke" });
@@ -1729,88 +1726,23 @@
         }
         
         function renderFormation() {
-            const renderId = `formation-${++formationRenderCount}`;
-            document.getElementById('formation-timeline').innerHTML = formations.map((f, idx) => `
+            document.getElementById('formation-timeline').innerHTML = formations.map(f => `
                 <div class="cv-item">
                     <p class="cv-item-year">${f.year}</p>
-                    <p class="cv-item-role" id="${renderId}-cert-role-${idx}">${f.role}</p>
+                    <p class="cv-item-role">${f.role}</p>
                     <p class="cv-item-studio">${f.studio}</p>
                     ${f.img ? `
                         <div class="cert-preview">
-                            <button type="button" class="cert-preview-trigger" aria-label="Preview certificate: ${f.role}" aria-expanded="false" aria-controls="${renderId}-cert-preview-${idx}">
-                                <img src="${f.img}" class="cert-thumb" alt="" aria-hidden="true" loading="lazy" decoding="async">
-                            </button>
-                            <div class="cert-preview-popup" id="${renderId}-cert-preview-${idx}" aria-labelledby="${renderId}-cert-role-${idx}" aria-hidden="true">
-                                <img src="${f.img}" alt="Full certificate: ${f.role}" loading="lazy" decoding="async">
+                            <a href="${f.img}" class="cert-preview-trigger" target="_blank" rel="noopener noreferrer">
+                                <img src="${f.img}" class="cert-thumb" alt="Certificate: ${f.role}" loading="lazy" decoding="async">
+                            </a>
+                            <div class="cert-preview-popup" aria-hidden="true">
+                                <img src="${f.img}" alt="" aria-hidden="true" loading="lazy" decoding="async">
                             </div>
                         </div>
                     ` : ''}
                 </div>
             `).join('');
-        }
-
-        let certificatePreviewBoundElement = null;
-        let certificatePreviewOutsideHandlerBound = false;
-
-        function setCertificatePreviewState(preview, isOpen) {
-            preview.classList.toggle('is-open', isOpen);
-            const trigger = preview.querySelector('.cert-preview-trigger');
-            const popup = preview.querySelector('.cert-preview-popup');
-            if (trigger) trigger.setAttribute('aria-expanded', String(isOpen));
-            if (popup) popup.setAttribute('aria-hidden', String(!isOpen));
-        }
-
-        function closeAllCertificatePreviews(except = null) {
-            document.querySelectorAll('.cert-preview').forEach(preview => {
-                if (preview !== except) setCertificatePreviewState(preview, false);
-            });
-        }
-
-        function attachCertificatePreviewListeners() {
-            const timeline = document.getElementById('formation-timeline');
-            if (!timeline || certificatePreviewBoundElement === timeline) return;
-
-            timeline.addEventListener('click', (event) => {
-                const trigger = event.target.closest('.cert-preview-trigger');
-                if (!trigger) return;
-                const preview = trigger.closest('.cert-preview');
-                if (!preview) return;
-                event.stopPropagation();
-                const shouldOpen = !preview.classList.contains('is-open');
-                closeAllCertificatePreviews(preview);
-                setCertificatePreviewState(preview, shouldOpen);
-                if (!shouldOpen) trigger.blur();
-            });
-
-            timeline.addEventListener('focusin', (event) => {
-                const preview = event.target.closest('.cert-preview');
-                if (!preview) return;
-                closeAllCertificatePreviews(preview);
-                setCertificatePreviewState(preview, true);
-            });
-
-            timeline.addEventListener('keydown', (event) => {
-                const activePreview = event.target.closest('.cert-preview.is-open');
-                if (event.key === 'Escape' && activePreview) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    const activeTrigger = activePreview.querySelector('.cert-preview-trigger[aria-expanded="true"]');
-                    closeAllCertificatePreviews();
-                    if (activeTrigger) activeTrigger.focus();
-                }
-            });
-
-            if (!certificatePreviewOutsideHandlerBound) {
-                document.addEventListener('click', (event) => {
-                    if (!event.target.closest('.cert-preview')) closeAllCertificatePreviews();
-                });
-                document.addEventListener('focusin', (event) => {
-                    if (!event.target.closest('.cert-preview')) closeAllCertificatePreviews();
-                });
-                certificatePreviewOutsideHandlerBound = true;
-            }
-
-            certificatePreviewBoundElement = timeline;
         }
         
         function attachFilterListeners() {
@@ -1927,7 +1859,6 @@
         renderProjects();
         renderExperience();
         renderFormation();
-        attachCertificatePreviewListeners();
         setTimeout(attachHoverListeners, 100);
         initLogoTooltips();
         initMobileMenu();
