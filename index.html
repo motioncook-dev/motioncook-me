@@ -1443,12 +1443,11 @@
                         wrapper.setAttribute('aria-pressed', 'false');
                         if (activeLogoDescKey === descKey) {
                             const remainingActiveLogos = Array.from(document.querySelectorAll('.tool-logo-wrapper.active .tool-logo'));
-                            const remainingDesc = remainingActiveLogos
-                                .map(activeLogo => getDescByKey(activeLogo.dataset.descKey))
-                                .find(Boolean);
-                            if (remainingDesc) {
-                                activeLogoDescKey = remainingActiveLogos[0].dataset.descKey || null;
-                                heroDesc.textContent = remainingDesc;
+                            const remainingActiveLogo = remainingActiveLogos
+                                .find(activeLogo => getDescByKey(activeLogo.dataset.descKey));
+                            if (remainingActiveLogo) {
+                                activeLogoDescKey = remainingActiveLogo.dataset.descKey || null;
+                                heroDesc.textContent = getDescByKey(remainingActiveLogo.dataset.descKey);
                             } else {
                                 activeLogoDescKey = null;
                                 heroDesc.textContent = getOriginalDesc();
