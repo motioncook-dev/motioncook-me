@@ -271,6 +271,15 @@
             filter: grayscale(0%);
         }
         
+        .tool-logo-wrapper:focus-within .tool-logo {
+            filter: grayscale(0%);
+        }
+        
+        .tool-logo-wrapper:focus-within {
+            outline: 2px solid rgba(255, 255, 255, 0.85);
+            outline-offset: 2px;
+        }
+        
         .tool-logo-wrapper {
             position: relative;
             display: inline-block;
