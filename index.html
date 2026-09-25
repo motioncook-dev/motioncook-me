@@ -1442,8 +1442,17 @@
                         wrapper.classList.remove('active');
                         wrapper.setAttribute('aria-pressed', 'false');
                         if (activeLogoDescKey === descKey) {
-                            activeLogoDescKey = null;
-                            heroDesc.textContent = getOriginalDesc();
+                            const remainingActiveLogos = Array.from(document.querySelectorAll('.tool-logo-wrapper.active .tool-logo'));
+                            const remainingDesc = remainingActiveLogos
+                                .map(activeLogo => getDescByKey(activeLogo.dataset.descKey))
+                                .find(Boolean);
+                            if (remainingDesc) {
+                                activeLogoDescKey = remainingActiveLogos[0].dataset.descKey || null;
+                                heroDesc.textContent = remainingDesc;
+                            } else {
+                                activeLogoDescKey = null;
+                                heroDesc.textContent = getOriginalDesc();
+                            }
                         }
                     } else {
                         wrapper.classList.add('active');
