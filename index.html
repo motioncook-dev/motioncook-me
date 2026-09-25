@@ -1436,11 +1436,9 @@
             { year: "1997-2000", role: "DEUG Arts du spectacle", studio: "Montpellier", img: "" }
         ];
         
-        const logoNameTranslations = {
-            en: { "logo.name.houdini": "Houdini", "logo.name.comfyui": "ComfyUI", "logo.name.nuke": "Nuke" },
-            fr: { "logo.name.houdini": "Houdini", "logo.name.comfyui": "ComfyUI", "logo.name.nuke": "Nuke" },
-            es: { "logo.name.houdini": "Houdini", "logo.name.comfyui": "ComfyUI", "logo.name.nuke": "Nuke" }
-        };
+        Object.assign(translations.en, { "logo.name.houdini": "Houdini", "logo.name.comfyui": "ComfyUI", "logo.name.nuke": "Nuke" });
+        Object.assign(translations.fr, { "logo.name.houdini": "Houdini", "logo.name.comfyui": "ComfyUI", "logo.name.nuke": "Nuke" });
+        Object.assign(translations.es, { "logo.name.houdini": "Houdini", "logo.name.comfyui": "ComfyUI", "logo.name.nuke": "Nuke" });
 
         let currentLang = document.documentElement.lang || 'en';
         
@@ -1550,7 +1548,7 @@
                 const logo = wrapper.querySelector('.tool-logo');
                 if (!logo) return;
                 const nameKey = logo.dataset.nameKey;
-                const logoName = (nameKey && (logoNameTranslations[lang]?.[nameKey] || logoNameTranslations.en[nameKey])) || logo.getAttribute('title') || 'logo';
+                const logoName = (nameKey && (langMap[nameKey] || translations.en[nameKey])) || logo.getAttribute('title') || 'logo';
                 wrapper.setAttribute('aria-label', `${logoDetailsLabel} ${logoName}`);
             });
             const menuToggle = document.getElementById('menuToggle');
