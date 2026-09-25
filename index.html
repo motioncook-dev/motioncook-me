@@ -1345,6 +1345,7 @@
                     } else {
                         document.querySelectorAll('.tool-logo-wrapper').forEach(w => w.classList.remove('active'));
                         wrapper.classList.add('active');
+                        console.log('Logo click:', descKey, 'currentLang:', currentLang, 'translation:', translations[currentLang][descKey] ? translations[currentLang][descKey].substring(0,50) + '...' : 'NOT FOUND');
                         if (descKey && translations[currentLang][descKey]) {
                             heroDesc.textContent = translations[currentLang][descKey];
                         }
@@ -1363,6 +1364,7 @@
         
         function setLanguage(lang) {
             currentLang = lang;
+            console.log('setLanguage:', lang, 'currentLang:', currentLang);
             document.documentElement.lang = lang;
             document.title = translations[lang]['page.title'] || document.title;
             document.querySelectorAll('.lang-btn').forEach(b => {
