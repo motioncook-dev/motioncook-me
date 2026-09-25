@@ -398,13 +398,6 @@
         }
         
         section { padding: 100px 50px; max-width: 1400px; margin: 0 auto; }
-        .anchor-offset {
-            display: block;
-            position: relative;
-            top: -90px;
-            visibility: hidden;
-            height: 0;
-        }
         
         .section-header {
             display: flex;
@@ -1263,8 +1256,7 @@
         </div>
     </section>
 
-    <div id="about" class="anchor-offset" aria-hidden="true"></div>
-    <section class="cv-section" id="work">
+    <section class="cv-section" id="about">
     <div class="cv-container">
         <div class="cv-main-row">
             <div class="cv-block cv-experience">
@@ -1272,7 +1264,7 @@
                 <div class="cv-timeline" id="experience-timeline"></div>
             </div>
             <div class="cv-block cv-projects">
-                <p class="cv-block-title">Selected Work</p>
+                <p class="cv-block-title" id="work">Selected Work</p>
                 <div class="filters">
                     <button class="filter-btn active" data-filter="all" data-i18n="filter.all" type="button" aria-pressed="true">All</button>
                     <button class="filter-btn" data-filter="film" data-i18n="filter.film" type="button" aria-pressed="false">Film</button>
@@ -1455,6 +1447,7 @@
         function setLanguage(lang) {
             currentLang = lang;
             document.documentElement.lang = lang;
+            document.title = translations[lang]['page.title'] || document.title;
             document.querySelectorAll('.lang-btn').forEach(b => {
                 b.classList.toggle('active', b.dataset.lang === lang);
                 b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
