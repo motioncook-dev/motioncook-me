@@ -1238,22 +1238,21 @@
             <h1>Stephane Daguin<span>.</span></h1>
             <p class="hero-subtitle" data-i18n="hero.subtitle">Senior Houdini Artist · FX Technical Director</p>
             <div class="tool-logos">
-                <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for Houdini" aria-describedby="logo-toggle-help" data-logo-name="Houdini">
+                <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for Houdini" data-logo-name="Houdini">
                     <img src="/images/houdini.png" alt="" class="tool-logo" data-desc-key="logo.houdini" aria-hidden="true">
                     <span class="logo-tooltip">Toggle details for Houdini</span>
                 </button>
-                <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for ComfyUI" aria-describedby="logo-toggle-help" data-logo-name="ComfyUI">
+                <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for ComfyUI" data-logo-name="ComfyUI">
                     <img src="/images/comfyui.png" alt="" class="tool-logo" data-desc-key="logo.comfyui" aria-hidden="true">
                     <span class="logo-tooltip">Toggle details for ComfyUI</span>
                 </button>
-                <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for Nuke" aria-describedby="logo-toggle-help" data-logo-name="Nuke">
+                <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for Nuke" data-logo-name="Nuke">
                     <img src="/images/nuke.png" alt="" class="tool-logo" data-desc-key="logo.nuke" aria-hidden="true">
                     <span class="logo-tooltip">Toggle details for Nuke</span>
                 </button>
             </div>
 <p class="hero-description" data-i18n="hero.description">With more than 15 years of experience in advertising, series, and film, I have developed deep expertise in Houdini, covering fluid simulations, particle systems, and procedural pipelines. I am now extending my skills with ComfyUI to improve hybrid VFX workflow.</p>
             <span id="logo-description-live" class="sr-only" aria-live="polite" aria-atomic="true"></span>
-            <span id="logo-toggle-help" class="sr-only" data-i18n="aria.logoToggleHint">Press Enter or Space to toggle</span>
             <div class="hero-contact-row">
                 <a href="mailto:motioncook@pm.me" class="hero-contact-btn">Email</a>
                 <a href="https://www.linkedin.com/in/stephanedaguin" target="_blank" rel="noopener noreferrer" class="hero-contact-btn">LinkedIn</a>
@@ -1474,8 +1473,8 @@
                     return langTable[key] || translations.en[key] || null;
                 };
                 const tooltip = wrapper.querySelector('.logo-tooltip');
-                const tooltipName = tooltip ? tooltip.textContent.split('—')[0].trim() : '';
-                const logoName = wrapper.dataset.logoName || wrapper.getAttribute('title') || tooltipName || 'Tool logo';
+                const fallbackLogoName = descKey ? descKey.replace('logo.', '') : 'Tool logo';
+                const logoName = wrapper.dataset.logoName || wrapper.getAttribute('title') || fallbackLogoName;
                 wrapper.setAttribute('aria-label', `${getLogoDetailsLabel()} ${logoName}`.trim());
                 if (tooltip) tooltip.textContent = `${logoName} — ${getLogoToggleHint()}`.trim();
                 
@@ -1540,8 +1539,8 @@
                 const logo = wrapper.querySelector('.tool-logo');
                 if (!logo) return;
                 const tooltip = wrapper.querySelector('.logo-tooltip');
-                const tooltipName = tooltip ? tooltip.textContent.split('—')[0].trim() : '';
-                const logoName = wrapper.dataset.logoName || wrapper.getAttribute('title') || tooltipName || 'Tool logo';
+                const fallbackLogoName = logo.dataset.descKey ? logo.dataset.descKey.replace('logo.', '') : 'Tool logo';
+                const logoName = wrapper.dataset.logoName || wrapper.getAttribute('title') || fallbackLogoName;
                 const logoLabel = `${logoDetailsLabel} ${logoName}`.trim();
                 wrapper.setAttribute('aria-label', logoLabel);
                 if (tooltip) tooltip.textContent = `${logoName} — ${logoToggleHint}`.trim();
