@@ -1222,14 +1222,14 @@
             <h1>Stephane Daguin<span>.</span></h1>
             <p class="hero-subtitle" data-i18n="hero.subtitle">Senior Houdini Artist · FX Technical Director</p>
             <div class="tool-logos">
-                <button class="tool-logo-wrapper" type="button" aria-pressed="false">
-                    <img src="/images/houdini.png" alt="" class="tool-logo" title="Houdini" data-desc-key="logo.houdini" aria-hidden="true">
+                <button class="tool-logo-wrapper" type="button" aria-pressed="false" title="Houdini" data-logo-name="Houdini">
+                    <img src="/images/houdini.png" alt="" class="tool-logo" data-desc-key="logo.houdini" aria-hidden="true">
                 </button>
-                <button class="tool-logo-wrapper" type="button" aria-pressed="false">
-                    <img src="/images/comfyui.png" alt="" class="tool-logo" title="ComfyUI" data-desc-key="logo.comfyui" aria-hidden="true">
+                <button class="tool-logo-wrapper" type="button" aria-pressed="false" title="ComfyUI" data-logo-name="ComfyUI">
+                    <img src="/images/comfyui.png" alt="" class="tool-logo" data-desc-key="logo.comfyui" aria-hidden="true">
                 </button>
-                <button class="tool-logo-wrapper" type="button" aria-pressed="false">
-                    <img src="/images/nuke.png" alt="" class="tool-logo" title="Nuke" data-desc-key="logo.nuke" aria-hidden="true">
+                <button class="tool-logo-wrapper" type="button" aria-pressed="false" title="Nuke" data-logo-name="Nuke">
+                    <img src="/images/nuke.png" alt="" class="tool-logo" data-desc-key="logo.nuke" aria-hidden="true">
                 </button>
             </div>
 <p class="hero-description" data-i18n="hero.description">With more than 15 years of experience in advertising, series, and film, I have developed deep expertise in Houdini, covering fluid simulations, particle systems, and procedural pipelines. I am now extending my skills with ComfyUI to improve hybrid VFX workflow.</p>
@@ -1430,7 +1430,7 @@
                     if (!key) return null;
                     return langTable[key] || translations.en[key] || null;
                 };
-                const logoName = logo.getAttribute('title') || '';
+                const logoName = wrapper.dataset.logoName || wrapper.getAttribute('title') || '';
                 wrapper.setAttribute('aria-label', `${getLogoDetailsLabel()} ${logoName}`.trim());
                 
                 // Click to toggle: colored=description, gray=original
@@ -1482,7 +1482,7 @@
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 if (!logo) return;
-                const logoName = logo.getAttribute('title') || '';
+                const logoName = wrapper.dataset.logoName || wrapper.getAttribute('title') || '';
                 wrapper.setAttribute('aria-label', `${logoDetailsLabel} ${logoName}`.trim());
             });
             const menuToggle = document.getElementById('menuToggle');
