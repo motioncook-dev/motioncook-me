@@ -275,6 +275,10 @@
         .tool-logo-wrapper {
             position: relative;
             display: inline-block;
+            border: none;
+            background: none;
+            padding: 0;
+            cursor: pointer;
         }
         
         .tool-logo-wrapper .logo-tooltip {
@@ -1217,15 +1221,15 @@
             <h1>Stephane Daguin<span>.</span></h1>
             <p class="hero-subtitle" data-i18n="hero.subtitle">Senior Houdini Artist · FX Technical Director</p>
             <div class="tool-logos">
-                <div class="tool-logo-wrapper" role="button" tabindex="0" aria-pressed="false">
-                    <img src="/images/houdini.png" alt="Houdini" class="tool-logo" title="Houdini" data-desc-key="logo.houdini">
-                </div>
-                <div class="tool-logo-wrapper" role="button" tabindex="0" aria-pressed="false">
-                    <img src="/images/comfyui.png" alt="ComfyUI" class="tool-logo" title="ComfyUI" data-desc-key="logo.comfyui">
-                </div>
-                <div class="tool-logo-wrapper" role="button" tabindex="0" aria-pressed="false">
-                    <img src="/images/nuke.png" alt="Nuke" class="tool-logo" title="Nuke" data-desc-key="logo.nuke">
-                </div>
+                <button class="tool-logo-wrapper" type="button" aria-pressed="false">
+                    <img src="/images/houdini.png" alt="Houdini" class="tool-logo" title="Houdini" data-desc-key="logo.houdini" aria-hidden="true">
+                </button>
+                <button class="tool-logo-wrapper" type="button" aria-pressed="false">
+                    <img src="/images/comfyui.png" alt="ComfyUI" class="tool-logo" title="ComfyUI" data-desc-key="logo.comfyui" aria-hidden="true">
+                </button>
+                <button class="tool-logo-wrapper" type="button" aria-pressed="false">
+                    <img src="/images/nuke.png" alt="Nuke" class="tool-logo" title="Nuke" data-desc-key="logo.nuke" aria-hidden="true">
+                </button>
             </div>
 <p class="hero-description" data-i18n="hero.description">With more than 15 years of experience in advertising, series, and film, I have developed deep expertise in Houdini, covering fluid simulations, particle systems, and procedural pipelines. I am now extending my skills with ComfyUI to improve hybrid VFX workflow.</p>
             <div class="hero-contact-row">
@@ -1445,12 +1449,6 @@
                     }
                 };
                 wrapper.addEventListener('click', toggleLogoDescription);
-                wrapper.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        toggleLogoDescription();
-                    }
-                });
             });
         }
         
@@ -1482,7 +1480,6 @@
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 if (!logo) return;
-                logo.setAttribute('aria-label', `${logoDetailsLabel} ${logo.alt}`);
                 wrapper.setAttribute('aria-label', `${logoDetailsLabel} ${logo.alt}`);
             });
             const menuToggle = document.getElementById('menuToggle');
