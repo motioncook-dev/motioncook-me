@@ -302,6 +302,18 @@
             pointer-events: none;
         }
         
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
         .tool-logo-wrapper:hover .logo-tooltip {
             visibility: visible;
             opacity: 1;
@@ -1232,7 +1244,8 @@
                     <img src="/images/nuke.png" alt="" class="tool-logo" data-desc-key="logo.nuke" aria-hidden="true">
                 </button>
             </div>
-<p class="hero-description" data-i18n="hero.description" aria-live="polite">With more than 15 years of experience in advertising, series, and film, I have developed deep expertise in Houdini, covering fluid simulations, particle systems, and procedural pipelines. I am now extending my skills with ComfyUI to improve hybrid VFX workflow.</p>
+<p class="hero-description" data-i18n="hero.description">With more than 15 years of experience in advertising, series, and film, I have developed deep expertise in Houdini, covering fluid simulations, particle systems, and procedural pipelines. I am now extending my skills with ComfyUI to improve hybrid VFX workflow.</p>
+            <span id="logo-description-live" class="sr-only" aria-live="polite" aria-atomic="true"></span>
             <div class="hero-contact-row">
                 <a href="mailto:motioncook@pm.me" class="hero-contact-btn">Email</a>
                 <a href="https://www.linkedin.com/in/stephanedaguin" target="_blank" rel="noopener noreferrer" class="hero-contact-btn">LinkedIn</a>
@@ -1410,8 +1423,16 @@
         
         function initLogoTooltips() {
             const heroDesc = document.querySelector('.hero-description');
+            const logoDescriptionLive = document.getElementById('logo-description-live');
             let activeLogoDescKey = null;
             const activeLogoOrder = [];
+            const removeDescKeyFromOrder = (key) => {
+                const keyIndex = activeLogoOrder.lastIndexOf(key);
+                if (keyIndex !== -1) activeLogoOrder.splice(keyIndex, 1);
+            };
+            const announceHeroDescription = () => {
+                if (logoDescriptionLive) logoDescriptionLive.textContent = heroDesc.textContent;
+            };
             
             function getOriginalDesc() {
                 const lang = document.documentElement.lang;
@@ -1442,8 +1463,7 @@
                     if (isActive) {
                         wrapper.classList.remove('active');
                         wrapper.setAttribute('aria-pressed', 'false');
-                        const keyIndex = activeLogoOrder.lastIndexOf(descKey);
-                        if (keyIndex !== -1) activeLogoOrder.splice(keyIndex, 1);
+                        removeDescKeyFromOrder(descKey);
                         const fallbackDescKey = activeLogoOrder[activeLogoOrder.length - 1] || null;
                         const fallbackDesc = fallbackDescKey ? getDescByKey(fallbackDescKey) : null;
                         if (fallbackDesc) {
@@ -1453,15 +1473,16 @@
                             activeLogoDescKey = null;
                             heroDesc.textContent = getOriginalDesc();
                         }
+                        announceHeroDescription();
                     } else {
                         wrapper.classList.add('active');
                         wrapper.setAttribute('aria-pressed', 'true');
-                        const keyIndex = activeLogoOrder.lastIndexOf(descKey);
-                        if (keyIndex !== -1) activeLogoOrder.splice(keyIndex, 1);
+                        removeDescKeyFromOrder(descKey);
                         activeLogoOrder.push(descKey);
                         activeLogoDescKey = descKey;
                         const desc = getDescByKey(descKey);
                         if (desc) heroDesc.textContent = desc;
+                        announceHeroDescription();
                     }
                 };
                 wrapper.addEventListener('click', toggleLogoDescription);
