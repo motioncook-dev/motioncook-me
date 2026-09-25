@@ -1327,7 +1327,10 @@
         
         function initLogoTooltips() {
             const heroDesc = document.querySelector('.hero-description');
-            const originalDesc = heroDesc.textContent;
+            
+            function getOriginalDesc() {
+                return translations[currentLang]['hero.description'] || heroDesc.textContent;
+            }
             
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
@@ -1338,7 +1341,7 @@
                     e.preventDefault();
                     if (wrapper.classList.contains('active')) {
                         wrapper.classList.remove('active');
-                        heroDesc.textContent = originalDesc;
+                        heroDesc.textContent = getOriginalDesc();
                     } else {
                         document.querySelectorAll('.tool-logo-wrapper').forEach(w => w.classList.remove('active'));
                         wrapper.classList.add('active');
@@ -1353,7 +1356,7 @@
             document.addEventListener('click', (e) => {
                 if (!e.target.closest('.tool-logo-wrapper') && !e.target.closest('.lang-btn')) {
                     document.querySelectorAll('.tool-logo-wrapper').forEach(w => w.classList.remove('active'));
-                    if (heroDesc) heroDesc.textContent = originalDesc;
+                    if (heroDesc) heroDesc.textContent = getOriginalDesc();
                 }
             });
         }
