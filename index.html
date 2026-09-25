@@ -37,6 +37,7 @@
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+        #work { scroll-margin-top: 110px; }
         
         body {
             font-family: 'Outfit', sans-serif;
@@ -195,11 +196,12 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             text-align: center;
             position: relative;
-            padding: 0 20px;
+            box-sizing: border-box;
+            padding: clamp(96px, 14vh, 160px) 20px 120px;
         }
         
         .hero-content {
@@ -262,21 +264,53 @@
             -webkit-tap-highlight-color: transparent;
         }
         
-        .tool-logo:hover {
-            filter: grayscale(0%);
-        }
-        
         .tool-logo-wrapper.active .tool-logo {
             filter: grayscale(0%);
         }
-        .tool-logo-wrapper:focus-within .tool-logo,
-        .tool-logo:focus-visible {
+        
+        .tool-logos:hover .tool-logo-wrapper .tool-logo {
+            filter: grayscale(100%) opacity(0.6);
+        }
+
+        .tool-logos:hover .tool-logo-wrapper:hover .tool-logo {
             filter: grayscale(0%);
+        }
+
+        .tool-logo-wrapper.just-deactivated .tool-logo,
+        .tool-logos:hover .tool-logo-wrapper.just-deactivated:hover .tool-logo {
+            filter: grayscale(100%) opacity(0.6);
+        }
+        
+        .tool-logo-wrapper:focus-within .tool-logo {
+            filter: grayscale(0%);
+            transform: scale(1.08);
+        }
+        
+        .tool-logo-wrapper:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9), 0 0 0 6px rgba(0, 0, 0, 0.65);
+        }
+
+        .tool-logo-wrapper:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9), 0 0 0 6px rgba(0, 0, 0, 0.65);
+        }
+
+        @supports selector(:focus-visible) {
+            .tool-logo-wrapper:focus:not(:focus-visible) {
+                box-shadow: none;
+            }
         }
         
         .tool-logo-wrapper {
             position: relative;
             display: inline-block;
+            border-radius: 6px;
+            background: transparent;
+            border: 0;
+            padding: 0;
+            cursor: pointer;
+            appearance: none;
         }
         
         .tool-logo-wrapper .logo-tooltip {
@@ -298,7 +332,7 @@
             transition: opacity 0.3s, visibility 0.3s;
             pointer-events: none;
         }
-        
+
         .tool-logo-wrapper:hover .logo-tooltip {
             visibility: visible;
             opacity: 1;
@@ -1022,12 +1056,99 @@
         .lang-name { font-weight: 500; }
         .lang-level { color: var(--text-gray); font-size: 0.85rem; }
         
+        .cert-preview {
+            position: relative;
+            margin-top: 10px;
+            width: fit-content;
+        }
+
+        .cert-preview-trigger {
+            display: block;
+            border: none;
+            padding: 0;
+            background: transparent;
+            border-radius: 8px;
+            cursor: zoom-in;
+        }
+
+        .cert-preview-trigger:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
         .cert-thumb {
             width: 100%;
             max-width: 200px;
             border-radius: 8px;
-            margin-top: 10px;
             display: block;
+            cursor: zoom-in;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .cert-thumb:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        .cert-preview-popup {
+            position: absolute;
+            left: calc(100% + 14px);
+            top: 50%;
+            width: min(420px, 52vw, calc(100vw - 48px));
+            max-width: calc(100vw - 48px);
+            padding: 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(13,13,13,0.96);
+            box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateY(-50%) scale(0.96);
+            transform-origin: left center;
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+            z-index: 20;
+        }
+
+        .cert-preview.popup-left .cert-preview-popup {
+            left: auto;
+            right: calc(100% + 14px);
+            transform-origin: right center;
+        }
+
+        .cert-preview-popup img {
+            width: 100%;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .cert-preview:hover .cert-thumb,
+        .cert-preview:focus-within .cert-thumb {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+        }
+
+        .cert-preview:hover .cert-preview-popup,
+        .cert-preview:focus-within .cert-preview-popup {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateY(-50%) scale(1);
+        }
+
+        @media (max-width: 900px) {
+            .cert-preview-popup {
+                left: 0;
+                top: calc(100% + 10px);
+                width: min(320px, 90vw);
+                transform: translateY(0) scale(0.96);
+                transform-origin: top left;
+            }
+
+            .cert-preview:hover .cert-preview-popup,
+            .cert-preview:focus-within .cert-preview-popup {
+                transform: translateY(0) scale(1);
+            }
         }
         
         footer {
@@ -1199,9 +1320,9 @@
         <div class="nav-content">
             <button id="menuToggle" class="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-menu">Menu</button>
             <div class="nav-links" id="main-menu">
-                <a href="#work" data-i18n="nav.work">Work</a>
+                <a href="#top" data-i18n="nav.about">About</a>
                 <a href="#reel" data-i18n="nav.reel">Reel</a>
-                <a href="#about" data-i18n="nav.about">About</a>
+                <a href="#work" data-i18n="nav.work">Work</a>
                 <a href="#contact" data-i18n="nav.contact">Contact</a>
                 <a href="/cv_Stephane_Daguin.pdf" download class="nav-cv-btn">⬇️ CV</a>
             </div>
@@ -1213,21 +1334,21 @@
         </div>
     </nav>
     
-    <section class="hero">
+    <section class="hero" id="top">
         <div class="hero-content">
             <div class="hero-badge" data-i18n="hero.badge">VFX Artist & FX TD</div>
             <h1>Stephane Daguin<span>.</span></h1>
             <p class="hero-subtitle" data-i18n="hero.subtitle">Senior Houdini Artist · FX Technical Director</p>
             <div class="tool-logos">
-                <div class="tool-logo-wrapper">
-                    <img src="/images/houdini.png" alt="Houdini" class="tool-logo" title="Houdini" data-desc-key="logo.houdini">
-                </div>
-                <div class="tool-logo-wrapper">
-                    <img src="/images/comfyui.png" alt="ComfyUI" class="tool-logo" title="ComfyUI" data-desc-key="logo.comfyui">
-                </div>
-                <div class="tool-logo-wrapper">
-                    <img src="/images/nuke.png" alt="Nuke" class="tool-logo" title="Nuke" data-desc-key="logo.nuke">
-                </div>
+                <button class="tool-logo-wrapper" type="button">
+                    <img src="/images/houdini.png" alt="" class="tool-logo" title="Houdini" data-desc-key="logo.houdini" data-name-key="logo.name.houdini" aria-hidden="true">
+                </button>
+                <button class="tool-logo-wrapper" type="button">
+                    <img src="/images/comfyui.png" alt="" class="tool-logo" title="ComfyUI" data-desc-key="logo.comfyui" data-name-key="logo.name.comfyui" aria-hidden="true">
+                </button>
+                <button class="tool-logo-wrapper" type="button">
+                    <img src="/images/nuke.png" alt="" class="tool-logo" title="Nuke" data-desc-key="logo.nuke" data-name-key="logo.name.nuke" aria-hidden="true">
+                </button>
             </div>
 <p class="hero-description" data-i18n="hero.description">With more than 15 years of experience in advertising, series, and film, I have developed deep expertise in Houdini, covering fluid simulations, particle systems, and procedural pipelines. I am now extending my skills with ComfyUI to improve hybrid VFX workflow.</p>
             <div class="hero-contact-row">
@@ -1403,6 +1524,10 @@
             { year: "1997-2000", role: "DEUG Arts du spectacle", studio: "Montpellier", img: "" }
         ];
         
+        Object.assign(translations.en, { "logo.name.houdini": "Houdini", "logo.name.comfyui": "ComfyUI", "logo.name.nuke": "Nuke" });
+        Object.assign(translations.fr, { "logo.name.houdini": "Houdini", "logo.name.comfyui": "ComfyUI", "logo.name.nuke": "Nuke" });
+        Object.assign(translations.es, { "logo.name.houdini": "Houdini", "logo.name.comfyui": "ComfyUI", "logo.name.nuke": "Nuke" });
+
         let currentLang = document.documentElement.lang || 'en';
         
         function initLogoTooltips() {
@@ -1412,32 +1537,59 @@
                 const lang = document.documentElement.lang;
                 return translations[lang]['hero.description'] || heroDesc.textContent;
             }
+
+            function getLogoDesc(descKey) {
+                const lang = document.documentElement.lang;
+                const langTranslations = translations[lang] || {};
+                return (descKey && langTranslations[descKey]) || getOriginalDesc();
+            }
+
+            function getDisplayedDesc() {
+                const activeWrapper = document.querySelector('.tool-logo-wrapper.active');
+                if (!activeWrapper) return getOriginalDesc();
+                const activeLogo = activeWrapper.querySelector('.tool-logo');
+                if (!activeLogo) return getOriginalDesc();
+                return getLogoDesc(activeLogo.dataset?.descKey);
+            }
             
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 const descKey = logo.dataset.descKey;
-                logo.setAttribute('role', 'button');
-                logo.setAttribute('tabindex', '0');
+                logo.setAttribute('tabindex', '-1');
+                logo.setAttribute('aria-hidden', 'true');
                 
                 // Click to toggle: colored=description, gray=original
                 const toggleLogoDescription = () => {
                     if (wrapper.classList.contains('active')) {
                         wrapper.classList.remove('active');
+                        wrapper.classList.add('just-deactivated');
                         heroDesc.textContent = getOriginalDesc();
                     } else {
-                        document.querySelectorAll('.tool-logo-wrapper').forEach(w => w.classList.remove('active'));
+                        document.querySelectorAll('.tool-logo-wrapper').forEach(w => {
+                            w.classList.remove('active');
+                            w.classList.remove('just-deactivated');
+                        });
                         wrapper.classList.add('active');
-                        const lang = document.documentElement.lang;
-                        if (descKey && translations[lang][descKey]) {
-                            heroDesc.textContent = translations[lang][descKey];
-                        }
+                        heroDesc.textContent = getLogoDesc(descKey);
                     }
                 };
-                logo.addEventListener('click', toggleLogoDescription);
-                logo.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        toggleLogoDescription();
+                const previewLogoDescription = () => {
+                    heroDesc.textContent = getLogoDesc(descKey);
+                };
+                const restoreLogoDescription = () => {
+                    heroDesc.textContent = getDisplayedDesc();
+                };
+
+                wrapper.addEventListener('mouseenter', previewLogoDescription);
+                wrapper.addEventListener('mouseleave', () => {
+                    wrapper.classList.remove('just-deactivated');
+                    restoreLogoDescription();
+                });
+                wrapper.addEventListener('click', toggleLogoDescription);
+                wrapper.addEventListener('focusin', previewLogoDescription);
+                wrapper.addEventListener('focusout', (e) => {
+                    if (!e.relatedTarget || !wrapper.contains(e.relatedTarget)) {
+                        restoreLogoDescription();
                     }
                 });
             });
@@ -1445,7 +1597,10 @@
             // Restore when clicking elsewhere (but not on lang buttons or tool logos)
             document.addEventListener('click', (e) => {
                 if (!e.target.closest('.tool-logo-wrapper') && !e.target.closest('.lang-btn')) {
-                    document.querySelectorAll('.tool-logo-wrapper').forEach(w => w.classList.remove('active'));
+                    document.querySelectorAll('.tool-logo-wrapper').forEach(w => {
+                        w.classList.remove('active');
+                        w.classList.remove('just-deactivated');
+                    });
                     if (heroDesc) heroDesc.textContent = getOriginalDesc();
                 }
             });
@@ -1475,9 +1630,17 @@
                     el.textContent = v;
                 }
             });
-            const logoDetailsLabel = translations[lang]['aria.logoDetails'] || translations.en['aria.logoDetails'];
-            document.querySelectorAll('.tool-logo').forEach(logo => {
-                logo.setAttribute('aria-label', `${logoDetailsLabel} ${logo.alt}`);
+            const langMap = translations[lang] || translations.en;
+            const logoDetailsLabel = langMap['aria.logoDetails'] || translations.en['aria.logoDetails'];
+            document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
+                const logo = wrapper.querySelector('.tool-logo');
+                if (!logo) return;
+                const nameKey = logo.dataset.nameKey;
+                const logoName = (nameKey && (langMap[nameKey] || translations.en[nameKey])) || logo.getAttribute('title') || 'logo';
+                wrapper.setAttribute('aria-label', `${logoDetailsLabel} ${logoName}`);
+                const descKey = logo.dataset.descKey;
+                const logoDescription = (descKey && (langMap[descKey] || translations.en[descKey])) || '';
+                wrapper.setAttribute('aria-description', logoDescription);
             });
             const menuToggle = document.getElementById('menuToggle');
             if (menuToggle) {
@@ -1575,9 +1738,68 @@
                     <p class="cv-item-year">${f.year}</p>
                     <p class="cv-item-role">${f.role}</p>
                     <p class="cv-item-studio">${f.studio}</p>
-                    ${f.img ? `<img src="${f.img}" class="cert-thumb" alt="Certificate: ${f.role}" loading="lazy" decoding="async">` : ''}
+                    ${f.img ? `
+                        <div class="cert-preview">
+                            <a href="${f.img}" class="cert-preview-trigger" target="_blank" rel="noopener noreferrer">
+                                <img src="${f.img}" class="cert-thumb" alt="Certificate: ${f.role}" loading="lazy" decoding="async">
+                            </a>
+                            <div class="cert-preview-popup" aria-hidden="true">
+                                <img src="${f.img}" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                            </div>
+                        </div>
+                    ` : ''}
                 </div>
             `).join('');
+            initCertificatePreviews();
+        }
+
+        function initCertificatePreviews() {
+            const previews = document.querySelectorAll('.cert-preview');
+            if (!previews.length) return;
+
+            const resetCertificatePreviewFocus = () => {
+                const activePreviewTrigger = document.activeElement?.closest?.('.cert-preview-trigger');
+                if (activePreviewTrigger) activePreviewTrigger.blur();
+            };
+
+            const updateCertificatePreviewPosition = (preview) => {
+                preview.classList.remove('popup-left');
+                if (window.innerWidth <= 900) return;
+
+                const rect = preview.getBoundingClientRect();
+                const popupWidth = Math.min(420, window.innerWidth * 0.52, window.innerWidth - 48);
+                const gap = 14;
+                const spaceRight = window.innerWidth - rect.right;
+                const spaceLeft = rect.left;
+
+                if (spaceRight < popupWidth + gap && spaceLeft > spaceRight) {
+                    preview.classList.add('popup-left');
+                }
+            };
+
+            previews.forEach(preview => {
+                const trigger = preview.querySelector('.cert-preview-trigger');
+                if (!trigger) return;
+
+                updateCertificatePreviewPosition(preview);
+
+                preview.addEventListener('mouseenter', () => updateCertificatePreviewPosition(preview));
+                trigger.addEventListener('focus', () => updateCertificatePreviewPosition(preview));
+                trigger.addEventListener('click', () => {
+                    window.setTimeout(() => {
+                        trigger.blur();
+                        updateCertificatePreviewPosition(preview);
+                    }, 0);
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                previews.forEach(updateCertificatePreviewPosition);
+            });
+            window.addEventListener('focus', resetCertificatePreviewFocus);
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) resetCertificatePreviewFocus();
+            });
         }
         
         function attachFilterListeners() {
