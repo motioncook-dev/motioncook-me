@@ -1503,12 +1503,15 @@
                     }
                 });
                 wrapper.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        toggleLogoDescription();
+                    } else if (e.key === ' ') {
                         e.preventDefault();
                     }
                 });
                 wrapper.addEventListener('keyup', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
+                    if (e.key === ' ') {
                         e.preventDefault();
                         toggleLogoDescription();
                     }
