@@ -1349,9 +1349,9 @@
                 });
             });
             
-            // Restore when clicking elsewhere
+            // Restore when clicking elsewhere (but not on lang buttons or tool logos)
             document.addEventListener('click', (e) => {
-                if (!e.target.closest('.tool-logo-wrapper')) {
+                if (!e.target.closest('.tool-logo-wrapper') && !e.target.closest('.lang-btn')) {
                     document.querySelectorAll('.tool-logo-wrapper').forEach(w => w.classList.remove('active'));
                     if (heroDesc) heroDesc.textContent = originalDesc;
                 }
