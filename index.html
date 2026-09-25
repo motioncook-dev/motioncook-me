@@ -195,11 +195,12 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             text-align: center;
             position: relative;
-            padding: 0 20px;
+            box-sizing: border-box;
+            padding: clamp(120px, 18vh, 200px) 20px 140px;
         }
         
         .hero-content {
