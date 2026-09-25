@@ -1551,9 +1551,6 @@
                 const nameKey = logo.dataset.nameKey;
                 const logoName = (nameKey && (logoNameTranslations[lang]?.[nameKey] || logoNameTranslations.en[nameKey])) || logo.getAttribute('title') || 'logo';
                 wrapper.setAttribute('aria-label', logoName);
-                const descKey = logo.dataset.descKey;
-                const logoDescription = (descKey && (langTranslations[descKey] || translations.en[descKey])) || '';
-                wrapper.setAttribute('aria-description', logoDescription);
             });
             const menuToggle = document.getElementById('menuToggle');
             if (menuToggle) {
