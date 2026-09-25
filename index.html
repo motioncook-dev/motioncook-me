@@ -1487,7 +1487,6 @@
                 wrapper.addEventListener('focusin', previewLogoDescription);
                 wrapper.addEventListener('focusout', (e) => {
                     if (!e.relatedTarget || !wrapper.contains(e.relatedTarget)) {
-                        wrapper.classList.remove('just-deactivated');
                         restoreLogoDescription();
                     }
                 });
