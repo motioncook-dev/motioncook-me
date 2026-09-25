@@ -186,8 +186,7 @@
         .nav-cv-btn:focus-visible,
         .modal-close:focus-visible,
         .menu-toggle:focus-visible,
-        .project-card a:focus-visible,
-        .tool-logo-wrapper:focus-visible {
+        .project-card a:focus-visible {
             outline: 2px solid var(--accent);
             outline-offset: 2px;
         }
@@ -259,6 +258,8 @@
             height: 48px;
             filter: grayscale(100%) opacity(0.6);
             transition: all 0.3s;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .tool-logo:hover {
@@ -276,10 +277,6 @@
         .tool-logo-wrapper {
             position: relative;
             display: inline-block;
-            border: none;
-            background: none;
-            padding: 0;
-            cursor: pointer;
         }
         
         .tool-logo-wrapper .logo-tooltip {
@@ -302,23 +299,7 @@
             pointer-events: none;
         }
         
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-        
         .tool-logo-wrapper:hover .logo-tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
-        .tool-logo-wrapper:focus-visible .logo-tooltip {
             visibility: visible;
             opacity: 1;
         }
@@ -1238,21 +1219,17 @@
             <h1>Stephane Daguin<span>.</span></h1>
             <p class="hero-subtitle" data-i18n="hero.subtitle">Senior Houdini Artist · FX Technical Director</p>
             <div class="tool-logos">
-                <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for Houdini" data-logo-name="Houdini">
-                    <img src="/images/houdini.png" alt="" class="tool-logo" data-desc-key="logo.houdini" aria-hidden="true">
-                    <span class="logo-tooltip">Toggle details for Houdini</span>
-                </button>
-                <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for ComfyUI" data-logo-name="ComfyUI">
-                    <img src="/images/comfyui.png" alt="" class="tool-logo" data-desc-key="logo.comfyui" aria-hidden="true">
-                    <span class="logo-tooltip">Toggle details for ComfyUI</span>
-                </button>
-                <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for Nuke" data-logo-name="Nuke">
-                    <img src="/images/nuke.png" alt="" class="tool-logo" data-desc-key="logo.nuke" aria-hidden="true">
-                    <span class="logo-tooltip">Toggle details for Nuke</span>
-                </button>
+                <div class="tool-logo-wrapper">
+                    <img src="/images/houdini.png" alt="Houdini" class="tool-logo" title="Houdini" data-desc-key="logo.houdini">
+                </div>
+                <div class="tool-logo-wrapper">
+                    <img src="/images/comfyui.png" alt="ComfyUI" class="tool-logo" title="ComfyUI" data-desc-key="logo.comfyui">
+                </div>
+                <div class="tool-logo-wrapper">
+                    <img src="/images/nuke.png" alt="Nuke" class="tool-logo" title="Nuke" data-desc-key="logo.nuke">
+                </div>
             </div>
 <p class="hero-description" data-i18n="hero.description">With more than 15 years of experience in advertising, series, and film, I have developed deep expertise in Houdini, covering fluid simulations, particle systems, and procedural pipelines. I am now extending my skills with ComfyUI to improve hybrid VFX workflow.</p>
-            <span id="logo-description-live" class="sr-only" aria-live="polite" aria-atomic="true"></span>
             <div class="hero-contact-row">
                 <a href="mailto:motioncook@pm.me" class="hero-contact-btn">Email</a>
                 <a href="https://www.linkedin.com/in/stephanedaguin" target="_blank" rel="noopener noreferrer" class="hero-contact-btn">LinkedIn</a>
@@ -1354,7 +1331,7 @@
                 "work.title": "Sélection", "work.subtitle": "Projets",
                 "filter.all": "Tous", "filter.film": "Film", "filter.commercial": "Pub", "filter.animation": "Animation 3D", "filter.music": "Vidéo Clip",
                 "about.title": "À propos", "cv.experience": "Expérience", "cv.formation": "Formation", "cv.languages": "Langues",
-                "footer.location": "Basé en Espagne | ", "page.title": "motioncook.me | VFX Artist & FX TD", "reel.skills": "FX / Simulation / Motion Graphiques", "reel.tools": "Houdini | Nuke | Maya | ComfyUI | Redshift", "footer.copyright": "© 2026 Stephane Daguin", "scroll": "Scroll", "logo.houdini": "Je travaille avec Houdini depuis plus de dix ans. Ce temps passé au quotidien avec le logiciel m'a permis de comprendre comment il peut vraiment servir les projets. Grâce à la publicité, j'ai pu explorer différentes facettes du logiciel, notamment les systèmes de particules, le motion graphique, les simulations CFX et le rendu final. Mon approche repose sur le setup procédural, qui permet d'être flexible et réactif selon les besoins. Sur le plan technique, je navigue entre solveurs, VEX et VOP selon ce que chaque projet demande. L'idée n'est pas de montrer ce que je sais faire, mais d'arriver à ce que vous avez en tête. Au-delà des outils, il s'agit simplement de construire quelque chose qui tient la route, techniquement et esthétiquement. Si vous cherchez quelqu'un pour mener un projet visuel, nous pouvons en discuter.", "logo.nuke": "Outil de compositing et de VFX de référence dans l'industrie du cinéma et de la télévision.", "logo.comfyui": "Outil d'IA générative pour le flux de travail VFX hybride.", "meta.description": "Portfolio de Stéphane Daguin, VFX Artist & FX TD basé en Espagne, avec plus de 15 ans d'expérience en publicité, séries et cinéma, spécialisé en Houdini, ComfyUI et workflows VFX hybrides.", "aria.logoDetails": "Afficher les détails sur", "aria.videoPreview": "Aperçu vidéo du projet", "aria.menuToggle": "Afficher ou masquer le menu de navigation", "aria.lang.fr": "Passer en français", "aria.lang.en": "Passer en anglais", "aria.lang.es": "Passer en espagnol", "aria.languageSelector": "Sélecteur de langue", "aria.logoToggleHint": "Appuyez sur Entrée ou Espace pour activer ou désactiver"
+                "footer.location": "Basé en Espagne | ", "page.title": "motioncook.me | VFX Artist & FX TD", "reel.skills": "FX / Simulation / Motion Graphiques", "reel.tools": "Houdini | Nuke | Maya | ComfyUI | Redshift", "footer.copyright": "© 2026 Stephane Daguin", "scroll": "Scroll", "logo.houdini": "Je travaille avec Houdini depuis plus de dix ans. Ce temps passé au quotidien avec le logiciel m'a permis de comprendre comment il peut vraiment servir les projets. Grâce à la publicité, j'ai pu explorer différentes facettes du logiciel, notamment les systèmes de particules, le motion graphique, les simulations CFX et le rendu final. Mon approche repose sur le setup procédural, qui permet d'être flexible et réactif selon les besoins. Sur le plan technique, je navigue entre solveurs, VEX et VOP selon ce que chaque projet demande. L'idée n'est pas de montrer ce que je sais faire, mais d'arriver à ce que vous avez en tête. Au-delà des outils, il s'agit simplement de construire quelque chose qui tient la route, techniquement et esthétiquement. Si vous cherchez quelqu'un pour mener un projet visuel, nous pouvons en discuter.", "logo.nuke": "Outil de compositing et de VFX de référence dans l'industrie du cinéma et de la télévision.", "logo.comfyui": "Outil d'IA générative pour le flux de travail VFX hybride.", "meta.description": "Portfolio de Stéphane Daguin, VFX Artist & FX TD basé en Espagne, avec plus de 15 ans d'expérience en publicité, séries et cinéma, spécialisé en Houdini, ComfyUI et workflows VFX hybrides.", "aria.logoDetails": "Afficher les détails sur", "aria.videoPreview": "Aperçu vidéo du projet", "aria.menuToggle": "Afficher ou masquer le menu de navigation", "aria.lang.fr": "Passer en français", "aria.lang.en": "Passer en anglais", "aria.lang.es": "Passer en espagnol", "aria.languageSelector": "Sélecteur de langue"
             },
             en: {
                 "nav.work": "Work", "nav.reel": "Reel", "nav.about": "About", "nav.contact": "Contact",
@@ -1362,7 +1339,7 @@
                 "work.title": "Selected", "work.subtitle": "Projects",
                 "filter.all": "All", "filter.film": "Film", "filter.commercial": "Commercial", "filter.animation": "Animation 3D", "filter.music": "Music Video",
                 "about.title": "About", "cv.experience": "Experience", "cv.formation": "Education", "cv.languages": "Languages",
-                "footer.location": "Based in Spain | ", "page.title": "motioncook.me | VFX Artist & FX TD", "reel.skills": "FX / Simulation / Motion Graphics", "reel.tools": "Houdini | Nuke | Maya | ComfyUI | Redshift", "footer.copyright": "© 2026 Stephane Daguin", "scroll": "Scroll", "logo.houdini": "Working with Houdini for over ten years now. This daily time with the software has helped me understand how it can truly serve projects. Through advertising, I explored different facets including particle systems, motion graphics, CFX simulations, and final rendering. My approach relies on procedural setup, staying flexible and reactive to project needs. Technically, I navigate between solvers, VEX, and VOP depending on what each project requires. The goal is not to show what I know, but to deliver what you have in mind. Beyond tools, it's about building something that holds up, technically and aesthetically. If you're looking for someone to lead a visual project, let's discuss.", "logo.nuke": "Industry-standard compositing and VFX tool for film and television.", "logo.comfyui": "AI generative tool for hybrid VFX workflow.", "meta.description": "Portfolio of Stéphane Daguin, VFX Artist & FX TD based in Spain, with 15+ years in advertising, series, and film, specialized in Houdini, ComfyUI, and hybrid VFX workflows.", "aria.logoDetails": "Show details about", "aria.videoPreview": "Project video preview", "aria.menuToggle": "Toggle navigation menu", "aria.lang.fr": "Switch language to French", "aria.lang.en": "Switch language to English", "aria.lang.es": "Switch language to Spanish", "aria.languageSelector": "Language selector", "aria.logoToggleHint": "Press Enter or Space to toggle"
+                "footer.location": "Based in Spain | ", "page.title": "motioncook.me | VFX Artist & FX TD", "reel.skills": "FX / Simulation / Motion Graphics", "reel.tools": "Houdini | Nuke | Maya | ComfyUI | Redshift", "footer.copyright": "© 2026 Stephane Daguin", "scroll": "Scroll", "logo.houdini": "Working with Houdini for over ten years now. This daily time with the software has helped me understand how it can truly serve projects. Through advertising, I explored different facets including particle systems, motion graphics, CFX simulations, and final rendering. My approach relies on procedural setup, staying flexible and reactive to project needs. Technically, I navigate between solvers, VEX, and VOP depending on what each project requires. The goal is not to show what I know, but to deliver what you have in mind. Beyond tools, it's about building something that holds up, technically and aesthetically. If you're looking for someone to lead a visual project, let's discuss.", "logo.nuke": "Industry-standard compositing and VFX tool for film and television.", "logo.comfyui": "AI generative tool for hybrid VFX workflow.", "meta.description": "Portfolio of Stéphane Daguin, VFX Artist & FX TD based in Spain, with 15+ years in advertising, series, and film, specialized in Houdini, ComfyUI, and hybrid VFX workflows.", "aria.logoDetails": "Show details about", "aria.videoPreview": "Project video preview", "aria.menuToggle": "Toggle navigation menu", "aria.lang.fr": "Switch language to French", "aria.lang.en": "Switch language to English", "aria.lang.es": "Switch language to Spanish", "aria.languageSelector": "Language selector"
             },
             es: {
                 "nav.work": "Trabajos", "nav.reel": "Reel", "nav.about": "Perfil", "nav.contact": "Contacto",
@@ -1370,7 +1347,7 @@
                 "work.title": "Seleccion", "work.subtitle": "Proyectos",
                 "filter.all": "Todos", "filter.film": "Cine", "filter.commercial": "Comercial", "filter.animation": "Animación 3D", "filter.music": "Video Musical",
                 "about.title": "Perfil", "cv.experience": "Experiencia", "cv.formation": "Formación", "cv.languages": "Idiomas",
-                "footer.location": "Basado en España | ", "page.title": "motioncook.me | VFX Artist & FX TD", "reel.skills": "FX / Simulación / Motion Graphics", "reel.tools": "Houdini | Nuke | Maya | ComfyUI | Redshift", "footer.copyright": "© 2026 Stephane Daguin", "scroll": "Desplazar", "logo.houdini": "Trabajando con Houdini durante más de diez años. Este tiempo diario con el software me ha permitido comprender cómo puede servir realmente a los proyectos. Gracias a la publicidad, exploré diferentes facetas como sistemas de partículas, motion graphics, simulaciones CFX y renderizado final. Mi enfoque se basa en el setup procedural, siendo flexible y reactivo según las necesidades. Técnicamente, navego entre solveurs, VEX y VOP según lo que exige cada proyecto. El objetivo no es mostrar lo que sé, sino lograr lo que tienes en mente. Más allá de las herramientas, se trata de construir algo que funcione, técnica y estéticamente. Si buscas a alguien para liderar un proyecto visual, podemos hablar.", "logo.nuke": "Herramienta de compositing y VFX de referencia en la industria del cine y la televisión.", "logo.comfyui": "Herramienta de IA generativa para el flujo de trabajo VFX híbrido.", "meta.description": "Portfolio de Stéphane Daguin, VFX Artist & FX TD en España, con más de 15 años de experiencia en publicidad, series y cine, especializado en Houdini, ComfyUI y flujos de trabajo VFX híbridos.", "aria.logoDetails": "Mostrar detalles sobre", "aria.videoPreview": "Vista previa de video del proyecto", "aria.menuToggle": "Mostrar u ocultar el menú de navegación", "aria.lang.fr": "Cambiar idioma a francés", "aria.lang.en": "Cambiar idioma a inglés", "aria.lang.es": "Cambiar idioma a español", "aria.languageSelector": "Selector de idioma", "aria.logoToggleHint": "Pulsa Enter o Espacio para activar o desactivar"
+                "footer.location": "Basado en España | ", "page.title": "motioncook.me | VFX Artist & FX TD", "reel.skills": "FX / Simulación / Motion Graphics", "reel.tools": "Houdini | Nuke | Maya | ComfyUI | Redshift", "footer.copyright": "© 2026 Stephane Daguin", "scroll": "Desplazar", "logo.houdini": "Trabajando con Houdini durante más de diez años. Este tiempo diario con el software me ha permitido comprender cómo puede servir realmente a los proyectos. Gracias a la publicidad, exploré diferentes facetas como sistemas de partículas, motion graphics, simulaciones CFX y renderizado final. Mi enfoque se basa en el setup procedural, siendo flexible y reactivo según las necesidades. Técnicamente, navego entre solveurs, VEX y VOP según lo que exige cada proyecto. El objetivo no es mostrar lo que sé, sino lograr lo que tienes en mente. Más allá de las herramientas, se trata de construir algo que funcione, técnica y estéticamente. Si buscas a alguien para liderar un proyecto visual, podemos hablar.", "logo.nuke": "Herramienta de compositing y VFX de referencia en la industria del cine y la televisión.", "logo.comfyui": "Herramienta de IA generativa para el flujo de trabajo VFX híbrido.", "meta.description": "Portfolio de Stéphane Daguin, VFX Artist & FX TD en España, con más de 15 años de experiencia en publicidad, series y cine, especializado en Houdini, ComfyUI y flujos de trabajo VFX híbridos.", "aria.logoDetails": "Mostrar detalles sobre", "aria.videoPreview": "Vista previa de video del proyecto", "aria.menuToggle": "Mostrar u ocultar el menú de navegación", "aria.lang.fr": "Cambiar idioma a francés", "aria.lang.en": "Cambiar idioma a inglés", "aria.lang.es": "Cambiar idioma a español", "aria.languageSelector": "Selector de idioma"
             }
         };
         
@@ -1430,81 +1407,47 @@
         
         function initLogoTooltips() {
             const heroDesc = document.querySelector('.hero-description');
-            if (!heroDesc) return;
-            const logoDescriptionLive = document.getElementById('logo-description-live');
-            const activeLogoOrder = [];
-            const removeDescKeyFromOrder = (key) => {
-                const keyIndex = activeLogoOrder.lastIndexOf(key);
-                if (keyIndex !== -1) activeLogoOrder.splice(keyIndex, 1);
-            };
-            const announceHeroDescription = () => {
-                if (!logoDescriptionLive) return;
-                const announcementText = heroDesc.textContent;
-                logoDescriptionLive.textContent = '';
-                requestAnimationFrame(() => {
-                    logoDescriptionLive.textContent = announcementText;
-                });
-            };
             
             function getOriginalDesc() {
                 const lang = document.documentElement.lang;
-                const langTable = translations[lang] || translations.en;
-                return langTable['hero.description'] || translations.en['hero.description'] || heroDesc.textContent;
+                return translations[lang]['hero.description'] || heroDesc.textContent;
             }
             
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
-                if (!logo) return;
                 const descKey = logo.dataset.descKey;
-                const getLogoDetailsLabel = () => {
-                    const lang = document.documentElement.lang;
-                    const langTable = translations[lang] || translations.en;
-                    return langTable['aria.logoDetails'] || translations.en['aria.logoDetails'];
-                };
-                const getLogoToggleHint = () => {
-                    const lang = document.documentElement.lang;
-                    const langTable = translations[lang] || translations.en;
-                    return langTable['aria.logoToggleHint'] || translations.en['aria.logoToggleHint'] || 'Press Enter or Space to toggle details';
-                };
-                const getDescByKey = (key) => {
-                    const lang = document.documentElement.lang;
-                    const langTable = translations[lang] || translations.en;
-                    if (!key) return null;
-                    return langTable[key] || translations.en[key] || null;
-                };
-                const tooltip = wrapper.querySelector('.logo-tooltip');
-                const fallbackLogoName = descKey ? descKey.replace('logo.', '') : 'Tool logo';
-                const logoName = wrapper.dataset.logoName || wrapper.getAttribute('title') || fallbackLogoName;
-                wrapper.setAttribute('aria-label', `${getLogoDetailsLabel()} ${logoName}`.trim());
-                if (tooltip) tooltip.textContent = `${logoName} — ${getLogoToggleHint()}`.trim();
+                logo.setAttribute('role', 'button');
+                logo.setAttribute('tabindex', '0');
                 
                 // Click to toggle: colored=description, gray=original
                 const toggleLogoDescription = () => {
-                    const isActive = wrapper.classList.contains('active');
-                    if (isActive) {
+                    if (wrapper.classList.contains('active')) {
                         wrapper.classList.remove('active');
-                        wrapper.setAttribute('aria-pressed', 'false');
-                        removeDescKeyFromOrder(descKey);
-                        const fallbackDescKey = activeLogoOrder[activeLogoOrder.length - 1] || null;
-                        const fallbackDesc = fallbackDescKey ? getDescByKey(fallbackDescKey) : null;
-                        if (fallbackDesc) {
-                            heroDesc.textContent = fallbackDesc;
-                        } else {
-                            heroDesc.textContent = getOriginalDesc();
-                        }
-                        announceHeroDescription();
+                        heroDesc.textContent = getOriginalDesc();
                     } else {
-                        const desc = getDescByKey(descKey);
-                        if (!desc) return;
+                        document.querySelectorAll('.tool-logo-wrapper').forEach(w => w.classList.remove('active'));
                         wrapper.classList.add('active');
-                        wrapper.setAttribute('aria-pressed', 'true');
-                        removeDescKeyFromOrder(descKey);
-                        activeLogoOrder.push(descKey);
-                        heroDesc.textContent = desc;
-                        announceHeroDescription();
+                        const lang = document.documentElement.lang;
+                        if (descKey && translations[lang][descKey]) {
+                            heroDesc.textContent = translations[lang][descKey];
+                        }
                     }
                 };
-                wrapper.addEventListener('click', toggleLogoDescription);
+                logo.addEventListener('click', toggleLogoDescription);
+                logo.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleLogoDescription();
+                    }
+                });
+            });
+            
+            // Restore when clicking elsewhere (but not on lang buttons or tool logos)
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.tool-logo-wrapper') && !e.target.closest('.lang-btn')) {
+                    document.querySelectorAll('.tool-logo-wrapper').forEach(w => w.classList.remove('active'));
+                    if (heroDesc) heroDesc.textContent = getOriginalDesc();
+                }
             });
         }
         
@@ -1532,18 +1475,9 @@
                     el.textContent = v;
                 }
             });
-            const langTable = translations[lang] || translations.en;
-            const logoDetailsLabel = langTable['aria.logoDetails'] || translations.en['aria.logoDetails'];
-            const logoToggleHint = langTable['aria.logoToggleHint'] || translations.en['aria.logoToggleHint'] || 'Press Enter or Space to toggle details';
-            document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
-                const logo = wrapper.querySelector('.tool-logo');
-                if (!logo) return;
-                const tooltip = wrapper.querySelector('.logo-tooltip');
-                const fallbackLogoName = logo.dataset.descKey ? logo.dataset.descKey.replace('logo.', '') : 'Tool logo';
-                const logoName = wrapper.dataset.logoName || wrapper.getAttribute('title') || fallbackLogoName;
-                const logoLabel = `${logoDetailsLabel} ${logoName}`.trim();
-                wrapper.setAttribute('aria-label', logoLabel);
-                if (tooltip) tooltip.textContent = `${logoName} — ${logoToggleHint}`.trim();
+            const logoDetailsLabel = translations[lang]['aria.logoDetails'] || translations.en['aria.logoDetails'];
+            document.querySelectorAll('.tool-logo').forEach(logo => {
+                logo.setAttribute('aria-label', `${logoDetailsLabel} ${logo.alt}`);
             });
             const menuToggle = document.getElementById('menuToggle');
             if (menuToggle) {
