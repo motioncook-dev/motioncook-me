@@ -1424,7 +1424,8 @@
                 const activeWrapper = document.querySelector('.tool-logo-wrapper.active');
                 if (!activeWrapper) return getOriginalDesc();
                 const activeLogo = activeWrapper.querySelector('.tool-logo');
-                return getLogoDesc(activeLogo?.dataset?.descKey);
+                if (!activeLogo) return heroDesc.textContent;
+                return getLogoDesc(activeLogo.dataset?.descKey);
             }
             
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
