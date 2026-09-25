@@ -285,10 +285,13 @@
             transform: scale(1.08);
         }
         
-        .tool-logo-wrapper:focus,
-        .tool-logo-wrapper:focus-visible,
-        .tool-logo-wrapper:focus-within {
+        .tool-logo-wrapper:focus {
             outline: none;
+        }
+
+        .tool-logo-wrapper:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.55);
         }
         
         .tool-logo-wrapper {
