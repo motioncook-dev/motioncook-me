@@ -267,15 +267,23 @@
             filter: grayscale(0%);
         }
         
+        .tool-logo-wrapper:hover .tool-logo {
+            filter: grayscale(0%);
+        }
+        
+        .tool-logo-wrapper:focus-within .tool-logo {
+            filter: grayscale(0%);
+        }
+        
+        .tool-logo-wrapper:focus-within {
+            outline: 2px solid rgba(255, 255, 255, 0.85);
+            outline-offset: 2px;
+        }
+        
         .tool-logo-wrapper {
             position: relative;
             display: inline-block;
             border-radius: 6px;
-        }
-        
-        .tool-logo-wrapper:focus-within {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
         }
         
         .tool-logo-wrapper .logo-tooltip {
