@@ -1451,6 +1451,7 @@
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 const descKey = logo.dataset.descKey;
+                let skipNextClick = false;
                 wrapper.setAttribute('role', 'button');
                 wrapper.setAttribute('tabindex', '0');
                 logo.setAttribute('tabindex', '-1');
@@ -1483,7 +1484,13 @@
                     wrapper.classList.remove('just-deactivated');
                     restoreLogoDescription();
                 });
-                wrapper.addEventListener('click', toggleLogoDescription);
+                wrapper.addEventListener('click', () => {
+                    if (skipNextClick) {
+                        skipNextClick = false;
+                        return;
+                    }
+                    toggleLogoDescription();
+                });
                 wrapper.addEventListener('focusin', previewLogoDescription);
                 wrapper.addEventListener('focusout', (e) => {
                     if (!e.relatedTarget || !wrapper.contains(e.relatedTarget)) {
@@ -1493,6 +1500,7 @@
                 wrapper.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
+                        skipNextClick = true;
                         toggleLogoDescription();
                     }
                 });
