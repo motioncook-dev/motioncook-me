@@ -1490,7 +1490,8 @@
                     el.textContent = v;
                 }
             });
-            const logoDetailsLabel = translations[lang]['aria.logoDetails'] || translations.en['aria.logoDetails'];
+            const langTable = translations[lang] || translations.en;
+            const logoDetailsLabel = langTable['aria.logoDetails'] || translations.en['aria.logoDetails'];
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 if (!logo) return;
