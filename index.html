@@ -928,6 +928,11 @@
             padding-left: 20px;
             margin-bottom: 18px;
         }
+        .cv-item:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 6px;
+        }
         
         .cv-item::before {
             content: '';
@@ -1263,8 +1268,8 @@
                 <p class="cv-block-title" data-i18n="cv.experience">Experience</p>
                 <div class="cv-timeline" id="experience-timeline"></div>
             </div>
-            <div class="cv-block cv-projects">
-                <p class="cv-block-title" id="work">Selected Work</p>
+            <div class="cv-block cv-projects" id="work">
+                <p class="cv-block-title">Selected Work</p>
                 <div class="filters">
                     <button class="filter-btn active" data-filter="all" data-i18n="filter.all" type="button" aria-pressed="true">All</button>
                     <button class="filter-btn" data-filter="film" data-i18n="filter.film" type="button" aria-pressed="false">Film</button>
@@ -1464,7 +1469,7 @@
                 const targetAttr = el.dataset.i18nAttr;
                 if (targetAttr) {
                     el.setAttribute(targetAttr, v);
-                } else if (el.children.length === 0 || el.tagName === 'TITLE') {
+                } else {
                     el.textContent = v;
                 }
             });
