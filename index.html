@@ -1430,8 +1430,9 @@
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
                 const logo = wrapper.querySelector('.tool-logo');
                 const descKey = logo.dataset.descKey;
-                logo.setAttribute('role', 'button');
-                logo.setAttribute('tabindex', '0');
+                wrapper.setAttribute('role', 'button');
+                wrapper.setAttribute('tabindex', '0');
+                logo.setAttribute('tabindex', '-1');
                 
                 // Click to toggle: colored=description, gray=original
                 const toggleLogoDescription = () => {
@@ -1451,16 +1452,16 @@
                     heroDesc.textContent = getDisplayedDesc();
                 };
 
-                logo.addEventListener('mouseenter', previewLogoDescription);
-                logo.addEventListener('mouseleave', restoreLogoDescription);
-                logo.addEventListener('click', toggleLogoDescription);
-                logo.addEventListener('focus', previewLogoDescription);
-                logo.addEventListener('blur', (e) => {
+                wrapper.addEventListener('mouseenter', previewLogoDescription);
+                wrapper.addEventListener('mouseleave', restoreLogoDescription);
+                wrapper.addEventListener('click', toggleLogoDescription);
+                wrapper.addEventListener('focusin', previewLogoDescription);
+                wrapper.addEventListener('focusout', (e) => {
                     if (!wrapper.contains(e.relatedTarget)) {
                         restoreLogoDescription();
                     }
                 });
-                logo.addEventListener('keydown', (e) => {
+                wrapper.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
                         toggleLogoDescription();
@@ -1502,8 +1503,10 @@
                 }
             });
             const logoDetailsLabel = translations[lang]['aria.logoDetails'] || translations.en['aria.logoDetails'];
-            document.querySelectorAll('.tool-logo').forEach(logo => {
-                logo.setAttribute('aria-label', `${logoDetailsLabel} ${logo.alt}`);
+            document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
+                const logo = wrapper.querySelector('.tool-logo');
+                if (!logo) return;
+                wrapper.setAttribute('aria-label', `${logoDetailsLabel} ${logo.alt}`);
             });
             const menuToggle = document.getElementById('menuToggle');
             if (menuToggle) {
