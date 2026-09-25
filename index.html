@@ -1444,16 +1444,14 @@
                         wrapper.setAttribute('aria-pressed', 'false');
                         const keyIndex = activeLogoOrder.lastIndexOf(descKey);
                         if (keyIndex !== -1) activeLogoOrder.splice(keyIndex, 1);
-                        if (activeLogoDescKey === descKey) {
-                            const fallbackDescKey = activeLogoOrder[activeLogoOrder.length - 1] || null;
-                            const fallbackDesc = fallbackDescKey ? getDescByKey(fallbackDescKey) : null;
-                            if (fallbackDesc) {
-                                activeLogoDescKey = fallbackDescKey;
-                                heroDesc.textContent = fallbackDesc;
-                            } else {
-                                activeLogoDescKey = null;
-                                heroDesc.textContent = getOriginalDesc();
-                            }
+                        const fallbackDescKey = activeLogoOrder[activeLogoOrder.length - 1] || null;
+                        const fallbackDesc = fallbackDescKey ? getDescByKey(fallbackDescKey) : null;
+                        if (fallbackDesc) {
+                            activeLogoDescKey = fallbackDescKey;
+                            heroDesc.textContent = fallbackDesc;
+                        } else {
+                            activeLogoDescKey = null;
+                            heroDesc.textContent = getOriginalDesc();
                         }
                     } else {
                         wrapper.classList.add('active');
