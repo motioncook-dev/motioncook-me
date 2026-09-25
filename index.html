@@ -1222,13 +1222,13 @@
             <h1>Stephane Daguin<span>.</span></h1>
             <p class="hero-subtitle" data-i18n="hero.subtitle">Senior Houdini Artist · FX Technical Director</p>
             <div class="tool-logos">
-                <button class="tool-logo-wrapper" type="button" aria-pressed="false" title="Houdini" data-logo-name="Houdini">
+                <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for Houdini" title="Houdini" data-logo-name="Houdini">
                     <img src="/images/houdini.png" alt="" class="tool-logo" data-desc-key="logo.houdini" aria-hidden="true">
                 </button>
-                <button class="tool-logo-wrapper" type="button" aria-pressed="false" title="ComfyUI" data-logo-name="ComfyUI">
+                <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for ComfyUI" title="ComfyUI" data-logo-name="ComfyUI">
                     <img src="/images/comfyui.png" alt="" class="tool-logo" data-desc-key="logo.comfyui" aria-hidden="true">
                 </button>
-                <button class="tool-logo-wrapper" type="button" aria-pressed="false" title="Nuke" data-logo-name="Nuke">
+                <button class="tool-logo-wrapper" type="button" aria-pressed="false" aria-label="Show details for Nuke" title="Nuke" data-logo-name="Nuke">
                     <img src="/images/nuke.png" alt="" class="tool-logo" data-desc-key="logo.nuke" aria-hidden="true">
                 </button>
             </div>
@@ -1410,10 +1410,12 @@
         
         function initLogoTooltips() {
             const heroDesc = document.querySelector('.hero-description');
+            let activeLogoDescKey = null;
             
             function getOriginalDesc() {
                 const lang = document.documentElement.lang;
-                return translations[lang]['hero.description'] || heroDesc.textContent;
+                const langTable = translations[lang] || translations.en;
+                return langTable['hero.description'] || heroDesc.textContent;
             }
             
             document.querySelectorAll('.tool-logo-wrapper').forEach(wrapper => {
@@ -1437,15 +1439,16 @@
                 const toggleLogoDescription = () => {
                     const isActive = wrapper.classList.contains('active');
                     if (isActive) {
-                        const currentLogoDesc = getDescByKey(descKey);
                         wrapper.classList.remove('active');
                         wrapper.setAttribute('aria-pressed', 'false');
-                        if (heroDesc.textContent === currentLogoDesc) {
+                        if (activeLogoDescKey === descKey) {
+                            activeLogoDescKey = null;
                             heroDesc.textContent = getOriginalDesc();
                         }
                     } else {
                         wrapper.classList.add('active');
                         wrapper.setAttribute('aria-pressed', 'true');
+                        activeLogoDescKey = descKey;
                         const desc = getDescByKey(descKey);
                         if (desc) heroDesc.textContent = desc;
                     }
