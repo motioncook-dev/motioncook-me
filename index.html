@@ -1407,7 +1407,7 @@
                 <a href="#top" data-i18n="nav.about">About</a>
                 <a href="#reel" data-i18n="nav.reel">Reel</a>
                 <a href="#work" data-i18n="nav.work">Work</a>
-                <a href="#contact" data-i18n="nav.contact" onclick="event.preventDefault(); scrollToContact();">Contact</a>
+                <a href="#contact" data-i18n="nav.contact">Contact</a>
                 <a href="/cv_Stephane_Daguin.pdf" download class="nav-cv-btn">⬇️ CV</a>
             </div>
             <div class="lang-switcher" role="group" aria-label="Language selector">
@@ -1512,13 +1512,13 @@
     </div>
     </section>
 
-    <footer id="contact">
+    <footer id="contact" style="scroll-margin-top: 200px;">
         <div class="footer-content">
             <h3>motioncook<span>.</span><span class="small-me">me</span></h3>
             <p><a href="mailto:motioncook@pm.me">motioncook<span class="orange-me">@</span>pm.me</a></p>
             <p><a href="https://www.linkedin.com/in/stephanedaguin" target="_blank" rel="noopener noreferrer">Linked<span class="orange-me">in</span></a></p>
             <p style="text-align:center;margin-top:15px;"><a href="https://motioncook.me" target="_blank" title="Visit motioncook.me"><img src="/images/qr-code.png" alt="Scan to visit motioncook.me" style="width:120px;height:auto;border:2px solid var(--accent);border-radius:8px;"></a></p>
-            <p class="share-btn"><a href="https://motioncook.me" onclick="event.preventDefault(); shareSite()" title="Partager">Partager</a></p>
+            <p class="share-btn"><a href="https://motioncook.me" onclick="event.preventDefault(); window.open('https://api.whatsapp.com/send?text=Regarde%20mon%20portfolio%20:%20https://motioncook.me','_blank')" title="Partager">Partager</a></p>
             <p class="copyright"><span class="copyright-orange">&copy;</span> 2026 Stephane Daguin</p>
         </div>
     </footer>
@@ -2009,33 +2009,6 @@
 
         // Initialize language based on HTML lang attribute (default: en)
         setLanguage(document.documentElement.lang || 'en');
-    }
-    
-    // Global share and scroll functions
-    window.shareSite = function() {
-        if (navigator.share) {
-            navigator.share({
-                title: "motioncook.me",
-                text: "Regarde mon portfolio",
-                url: "https://motioncook.me"
-            }).catch(function() {});
-        } else {
-            window.open("https://api.whatsapp.com/send?text=Regarde%20mon%20portfolio%20:%20https://motioncook.me", "_blank");
-        }
-    }
-    
-    window.scrollToContact = function() {
-        var contact = document.getElementById('contact');
-        if (contact) {
-            var card = contact.querySelector('.footer-content');
-            if (card) {
-                var cardTop = card.offsetTop;
-                var cardHeight = card.offsetHeight;
-                var centerPosition = cardTop - (window.innerHeight / 2) + (cardHeight / 2);
-                window.scrollTo({ top: centerPosition, behavior: 'smooth' });
-            }
-        }
-    }
     </script>
 </body>
 </html>
