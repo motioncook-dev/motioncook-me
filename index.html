@@ -2009,7 +2009,10 @@
 
         // Initialize language based on HTML lang attribute (default: en)
         setLanguage(document.documentElement.lang || 'en');
-    function shareSite() {
+    }
+    
+    // Global share and scroll functions
+    window.shareSite = function() {
         if (navigator.share) {
             navigator.share({
                 title: "motioncook.me",
@@ -2021,7 +2024,7 @@
         }
     }
     
-    function scrollToContact() {
+    window.scrollToContact = function() {
         var contact = document.getElementById('contact');
         if (contact) {
             var card = contact.querySelector('.footer-content');
