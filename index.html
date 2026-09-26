@@ -1830,10 +1830,8 @@
             }
         }
         
-        document.addEventListener('DOMContentLoaded', function() {
-            const contactLink = document.querySelector('a[href="#contact"]');
-            if (contactLink) contactLink.addEventListener('click', function(e) { e.preventDefault(); scrollToContact(); });
-        });
+        const contactLink = document.querySelector('a[href="#contact"]');
+        if (contactLink) contactLink.addEventListener('click', function(e) { e.preventDefault(); scrollToContact(); });
         
         function renderFormation() {
             document.getElementById('formation-timeline').innerHTML = formations.map(f => `
