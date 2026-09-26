@@ -1824,7 +1824,9 @@
         function scrollToContact() {
             const contact = document.getElementById('contact');
             if (contact) {
-                contact.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                const rect = contact.getBoundingClientRect();
+                const offset = rect.top + window.scrollY - (window.innerHeight / 2) + (rect.height / 2);
+                window.scrollTo({ top: offset, behavior: 'smooth' });
             }
         }
         
