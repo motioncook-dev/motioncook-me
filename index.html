@@ -1475,7 +1475,7 @@
             <p><a href="mailto:motioncook@pm.me">motioncook<span class="orange-me">@</span>pm.me</a></p>
             <p><a href="https://www.linkedin.com/in/stephanedaguin" target="_blank" rel="noopener noreferrer">Linked<span class="orange-me">in</span></a></p>
             <p style="text-align:center;margin-top:15px;"><a href="https://motioncook.me" target="_blank" title="Visit motioncook.me"><img src="/images/qr-code.png" alt="Scan to visit motioncook.me" style="width:120px;height:auto;border:2px solid var(--accent);border-radius:8px;"></a></p>
-            <p class="share-btn"><a href="https://api.whatsapp.com/send?text=Regarde%20mon%20portfolio%20:%20https://motioncook.me" target="_blank" rel="noopener noreferrer" title="Partager sur WhatsApp">Partager</a></p>
+            <p class="share-btn"><a href="#" onclick="event.preventDefault(); if(navigator.share){ navigator.share({title:"motioncook.me", text:"Regarde mon portfolio", url:"https://motioncook.me"}).catch(()=>{}); }else{ window.open("https://api.whatsapp.com/send?text=Regarde%20mon%20portfolio%20:%20https://motioncook.me","_blank"); }" title="Partager">Partager</a></p>
             <p class="copyright"><span class="copyright-orange">&copy;</span> 2026 Stephane Daguin</p>
         </div>
     </footer>
