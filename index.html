@@ -1702,6 +1702,7 @@
                 b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
             });
             renderExperience();
+            attachHoverListeners();
             const ogLocale = document.querySelector('meta[property="og:locale"]');
             if (ogLocale) {
                 const localeMap = { en: 'en_US', fr: 'fr_FR', es: 'es_ES' };
