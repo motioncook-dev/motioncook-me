@@ -1809,7 +1809,7 @@
         function renderExperience() {
             const html = experiences.map((e, idx) => `
                 <div class="cv-item" data-experience-index="${idx}">
-                    <p class="cv-item-year">${translations[currentLang]?.["work.year.squeeze"] || e.year}</p>
+                    <p class="cv-item-year">${e.studio === "Squeeze Studio Animation" ? (translations[currentLang]?.["work.year.squeeze"] || e.year) : e.year}</p>
                     <p class="cv-item-role">${e.role}</p>
                     <p class="cv-item-studio">${e.studio}</p>
                     ${e.project ? `<p class="cv-item-project">${e.project}</p>` : ''}
