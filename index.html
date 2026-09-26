@@ -36,7 +36,7 @@
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; scroll-padding-top: 50vh; }
         #work { scroll-margin-top: 110px; }
         
         body {
@@ -1830,8 +1830,7 @@
             }
         }
         
-        const contactLink = document.querySelector('a[href="#contact"]');
-        if (contactLink) contactLink.addEventListener('click', function(e) { e.preventDefault(); scrollToContact(); });
+
         
         function renderFormation() {
             document.getElementById('formation-timeline').innerHTML = formations.map(f => `
