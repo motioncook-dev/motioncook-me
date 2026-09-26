@@ -1812,7 +1812,7 @@
             const html = experiences.map((e, idx) => `
                 <div class="cv-item" data-experience-index="${idx}">
                     <p class="cv-item-year">${e.studio === "Squeeze Studio Animation" ? (currentLang === "en" ? "June 2026 - today" : currentLang === "es" ? "junio 2026 - hoy" : "juin 2026 - aujourd'hui") : e.year}</p>
-                    <p class="cv-item-role">${e.studio === "Objectif 3D" ? (currentLang === "en" ? e.role : currentLang === "es" ? e.role.replace("Teacher", "Profesor") : e.role.replace("Teacher", "Formateur")) : e.role}</p>
+                    <p class="cv-item-role">${e.studio === "Objectif 3D" ? (currentLang === "en" ? e.role.replace("FX ", "") : currentLang === "es" ? e.role.replace("FX ", "").replace("Teacher", "Profesor") : e.role.replace("FX ", "").replace("Teacher", "Formateur")) : e.role}</p>
                     <p class="cv-item-studio">${e.studio}</p>
                     ${e.project ? `<p class="cv-item-project">${e.project}</p>` : ''}
                 </div>
