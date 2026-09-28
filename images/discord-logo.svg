@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256"><rect width="256" height="256" fill="#5865F2" rx="60"/><path d="M102 96c-18 0-32 18-32 40s14 40 32 40" fill="none" stroke="#fff" stroke-width="16"/><path d="M154 96c18 0 32 18 32 40s-14 40-32 40" fill="none" stroke="#fff" stroke-width="16"/><circle cx="128" cy="136" r="10" fill="#fff"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256" fill="none">
+  <rect width="256" height="256" rx="56" fill="#5865F2"/>
+  <path d="M104.9 160.8c-4.4 0-8-3.6-8-8s3.6-8 8-8h22.2c4.4 0 8 3.6 8 8s-3.6 8-8 8H104.9zm32-48c-4.4 0-8-3.6-8-8s3.6-8 8-8h22.2c4.4 0 8 3.6 8 8s-3.6 8-8 8H136.9z" fill="#fff"/>
+  <path d="M188.2 96c-2.8 0-5 2.2-5 5s2.2 5 5 5h22.2c2.8 0 5-2.2 5-5s-2.2-5-5-5H188.2zm-28.2 28c-2.8 0-5 2.2-5 5s2.2 5 5 5h22.2c2.8 0 5-2.2 5-5s-2.2-5-5-5H160z" fill="#fff"/>
+  <path d="M128 128c-13.3 0-24-10.7-24-24s10.7-24 24-24 24 10.7 24 24-10.7 24-24 24zm0-40c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16z" fill="#fff"/>
+  <path d="M88 88c0-4.4 3.6-8 8-8s8 3.6 8 8v16c0 4.4-3.6 8-8 8s-8-3.6-8-8V88z" fill="#fff"/>
+</svg>
