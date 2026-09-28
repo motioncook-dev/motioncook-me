@@ -1218,8 +1218,9 @@
         }
         
         .footer-content {
-            display: block;
-            scroll-margin-top: 50vh;
+            display: flex;
+            flex-direction: column;
+            margin-top: auto;
             background: transparent;
             color: var(--text-white);
             font-family: 'Outfit', sans-serif;
@@ -2049,11 +2050,7 @@
                 const target = document.querySelector(anchor.getAttribute('href'));
                         if (target) {
                             if (target.id === 'contact') {
-                                const card = target.querySelector('.footer-content');
-                                if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                else {
-                                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                }
+                                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
                             } else {
                                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                             }
