@@ -2049,8 +2049,12 @@
                         if (target) {
                             if (target.id === 'contact') {
                                 const card = target.querySelector('.footer-content');
-                                if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                else target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                if (card) {
+                                    const rect = card.getBoundingClientRect();
+                                    window.scrollTo({ top: window.scrollY + rect.top - window.innerHeight / 2 + rect.height / 2, behavior: 'smooth' });
+                                } else {
+                                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }
                             } else {
                                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                             }
