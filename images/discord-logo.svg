@@ -1,14 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#F7BF3C"/>
-      <stop offset="100%" style="stop-color:#ED6414"/>
-    </linearGradient>
-  </defs>
-  <circle cx="128" cy="128" r="124" fill="url(#bg)"/>
-  <rect x="40" y="40" width="176" height="176" rx="40" fill="#FFFFFF"/>
-  <ellipse cx="96" cy="104" rx="18" ry="20" fill="#2C2F33"/>
-  <ellipse cx="160" cy="104" rx="18" ry="20" fill="#2C2F33"/>
-  <path d="M88 152 c0-20 16-36 32-36 s32 16 32 36" fill="none" stroke="#2C2F33" stroke-width="8" stroke-linecap="round"/>
-  <rect x="76" y="68" width="104" height="16" rx="8" fill="#2C2F33" opacity="0.3"/>
+  <circle cx="128" cy="128" r="128" fill="#5865F2"/>
+  <circle cx="128" cy="128" r="128" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="8" stroke-dasharray="40 20"/>
+  <ellipse cx="96" cy="112" rx="16" ry="18" fill="#FFFFFF"/>
+  <ellipse cx="160" cy="112" rx="16" ry="18" fill="#FFFFFF"/>
+  <path d="M84 158 c0-22 18-40 44-40s44 18 44 40" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round"/>
 </svg>
