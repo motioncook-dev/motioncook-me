@@ -1234,20 +1234,26 @@
             text-align: center;
         }
         .footer-role {
-            font-size: 0.9rem;
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50px;
+            font-size: 0.8rem;
             color: var(--text-muted);
-            margin-top: 5px;
+            margin-bottom: 15px;
         }
         .footer-name {
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: clamp(2rem, 8vw, 4rem);
+            font-weight: 700;
             color: var(--text-white);
-            margin-top: 5px;
+            margin: 10px 0;
         }
         .footer-title {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 2px;
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            color: var(--text-gray);
+            margin-bottom: 15px;
         }
             border: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
@@ -1574,14 +1580,14 @@
 
     <footer id="contact">
         <div class="footer-content">
+            <p class="footer-role" data-i18n="footer.role">CG artiste indépendant · basé en Espagne</p>
             <h3>motioncook<span>.</span><span class="small-me">me</span></h3>
+            <p class="footer-name" data-i18n="footer.name">Stéphane Daguin</p>
+            <p class="footer-title" data-i18n="footer.title">Senior VFX Artist · FX / Technical Director</p>
             <p><a href="mailto:motioncook@pm.me">motioncook<span class="orange-me">@</span>pm.me</a></p>
             <p><a href="https://www.linkedin.com/in/stephanedaguin" target="_blank" rel="noopener noreferrer">Linked<span class="orange-me">in</span></a></p>
             <p style="text-align:center;margin-top:15px;"><a href="https://motioncook.me" target="_blank" title="Visit motioncook.me"><img src="/images/qr-code.png" alt="Scan to visit motioncook.me" style="width:120px;height:auto;border:2px solid var(--accent);border-radius:8px;"></a></p>
             <p class="share-btn"><a href="https://motioncook.me" data-i18n="share.button" onclick="event.preventDefault(); window.open('https://api.whatsapp.com/send?text=Regarde%20mon%20portfolio%20:%20https://motioncook.me','_blank')" title="Partager">Partager</a></p>
-            <p class="footer-role" data-i18n="footer.role">CG artiste indépendant · basé en Espagne</p>
-            <p class="footer-name" data-i18n="footer.name">Stéphane Daguin</p>
-            <p class="footer-title" data-i18n="footer.title">Senior VFX Artist · FX / Technical Director</p>
             <p class="copyright"><span class="copyright-orange">&copy;</span> 2026 Stéphane Daguin</p>
         </div>
     </footer>
