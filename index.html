@@ -1821,7 +1821,7 @@
                 if (targetAttr) {
                     el.setAttribute(targetAttr, v);
                 } else {
-                    el.textContent = v;
+                    el.innerHTML = v;
                 }
             });
             const langMap = translations[lang] || translations.en;
