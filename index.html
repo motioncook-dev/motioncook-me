@@ -2070,7 +2070,7 @@
         initMobileMenu();
 
         // Initialize language based on HTML lang attribute (default: en)
-        setLanguage(document.documentElement.lang || 'en');
+        setTimeout(() => setLanguage(document.documentElement.lang || 'en'), 100);
     </script>
 </body>
 </html>
