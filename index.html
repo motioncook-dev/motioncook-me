@@ -1253,16 +1253,14 @@
             color: var(--text-white);
             margin: 8px 0;
             letter-spacing: 1px;
-            white-space: nowrap;
         }
         .footer-title {
             font-size: clamp(0.8rem, 2vw, 1.1rem);
             font-weight: 600;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-transform: uppercase;
             color: var(--text-gray);
             margin-bottom: 18px;
-            white-space: nowrap;
         }
         .footer-content {
             background: transparent;
@@ -2108,7 +2106,7 @@
         initMobileMenu();
 
         // Initialize language based on HTML lang attribute (default: en)
-        setTimeout(() => setLanguage(document.documentElement.lang || 'en'), 100);
+        setLanguage(document.documentElement.lang || 'en');
     </script>
 </body>
 </html>
